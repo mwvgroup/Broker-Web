@@ -1,0 +1,37 @@
+{% extends 'generic/right_column.html' %}
+{% load bootstrap4 %}
+
+{% block title %}Alerts{% endblock %}
+
+{% block main-column %}
+  <p>
+    This page will list recent alerts (i.e., PubSub notifications) and will be filterable by publication time and topic.
+  </p>
+  <table class="table table-striped">
+    <tr>
+      <th>Timestamp</th>
+      <th>Topic</th>
+      <th>Alert</th>
+    </tr>
+    {% for time, message in pbsub_zip %}
+    <tr>
+      <td><a href="{% url 'alerts' %}{{time}}">{{time}}</a></td>
+      <td>Some topic</td>
+      <td>"This is a message"</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
+
+{% block side-column %}
+  <div class="card">
+    <div class="card-header">
+      Filter By Date
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      Filter By Topic
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'generic/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-2">
+        <a href="{% url 'getting-started' %}">Introduction</a>
+        <a href="{% url 'technical-resources' %}">Technical Resources</a>
+    </div>
+    <div class="col-md-10">
+        {% block main-column %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

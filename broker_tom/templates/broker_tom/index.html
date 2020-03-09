@@ -1,0 +1,29 @@
+{% extends 'generic/right_column.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block main-column %}
+  <h2>What is the Pitt-Google Alerts Broker?</h2>
+  <p>The Pitt-Google Broker (<b>PGB</b>) is a cloud-based, alert distribution
+    service designed to provide near real-time processing for alerts from the
+    Large Synoptic Survey Telescope (LSST). The project provides public access
+    to all alerts and their value added data products, and is designed to
+    support the development of downstream brokers built by external development
+    teams. <b>PGB</b> is designed to run on the Google Cloud Platform (GCP) and
+    is currently focused on processing alerts from the Zwicky Transient
+    Facility (ZTF) and the LSST Alert Simulator (AlertSim) as a testing ground.
+  </p>
+  <h2>Data Products</h2>
+  <p>Here we describe what dataproducts we provide.</p>
+{% endblock %}
+
+{% block side-column %}
+  <div class="card">
+      <div class="card-header">
+        Latest Stats
+      </div>
+      <p>Are we online?</p>
+      <p>How many alerts in the last hour? day? All time?</p>
+  </div>
+{% endblock %}
