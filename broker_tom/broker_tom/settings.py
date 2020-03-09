@@ -37,11 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django_extensions',
     'guardian',
-    'django_comments',
-    'bootstrap4',
-    'crispy_forms',
-    'django_filters',
-    'django_gravatar'
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
