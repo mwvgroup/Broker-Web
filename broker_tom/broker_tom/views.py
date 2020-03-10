@@ -7,14 +7,12 @@ from django.shortcuts import render
 from django.views.generic import View
 
 
-class AlertsView(View):
-
+class IndexView(View):
     def get(self, request, *args, **kwargs):
-        # Todo get pubsub messages
-        timestamps = [1, 2]
-        messages = ['a', 'b']
         context = {
-            'pbsub_zip': zip(timestamps, messages)
+            'online': False,
+            'alerts_in_day': 0,
+            'alerts_in_hour': 0
         }
 
-        return render(request, 'broker_tom/alerts.html', context)
+        return render(request, 'broker_tom/index.html', context)
