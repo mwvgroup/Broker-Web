@@ -1,14 +1,19 @@
-{% extends 'generic/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
+
+{% block additional_css %}
+  <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+{% endblock %}
+
 {% block title %}Home{% endblock %}
+
 {% block content %}
 <div class="row">
-    <div class="col-md-2">
-        <a href="{% url 'getting-started' %}">Introduction</a>
-        <a href="{% url 'technical-resources' %}">Technical Resources</a>
-    </div>
-    <div class="col-md-10">
-        {% block main-column %}{% endblock %}
-    </div>
+   <div class="col-md-3">
+       {% include 'getting_started/sidebar_content.html' %}
+   </div>
+   <div class="col-md">
+       {% block main-column %}{% endblock %}
+   </div>
 </div>
 {% endblock %}
