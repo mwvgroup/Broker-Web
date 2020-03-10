@@ -8,6 +8,8 @@ from django.views.generic import View
 
 
 class IndexView(View):
+    """View for the index page"""
+
     def get(self, request, *args, **kwargs):
         context = {
             'online': False,

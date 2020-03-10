@@ -39,7 +39,7 @@
       {% if user.is_authenticated %}
         The user subscription feature feature is not yet supported.
       {% else %}
-        Log in to see your alert subscriptions
+        <a href="{% url 'login' %}">Login</a> to see your alert subscriptions
       {% endif %}
     </div>
   </div>

@@ -4,9 +4,62 @@
 {% block title %}Alert Summary{% endblock %}
 
 {% block content %}
-  <p>
-    This page will include information about a specific alert.
+  <h1>Alert Id: {{alert_id}}</h1>
+  <p><b>Survey:</b> {{survey}}</p>
+
+  <br>
+
+  <table class="table">
+    <tr>
+      <th style="text-align:center">Science Cutout</th>
+      <th style="text-align:center">Template Cutout</th>
+      <th style="text-align:center">Difference Cutout</th>
+    </tr>
+    <tr>
+      <td style="text-align:center"><img src="smiley.gif" alt="Missing Science Image"></td>
+      <td style="text-align:center"><img src="smiley.gif" alt="Missing Template Image"></td>
+      <td style="text-align:center"><img src="smiley.gif" alt="Missing Difference Image"></td>
+    </tr>
+  </table>
+
+  <br>
+
+  <h3>Alert Data</h3>
+  <p>Alert data is presented as provided by the parent survey as is not
+  modified in any way.
   </p>
+  <table class="table table-striped  table-sm">
+  <tr>
+    <th>Field</th>
+    <th>Value</th>
+  </tr>
+  {% for field, value in alert_data.items %}
+    <tr>
+      <td>{{field}}</td>
+      <td>{{value}}</td>
+    </tr>
+  {% endfor %}
+  </table>
 
+  <br>
+
+  <h3>Value Added Data Products</h3>
+  <p>Value added data products may not be available for alerts that are still
+  undergoing processing. Furthermore, some data products are determined
+  conditionally and are only available for certain alerts. See
+  <a href="{% url 'getting-started' %}">Getting Started</a>
+  for more information.
+  </p>
+  <table class="table table-striped table-sm">
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+    {% for field, value in value_added.items %}
+    <tr>
+      <td>{{field}}</td>
+      <td>{{value}}</td>
+    </tr>
+    {% endfor %}
+  </table>
 {% endblock %}
-

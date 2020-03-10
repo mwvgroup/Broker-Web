@@ -24,11 +24,20 @@ class AlertsView(View):
 class AlertSummaryView(View):
     """View for displaying information about a single alert"""
 
-    def get(self, request, *args, **kwargs):
-        # Todo: Retrieve information about a single alert
-        context = {
-            'Alert Id': 1,
-            'other alert data': 2
+    def get_alert_data_for_id(self, alert_id, survey):
+        """Retrieve alert data for a given alert ID"""
+        alert_data = {
+            'Alert Id': alert_id,
+            'survey': survey.upper(),
+            'some_field_1': 'some_value_1',
+            'some_field_2': 'some_value_2'
         }
 
+        return alert_data
+
+    def get(self, request, *args, **kwargs):
+        alert_id = kwargs['pk']
+        survey = kwargs.get('survey', 'ztf')
+        alert_data = self.get_alert_data_for_id(alert_id, survey)
+        context = {'alert_data': alert_data, 'alert_id': alert_id, 'survey': survey}
         return render(request, 'alerts/alert_summary.html', context)
