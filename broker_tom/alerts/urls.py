@@ -5,7 +5,7 @@
 
 from django.urls import path
 
-from .views import AlertsView, AlertSummaryView
+from .views import AlertSummaryView, AlertsView
 
 urlpatterns = [
     path('', AlertsView.as_view(), name='alerts'),

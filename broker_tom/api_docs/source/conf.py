@@ -28,8 +28,8 @@ version = ''
 # The full version, including alpha/beta/rc tags
 import matplotlib; matplotlib.use('PDF')
 import broker
-release = broker.__version__
 
+release = broker.__version__
 
 # -- General configuration ---------------------------------------------------
 
@@ -67,7 +67,6 @@ exclude_patterns = []
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None
 
-
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.
@@ -84,7 +83,6 @@ html_theme = 'sphinx_rtd_theme'
 
 # Output file generic name for HTML help builder.
 htmlhelp_basename = 'PittBrokerdoc'
-
 
 # -- Options for LaTeX output ------------------------------------------------
 
@@ -110,7 +108,6 @@ latex_documents = [
      'Daniel Perrefort, Troy Raen, Christine Mazzola', 'manual'),
 ]
 
-
 # -- Options for manual page output ------------------------------------------
 
 # One entry per manual page. List of tuples
@@ -119,7 +116,6 @@ man_pages = [
     (master_doc, 'pittbroker', 'Pitt Broker Documentation',
      [author], 1)
 ]
-
 
 # -- Options for Texinfo output ----------------------------------------------
 
@@ -131,7 +127,6 @@ texinfo_documents = [
      author, 'PittBroker', 'One line description of project.',
      'Miscellaneous'),
 ]
-
 
 # -- Options for Epub output -------------------------------------------------
 

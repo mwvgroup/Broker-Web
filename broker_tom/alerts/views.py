@@ -26,6 +26,7 @@ class AlertSummaryView(View):
 
     def get_alert_data_for_id(self, alert_id, survey):
         """Retrieve alert data for a given alert ID"""
+
         alert_data = {
             'Alert Id': alert_id,
             'survey': survey.upper(),
