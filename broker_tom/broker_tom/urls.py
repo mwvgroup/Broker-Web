@@ -9,14 +9,22 @@ from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import include, path
 
-from .views import IndexView
+from .views import AlertSummaryView, AlertsView, IndexView
 
+# URLs for custom views
 urlpatterns = [
     path('', IndexView.as_view(), name='home'),
-    path('alerts/', include('alerts.urls')),
+    path('alerts/', AlertsView.as_view(), name='alerts'),
+    path('alerts/<int:pk>', AlertSummaryView.as_view(), name='alert-summary'),
     path('gettingstarted/', include('getting_started.urls')),
-    path('accounts/login/', LoginView.as_view(), name='login'),
-    path('accounts/logout/', LogoutView.as_view(), name='logout'),
-    path('admin/', admin.site.urls),
+    path('user/', include('user_subscriptions.urls')),
 ]
+
+# Built in Django URL patterns
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('admin/', admin.site.urls)
+]
+
+# Static URLs for media
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

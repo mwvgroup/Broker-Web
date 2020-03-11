@@ -8,12 +8,12 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<div class="row">
-   <div class="col-md-3">
-       {% include 'getting_started/sidebar_content.html' %}
-   </div>
-   <div class="col-md">
-       {% block main-column %}{% endblock %}
-   </div>
-</div>
+  <div class="row">
+    <div class="col-md-3">
+      {% include 'getting_started/sidebar_content.html' %}
+    </div>
+    <div class="col-md">
+      {% block main-column %}{% endblock %}
+    </div>
+  </div>
 {% endblock %}
