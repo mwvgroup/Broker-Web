@@ -14,3 +14,19 @@ body {
 .input-group-text {
     font-family: monospace;
 }
+
+.section-header h1 {
+  display: inline;
+}
+
+.section-header h2 {
+  display: inline;
+}
+
+.section-header h3 {
+  display: inline;
+}
+
+.section-header span {
+  float: right;
+}

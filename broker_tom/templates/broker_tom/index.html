@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block title %}Home{% endblock %}
 
@@ -19,7 +18,7 @@
           development teams. This allows users to deploy small scale projects
           for free and large projects on a pay-as-you-need basis. For an
           overview on available data products and how to access them in the
-          cloud, see the<a href="{% url 'getting-started' %}">Getting
+          cloud, see the <a href="{% url 'getting-started' %}">Getting
           Started</a> guides.
       </p>
   </div>
@@ -39,7 +38,7 @@
       <div class="card-header">Your Subscriptions</div>
       <div class="card-body">
         {% if user.is_authenticated %}
-          The user subscription feature feature is not yet supported.
+          The user subscription feature is not yet supported.
         {% else %}
           <a href="{% url 'login' %}">Login</a> to see your alert subscriptions
         {% endif %}
