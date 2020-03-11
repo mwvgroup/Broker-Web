@@ -25,14 +25,17 @@ class AlertsView(View):
 
     def get(self, request, *args, **kwargs):
         # Todo get pubsub messages
-        timestamps = [123, 456]
+        surveys = ['ztf', 'ztf']
+        alert_ids = [123, 234]
+        object_ids = [345, 456]
+        topics = ['ztf_all', 'ztf_all']
+        timestamps = [1583959732, 1583959740]
         messages = ['a', 'b']
         context = {
-            'pbsub_zip': zip(timestamps, messages)
+            'pbsub_zip': zip(surveys, alert_ids, object_ids, topics, timestamps, messages)
         }
 
         return render(request, 'broker_tom/alerts.html', context)
-
 
 class AlertSummaryView(View):
     """View for displaying information about a single alert"""
@@ -41,7 +44,7 @@ class AlertSummaryView(View):
         """Retrieve alert data for a given alert ID"""
 
         alert_data = {
-            'Alert Id': alert_id,
+            'alert_id': alert_id,
             'survey': survey.upper(),
             'some_field_1': 'some_value_1',
             'some_field_2': 'some_value_2'
@@ -55,3 +58,29 @@ class AlertSummaryView(View):
         alert_data = self.get_alert_data_for_id(alert_id, survey)
         context = {'alert_data': alert_data, 'alert_id': alert_id, 'survey': survey}
         return render(request, 'broker_tom/alert_summary.html', context)
+
+
+class ObjectsView(View):
+    """View for displaying a table of all recent objects matching a query"""
+
+    def get(self, request, *args, **kwargs):
+        # Todo get pubsub messages
+        surveys = ['ztf', 'ztf']
+        object_ids = [345, 456]
+        alert_ids = [123, 234]
+        timestamps = [1583959732, 1583959740]
+        context = {
+            'pbsub_zip': zip(surveys, alert_ids, object_ids, timestamps)
+        }
+
+        return render(request, 'broker_tom/objects.html', context)
+
+
+class ObjectSummaryView(View):
+    """View for displaying a table of all recent objects matching a query"""
+
+    def get(self, request, *args, **kwargs):
+        object_id = kwargs['pk']
+        context = {'object_id': object_id}
+        return render(request, 'broker_tom/object_summary.html', context)
+
