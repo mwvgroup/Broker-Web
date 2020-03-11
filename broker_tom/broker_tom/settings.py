@@ -14,12 +14,13 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# SECURITY WARNING: All of the following settings need to be changed in production
-# SECURITY WARNING: keep the secret key used in production secret!
+# SECURITY WARNING: The following settings need to be changed in production
+###############################################################################
 SECRET_KEY = 'x(py&amp;_$o7&amp;f6r((fucm+ow2%8_2ifh#uf5#=kf+g)p!09ni0op'
 DEBUG = True
 ALLOWED_HOSTS = []
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+###############################################################################
 
 # Application definition
 INSTALLED_APPS = [
