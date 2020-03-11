@@ -1,0 +1,17 @@
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+    function checkRecaptcha() {
+        var response = grecaptcha.getResponse();
+        if (response.length == 0) {
+            //reCaptcha not verified
+            alert('Please fill out the recaptcha prompt.');
+            return false;
+
+        } else {
+            //reCaptch verified
+            return true;
+        }
+    }
+</script>
+
+<div class="g-recaptcha" data-sitekey="6Lfwl-AUAAAAAA03_04cS_1DulC-rODswNU4vHu-"></div>
