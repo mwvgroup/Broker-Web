@@ -11,12 +11,18 @@ from django.urls import include, path
 
 from .views import IndexView
 
+# URLs for custom views
 urlpatterns = [
     path('', IndexView.as_view(), name='home'),
     path('alerts/', include('alerts.urls')),
     path('gettingstarted/', include('getting_started.urls')),
-    path('accounts/login/', LoginView.as_view(), name='login'),
-    path('accounts/logout/', LogoutView.as_view(), name='logout'),
-    path('admin/', admin.site.urls),
 ]
+
+# Built in Django URL patterns
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('admin/', admin.site.urls)
+]
+
+# Static URLs for media
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
