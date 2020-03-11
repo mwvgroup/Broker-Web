@@ -1,63 +1,26 @@
-{% extends 'base.html' %}
+{% extends 'broker_tom/broker_tom_base.html' %}
 
 {% block title %}Objects{% endblock %}
 
-{% block content %}
-<div class="row">
-  <div class="col-md-8">
-    <h2>Recent Objects</h2>
-    <p>
-      This page provides a limited summary of objects with recently processed alerts.
-    </p>
-    <table class="table table-striped">
-      <tr>
-        <th>Survey</th>
-        <th>Object Id</th>
-        <th>Most Recent Alert</th>
-        <th>Alert time</th>
-      </tr>
-      {% for survey, object_id, alert_id, time in pbsub_zip %}
-      <tr>
-        <td>{{ survey }}</td>
-        <td><a href="{% url 'objects' %}{{ object_id }}">{{ object_id }}</a></td>
-        <td><a href="{% url 'alerts' %}{{ alert_id }}">{{ alert_id }}</a></td>
-        <td>{{ time }}</td>
-      </tr>
-      {% endfor %}
-    </table>
-  </div>
-  <div class="col-md-4">
-
-    <div class="card">
-      <div class="card-header">
-        Filter By Date
-      </div>
-      <div class="card-body">
-        Todo: Add a date select here
-      </div>
-    </div>
-
-    <br>
-
-    <div class="card">
-      <div class="card-header">
-        Filter By Region
-      </div>
-      <div class="card-body">
-        Todo: Add a RA/Dec select here
-      </div>
-    </div>
-
-    <br>
-
-    <div class="card">
-      <div class="card-header">
-        Filter By Topic
-      </div>
-      <div class="card-body">
-        Todo: Add a topic checklist here
-      </div>
-    </div>
-  </div>
-</div>
+{% block broker-tom-content %}
+  <h2>Recent Objects</h2>
+  <p>
+    This page provides a limited summary of objects with recently processed alerts.
+  </p>
+  <table class="table table-striped">
+    <tr>
+      <th>Survey</th>
+      <th>Object Id</th>
+      <th>Most Recent Alert</th>
+      <th>Alert time</th>
+    </tr>
+    {% for survey, object_id, alert_id, time in pbsub_zip %}
+    <tr>
+      <td>{{ survey }}</td>
+      <td><a href="{% url 'objects' %}{{ object_id }}">{{ object_id }}</a></td>
+      <td><a href="{% url 'alerts' %}{{ alert_id }}">{{ alert_id }}</a></td>
+      <td>{{ time }}</td>
+    </tr>
+    {% endfor %}
+  </table>
 {% endblock %}

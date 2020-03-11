@@ -1,10 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'broker_tom/broker_tom_base.html' %}
 
 {% block title %}Alerts{% endblock %}
 
-{% block content %}
-<div class="row">
-  <div class="col-md-8">
+{% block broker-tom-content %}
     <h2>Recent Alerts</h2>
     <p>
       This page provides a limited summary of recently processed alerts and their
@@ -19,7 +17,7 @@
         <th>Timestamp</th>
         <th>Message</th>
       </tr>
-      {% for survey, alert_id, object_id, topic, timestamp, message in pbsub_zip %}
+      {% for survey, alert_id, object_id, topic, timestamp, message in message_zip %}
       <tr>
         <td>{{ survey }}</td>
         <td><a href="{% url 'alerts' %}{{alert_id}}">{{alert_id}}</a></td>
@@ -30,39 +28,4 @@
       </tr>
       {% endfor %}
     </table>
-  </div>
-  <div class="col-md-4">
-
-    <div class="card">
-      <div class="card-header">
-        Filter By Date
-      </div>
-      <div class="card-body">
-        Todo: Add a date select here
-      </div>
-    </div>
-
-    <br>
-
-    <div class="card">
-      <div class="card-header">
-        Filter By Region
-      </div>
-      <div class="card-body">
-        Todo: Add a RA/Dec select here
-      </div>
-    </div>
-
-    <br>
-
-    <div class="card">
-      <div class="card-header">
-        Filter By Topic
-      </div>
-      <div class="card-body">
-        Todo: Add a topic checklist here
-      </div>
-    </div>
-  </div>
-</div>
 {% endblock %}
