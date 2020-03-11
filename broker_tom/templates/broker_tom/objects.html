@@ -1,32 +1,27 @@
 {% extends 'base.html' %}
 
-{% block title %}Alerts{% endblock %}
+{% block title %}Objects{% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="col-md-8">
-    <h2>Recent Alerts</h2>
+    <h2>Recent Objects</h2>
     <p>
-      This page provides a limited summary of recently processed alerts and their
-      status in the <b>PGB</b> pipeline.
+      This page provides a limited summary of objects with recently processed alerts.
     </p>
     <table class="table table-striped">
       <tr>
         <th>Survey</th>
-        <th>Alert Id</th>
         <th>Object Id</th>
-        <th>Topic</th>
-        <th>Timestamp</th>
-        <th>Message</th>
+        <th>Most Recent Alert</th>
+        <th>Alert time</th>
       </tr>
-      {% for survey, alert_id, object_id, topic, timestamp, message in pbsub_zip %}
+      {% for survey, object_id, alert_id, time in pbsub_zip %}
       <tr>
         <td>{{ survey }}</td>
-        <td><a href="{% url 'alerts' %}{{alert_id}}">{{alert_id}}</a></td>
-        <td><a href="{% url 'objects' %}{{object_id}}">{{object_id}}</a></td>
-        <td>{{ topic }}</td>
-        <td>{{ timestamp }}</td>
-        <td>{{ message }}</td>
+        <td><a href="{% url 'objects' %}{{ object_id }}">{{ object_id }}</a></td>
+        <td><a href="{% url 'alerts' %}{{ alert_id }}">{{ alert_id }}</a></td>
+        <td>{{ time }}</td>
       </tr>
       {% endfor %}
     </table>
