@@ -2,3 +2,5 @@ django
 django_extensions
 django-guardian
 django-bootstrap4
+django-crispy
+
