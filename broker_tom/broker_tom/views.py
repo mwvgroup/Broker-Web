@@ -6,6 +6,8 @@
 from django.shortcuts import render
 from django.views.generic import View
 
+topic_list = ['ztf_all', 'sne_ia', '91bg', 'cv']
+
 
 class IndexView(View):
     """View for the index page"""
@@ -23,19 +25,23 @@ class IndexView(View):
 class AlertsView(View):
     """View for displaying a table of all recent alerts matching a query"""
 
-    def get(self, request, *args, **kwargs):
-        # Todo get pubsub messages
+    def fetch_pubsub_messages(self, **kwargs):
         surveys = ['ztf', 'ztf']
         alert_ids = [123, 234]
         object_ids = [345, 456]
         topics = ['ztf_all', 'ztf_all']
         timestamps = [1583959732, 1583959740]
         messages = ['a', 'b']
+        return zip(surveys, alert_ids, object_ids, topics, timestamps, messages)
+
+    def get(self, request, *args, **kwargs):
         context = {
-            'pbsub_zip': zip(surveys, alert_ids, object_ids, topics, timestamps, messages)
+            'message_zip': self.fetch_pubsub_messages(**kwargs),
+            'topic_list': topic_list
         }
 
         return render(request, 'broker_tom/alerts.html', context)
+
 
 class AlertSummaryView(View):
     """View for displaying information about a single alert"""
@@ -63,14 +69,19 @@ class AlertSummaryView(View):
 class ObjectsView(View):
     """View for displaying a table of all recent objects matching a query"""
 
-    def get(self, request, *args, **kwargs):
-        # Todo get pubsub messages
+    def fetch_objects(self, **kwargs):
         surveys = ['ztf', 'ztf']
         object_ids = [345, 456]
         alert_ids = [123, 234]
         timestamps = [1583959732, 1583959740]
+        return zip(surveys, alert_ids, object_ids, timestamps)
+
+    def get(self, request, *args, **kwargs):
+        # Todo get pubsub messages
+
         context = {
-            'pbsub_zip': zip(surveys, alert_ids, object_ids, timestamps)
+            'pbsub_zip': self.fetch_objects(**kwargs),
+            'topic_list': topic_list
         }
 
         return render(request, 'broker_tom/objects.html', context)
@@ -83,4 +94,3 @@ class ObjectSummaryView(View):
         object_id = kwargs['pk']
         context = {'object_id': object_id}
         return render(request, 'broker_tom/object_summary.html', context)
-

@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block additional_css %}
-  <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
-{% endblock %}
-
 {% block title %}Home{% endblock %}
 
 {% block content %}
@@ -41,7 +37,7 @@
       </nav>
     </div>
     <div class="col-md">
-      {% block main-column %}{% endblock %}
+      {% block getting-started-content %}{% endblock %}
     </div>
   </div>
 {% endblock %}
