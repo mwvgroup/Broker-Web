@@ -17,4 +17,5 @@ urlpatterns = [
     path('data_products_overview', data_products_overview, name='data-products-overview'),
     path('technical_resources', technical_resources_view, name='technical-resources'),
 ]
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

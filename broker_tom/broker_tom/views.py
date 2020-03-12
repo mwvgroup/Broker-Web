@@ -6,6 +6,8 @@
 from django.shortcuts import render
 from django.views.generic import View
 
+topic_list = ['ztf_all', 'sne_ia', '91bg', 'cv']
+
 
 class IndexView(View):
     """View for the index page"""
@@ -23,9 +25,6 @@ class IndexView(View):
 class AlertsView(View):
     """View for displaying a table of all recent alerts matching a query"""
 
-    def fetch_topic_list(self, **kwargs):
-        return ['ztf_all', 'sne_ia', '91bg', 'cv']
-
     def fetch_pubsub_messages(self, **kwargs):
         surveys = ['ztf', 'ztf']
         alert_ids = [123, 234]
@@ -36,10 +35,9 @@ class AlertsView(View):
         return zip(surveys, alert_ids, object_ids, topics, timestamps, messages)
 
     def get(self, request, *args, **kwargs):
-
         context = {
             'message_zip': self.fetch_pubsub_messages(**kwargs),
-            'topic_list': self.fetch_topic_list()
+            'topic_list': topic_list
         }
 
         return render(request, 'broker_tom/alerts.html', context)
@@ -71,9 +69,6 @@ class AlertSummaryView(View):
 class ObjectsView(View):
     """View for displaying a table of all recent objects matching a query"""
 
-    def fetch_topic_list(self, **kwargs):
-        return ['ztf_all', 'sne_ia', '91bg', 'cv']
-
     def fetch_objects(self, **kwargs):
         surveys = ['ztf', 'ztf']
         object_ids = [345, 456]
@@ -86,7 +81,7 @@ class ObjectsView(View):
 
         context = {
             'pbsub_zip': self.fetch_objects(**kwargs),
-            'topic_list': self.fetch_topic_list()
+            'topic_list': topic_list
         }
 
         return render(request, 'broker_tom/objects.html', context)
