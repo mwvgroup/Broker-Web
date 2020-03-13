@@ -1,31 +1,71 @@
-{% extends 'broker_tom/broker_tom_base.html' %}
+{% extends 'base.html' %}
+
+{% block additional_js %}
+  <script>
+    $(document).ready(function() {
+      $('#alerts_table').DataTable({
+        searching: false,
+        processing: true,
+        serverSide: true,
+        ajax: "{% url 'alerts_json' %}",
+        columns: [
+          {"data": "survey"},
+          {
+            "data": "alert_id",
+            "render": function (data, type, row, meta) {
+              if (type === 'display') {
+                data = '<a href="' + "{% url 'alerts' %}" + data + '">' + data + '</a>';
+              }
+
+              return data;
+            }
+          },
+          {
+            "data": "object_id",
+            "render": function (data, type, row, meta) {
+              if (type === 'display') {
+                data = '<a href="' + "{% url 'objects' %}" + data + '">' + data + '</a>';
+              }
+
+              return data;
+            }
+          },
+          {"data": "topic"},
+          {"data": "timestamp"},
+          {"data": "message"}
+        ]
+      });
+    });
+  </script>
+{%endblock %}
 
 {% block title %}Alerts{% endblock %}
 
-{% block broker-tom-content %}
-    <h2>Recent Alerts</h2>
-    <p>
-      This page provides a limited summary of recently processed alerts and their
-      status in the <b>PGB</b> pipeline.
-    </p>
-    <table class="table table-striped">
-      <tr>
-        <th>Survey</th>
-        <th>Alert Id</th>
-        <th>Object Id</th>
-        <th>Topic</th>
-        <th>Timestamp</th>
-        <th>Message</th>
-      </tr>
-      {% for survey, alert_id, object_id, topic, timestamp, message in message_zip %}
-      <tr>
-        <td>{{ survey }}</td>
-        <td><a href="{% url 'alerts' %}{{alert_id}}">{{alert_id}}</a></td>
-        <td><a href="{% url 'objects' %}{{object_id}}">{{object_id}}</a></td>
-        <td>{{ topic }}</td>
-        <td>{{ timestamp }}</td>
-        <td>{{ message }}</td>
-      </tr>
-      {% endfor %}
-    </table>
+{% block content %}
+  <div class="row">
+      <div class="col-md-12">
+        <h2>Recent Alerts</h2>
+        <p>
+          This page provides a limited summary of recently processed alerts and their status in the <b>PGB</b> pipeline.
+        </p>
+        <br>
+        <table id="alerts_table" class="table table-striped">
+          <thead>
+          <tr>
+            <th>Survey</th>
+            <th>Alert Id</th>
+            <th>Object Id</th>
+            <th>Topic</th>
+            <th>Timestamp</th>
+            <th>Message</th>
+          </tr>
+          </thead>
+        </table>
+      </div>
+
+      <!-- <div class="col-md-3">
+        {% include 'broker_tom/filter_menu.html' %}
+      </div> -->
+  </div>
+
 {% endblock %}

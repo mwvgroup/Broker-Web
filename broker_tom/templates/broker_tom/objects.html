@@ -1,26 +1,65 @@
-{% extends 'broker_tom/broker_tom_base.html' %}
+{% extends 'base.html' %}
+
+{% block additional_js %}
+  <script>
+    $(document).ready(function () {
+      $('#objects_table').DataTable({
+        searching: false,
+        processing: true,
+        serverSide: true,
+        ajax: "{% url 'objects_json' %}",
+        columns: [
+          {"data": "survey"},
+          {
+            "data": "object_id",
+            "render": function (data, type, row, meta) {
+              if (type === 'display') {
+                data = '<a href="' + "{% url 'objects' %}" + data + '">' + data + '</a>';
+              }
+
+              return data;
+            }
+          },
+          {
+            "data": "recent_alert_id",
+            "render": function (data, type, row, meta) {
+              if (type === 'display') {
+                data = '<a href="' + "{% url 'alerts' %}" + data + '">' + data + '</a>';
+              }
+
+              return data;
+            }
+          },
+          {"data": "recent_timestamp"}
+        ]
+      });
+    });
+  </script>
+{%endblock %}
 
 {% block title %}Objects{% endblock %}
 
-{% block broker-tom-content %}
-  <h2>Recent Objects</h2>
-  <p>
-    This page provides a limited summary of objects with recently processed alerts.
-  </p>
-  <table class="table table-striped">
-    <tr>
-      <th>Survey</th>
-      <th>Object Id</th>
-      <th>Most Recent Alert</th>
-      <th>Alert time</th>
-    </tr>
-    {% for survey, object_id, alert_id, time in pbsub_zip %}
-    <tr>
-      <td>{{ survey }}</td>
-      <td><a href="{% url 'objects' %}{{ object_id }}">{{ object_id }}</a></td>
-      <td><a href="{% url 'alerts' %}{{ alert_id }}">{{ alert_id }}</a></td>
-      <td>{{ time }}</td>
-    </tr>
-    {% endfor %}
-  </table>
+{% block content %}
+  <div class="row">
+      <div class="col-md-12">
+        <h2>Recent Objects</h2>
+        <p>
+          This page provides a limited summary of objects with recently
+          processed alerts.
+        </p>
+
+        <br>
+
+        <table id='objects_table' class="table table-striped">
+          <thead>
+            <tr>
+              <th>Survey</th>
+              <th>Object Id</th>
+              <th>Most Recent Alert</th>
+              <th>Alert time</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+  </div>
 {% endblock %}
