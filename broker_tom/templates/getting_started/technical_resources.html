@@ -1,36 +1,35 @@
-{% extends 'getting_started/getting_started_base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}Technical Resources{% endblock %}
 
-{% block getting-started-content %}
-  <h2>Technical Resources</h2>
-  <p>For questions concerning the technical specifications of LSST or ZTF, the following may prove to be useful.</p>
+{% block content %}
+  <div class="row">
+    <div class="col-md-3">
+        {% include 'getting_started/getting_started_menu.html' %}
+    </div>
+    <div class="col-md">
+      <h2>Technical Resources</h2>
+      <p>For questions concerning the technical specifications of LSST or
+         ZTF, the following may prove to be useful.
+      </p>
 
-  <h4>LSST References</h4>
-  <ul>
-    <li>Plans and Policies for alert distribution: <a class="reference external" href="https://ls.st/LDM-612">ls.st/LDM-612</a></li>
-    <li>Call for letters of intent for community alert brokers: <a class="reference external" href="https://ls.st/LDM-682">ls.st/LDM-682</a></li>
-    <li>LSST alerts: key numbers (how many? how much? how often?):<a class="reference external" href="https://dmtn-102.lsst.io">dmtn-102.lsst.io</a></li>
-    <li>Data Products Definition Document (DPDD) (What data will LSST deliver?): <a class="reference external" href="https://ls.st/dpdd">ls.st/dpdd</a></li>
-    <li>Prototype schemas: <a class="reference external" href="https://github.com/lsst-dm/sample-avro-alert">github.com/lsst-dm/sample-avro-alert</a></li>
-    <li>Kafka-based alert stream: <a class="reference external" href="https://github.com/lsst-dm/alert_stream">github.com/lsst-dm/alert_stream</a></li>
-  </ul>
-  <h4>ZTF References</h4>
-  <ul class="simple">
-      <li>Sample alert packets: <a class="reference external" href="https://ztf.uw.edu/alerts/public/">ztf.uw.edu/alerts/public/</a></li>
-      <li>Alert packet tools: <a class="reference external" href="https://zwicky.tf/4t5">zwicky.tf/4t5</a></li>
-      <li>Alert schema documentation: <a class="reference external" href="https://zwicky.tf/dm5">zwicky.tf/dm5</a></li>
-      <li>Detailed pipelines documentation: <a class="reference external" href="https://zwicky.tf/ykv">zwicky.tf/ykv</a></li>
-      <li>PASP instrument papers: <a class="reference external" href="https://zwicky.tf/3w9">zwicky.tf/3w9</a></li>
-  </ul>
-{% endblock %}
-
-{% block side-column %}
-  <div class="card">
-      <div class="card-header">
-        Latest Stats
-      </div>
-      <p>Are we online?</p>
-      <p>How many alerts in the last hour? day? All time?</p>
+      <h4>LSST References</h4>
+      <ul>
+        <li>Plans and Policies for alert distribution: <a class="reference external" href="https://ls.st/LDM-612">ls.st/LDM-612</a></li>
+        <li>Call for letters of intent for community alert brokers: <a class="reference external" href="https://ls.st/LDM-682">ls.st/LDM-682</a></li>
+        <li>LSST alerts: key numbers (how many? how much? how often?):<a class="reference external" href="https://dmtn-102.lsst.io">dmtn-102.lsst.io</a></li>
+        <li>Data Products Definition Document (DPDD) (What data will LSST deliver?): <a class="reference external" href="https://ls.st/dpdd">ls.st/dpdd</a></li>
+        <li>Prototype schemas: <a class="reference external" href="https://github.com/lsst-dm/sample-avro-alert">github.com/lsst-dm/sample-avro-alert</a></li>
+        <li>Kafka-based alert stream: <a class="reference external" href="https://github.com/lsst-dm/alert_stream">github.com/lsst-dm/alert_stream</a></li>
+      </ul>
+      <h4>ZTF References</h4>
+      <ul class="simple">
+          <li>Sample alert packets: <a class="reference external" href="https://ztf.uw.edu/alerts/public/">ztf.uw.edu/alerts/public/</a></li>
+          <li>Alert packet tools: <a class="reference external" href="https://zwicky.tf/4t5">zwicky.tf/4t5</a></li>
+          <li>Alert schema documentation: <a class="reference external" href="https://zwicky.tf/dm5">zwicky.tf/dm5</a></li>
+          <li>Detailed pipelines documentation: <a class="reference external" href="https://zwicky.tf/ykv">zwicky.tf/ykv</a></li>
+          <li>PASP instrument papers: <a class="reference external" href="https://zwicky.tf/3w9">zwicky.tf/3w9</a></li>
+      </ul>
+    </div>
   </div>
 {% endblock %}

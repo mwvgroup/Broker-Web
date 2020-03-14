@@ -3,6 +3,10 @@ body {
     font-family: sans-serif;
 }
 
+.padded-row {
+    padding: 1em 0;
+}
+
 .content {
     padding: 3rem 1.5rem;
 }

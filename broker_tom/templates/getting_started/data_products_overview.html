@@ -1,7 +1,14 @@
-{% extends 'getting_started/getting_started_base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}Data Products Overview{% endblock %}
-{% block getting-started-content %}
-  <h2>Data Products Overview</h2>
-  This page will outline what value-added products we will provide
+
+{% block content %}
+<div class="row">
+  <div class="col-md-3">
+    {% include 'getting_started/getting_started_menu.html' %}
+  </div>
+  <div class="col-md">
+    <h2>Data Products Overview</h2>
+    This page will outline what value-added products we will provide
+  </div>
 {% endblock %}

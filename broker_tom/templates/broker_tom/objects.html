@@ -1,26 +1,112 @@
-{% extends 'broker_tom/broker_tom_base.html' %}
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block additional_js %}
+  <script>
+    $(document).ready(function () {
+      $('#objects_table').DataTable({
+        searching: false,
+        processing: true,
+        serverSide: true,
+        ajax: "{% url 'objects_json' %}",
+        columns: [
+          {"data": "survey"},
+          {
+            "data": "object_id",
+            "render": function (data, type, row, meta) {
+              if (type === 'display') {
+                data = '<a href="' + "{% url 'objects' %}" + data + '">' + data + '</a>';
+              }
+
+              return data;
+            }
+          },
+          {
+            "data": "recent_alert_id",
+            "render": function (data, type, row, meta) {
+              if (type === 'display') {
+                data = '<a href="' + "{% url 'alerts' %}" + data + '">' + data + '</a>';
+              }
+
+              return data;
+            }
+          },
+          {"data": "recent_timestamp"}
+        ]
+      });
+    });
+
+    $('[data-toggle="collapse"]').click(function () {
+      $(this).toggleClass("active");
+      if ($(this).hasClass("active")) {
+        $(this).text("Hide");
+      } else {
+        $(this).text("Show");
+      }
+    });
+
+  </script>
+{%endblock %}
 
 {% block title %}Objects{% endblock %}
 
-{% block broker-tom-content %}
+{% block content %}
   <h2>Recent Objects</h2>
   <p>
-    This page provides a limited summary of objects with recently processed alerts.
+    This page provides a limited summary of objects with recently
+    processed alerts.
   </p>
-  <table class="table table-striped">
-    <tr>
-      <th>Survey</th>
-      <th>Object Id</th>
-      <th>Most Recent Alert</th>
-      <th>Alert time</th>
-    </tr>
-    {% for survey, object_id, alert_id, time in pbsub_zip %}
-    <tr>
-      <td>{{ survey }}</td>
-      <td><a href="{% url 'objects' %}{{ object_id }}">{{ object_id }}</a></td>
-      <td><a href="{% url 'alerts' %}{{ alert_id }}">{{ alert_id }}</a></td>
-      <td>{{ time }}</td>
-    </tr>
-    {% endfor %}
-  </table>
+
+  <div class="row justify-content-md-center padded-row">
+    <div class="collapse" id="collapseform">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              {{ form.time_range|as_crispy_field }}
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                  {{ form.min_ra|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3">
+                  {{ form.max_ra|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3">
+                  {{ form.min_dec|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3">
+                  {{ form.max_dec|as_crispy_field }}
+                </div>
+              </div>
+              <div class="form-row justify-content-end">
+                <div class="form-group col-md-1">
+                  <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseform" aria-expanded="false" aria-controls="collapseform" style="float: right">
+        Show filter options
+      </button>
+      <table id='objects_table' class="table table-striped">
+        <thead>
+          <tr>
+            <th>Survey</th>
+            <th>Object Id</th>
+            <th>Most Recent Alert</th>
+            <th>Alert time</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
 {% endblock %}
