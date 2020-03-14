@@ -30,7 +30,7 @@ class IndexView(View):
             'alerts_in_hour': 0
         }
 
-        return render(request, 'broker_tom/index.html', context)
+        return render(request, 'broker_web/index.html', context)
 
 
 class AlertsJson(View):
@@ -96,7 +96,7 @@ class AlertsJson(View):
 class AlertsView(View):
     """View for displaying a summary table of recent alerts"""
 
-    template = 'broker_tom/alerts.html'
+    template = 'broker_web/alerts.html'
 
     def get(self, request):
         """Handle an incoming HTTP request
@@ -180,7 +180,7 @@ class AlertSummaryView(View):
         survey = kwargs.get('survey', 'ztf')
         alert_data = self.get_alert_data_for_id(alert_id, survey)
         context = {'alert_data': alert_data, 'alert_id': alert_id, 'survey': survey}
-        return render(request, 'broker_tom/alert_summary.html', context)
+        return render(request, 'broker_web/alert_summary.html', context)
 
 
 class ObjectsJson(View):
@@ -243,7 +243,7 @@ class ObjectsJson(View):
 class ObjectsView(View):
     """View for displaying a summary table of objects with recent alerts"""
 
-    template = 'broker_tom/objects.html'
+    template = 'broker_web/objects.html'
 
     def get(self, request):
         """Handle an incoming HTTP request
@@ -301,4 +301,4 @@ class ObjectSummaryView(View):
         object_id = kwargs['pk']
         recent_alerts = self.get_alerts_for_object(object_id)
         context = {'object_id': object_id, 'recent_alerts': recent_alerts}
-        return render(request, 'broker_tom/object_summary.html', context)
+        return render(request, 'broker_web/object_summary.html', context)

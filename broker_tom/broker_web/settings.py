@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
-ROOT_URLCONF = 'broker_tom.urls'
+ROOT_URLCONF = 'broker_web.urls'
 
 TEMPLATES = [
     {
