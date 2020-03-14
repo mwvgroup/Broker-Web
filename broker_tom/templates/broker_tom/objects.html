@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block additional_js %}
   <script>
     $(document).ready(function () {
@@ -34,32 +36,77 @@
         ]
       });
     });
+
+    $('[data-toggle="collapse"]').click(function () {
+      $(this).toggleClass("active");
+      if ($(this).hasClass("active")) {
+        $(this).text("Hide");
+      } else {
+        $(this).text("Show");
+      }
+    });
+
   </script>
 {%endblock %}
 
 {% block title %}Objects{% endblock %}
 
 {% block content %}
-  <div class="row">
+  <h2>Recent Objects</h2>
+  <p>
+    This page provides a limited summary of objects with recently
+    processed alerts.
+  </p>
+
+  <div class="row justify-content-md-center padded-row">
+    <div class="collapse" id="collapseform">
       <div class="col-md-12">
-        <h2>Recent Objects</h2>
-        <p>
-          This page provides a limited summary of objects with recently
-          processed alerts.
-        </p>
-
-        <br>
-
-        <table id='objects_table' class="table table-striped">
-          <thead>
-            <tr>
-              <th>Survey</th>
-              <th>Object Id</th>
-              <th>Most Recent Alert</th>
-              <th>Alert time</th>
-            </tr>
-          </thead>
-        </table>
+        <div class="card">
+          <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              {{ form.time_range|as_crispy_field }}
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                  {{ form.min_ra|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3">
+                  {{ form.max_ra|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3">
+                  {{ form.min_dec|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3">
+                  {{ form.max_dec|as_crispy_field }}
+                </div>
+              </div>
+              <div class="form-row justify-content-end">
+                <div class="form-group col-md-1">
+                  <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseform" aria-expanded="false" aria-controls="collapseform" style="float: right">
+        Show filter options
+      </button>
+      <table id='objects_table' class="table table-striped">
+        <thead>
+          <tr>
+            <th>Survey</th>
+            <th>Object Id</th>
+            <th>Most Recent Alert</th>
+            <th>Alert time</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
   </div>
 {% endblock %}

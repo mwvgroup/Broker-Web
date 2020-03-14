@@ -14,9 +14,9 @@ from . import views
 # URLs for custom views
 urlpatterns = [
     path('', views.IndexView.as_view(), name='home'),
-    path('alerts/', views.alerts_view, name='alerts'),
+    path('alerts/', views.AlertsView.as_view(), name='alerts'),
     path('alerts/<int:pk>', views.AlertSummaryView.as_view(), name='alert-summary'),
-    path('objects/', views.objects_view, name='objects'),
+    path('objects/', views.ObjectsView.as_view(), name='objects'),
     path('objects/<int:pk>', views.ObjectSummaryView.as_view(), name='object-summary'),
     path('gettingstarted/', include('getting_started.urls')),
     path('user/', include('user_subscriptions.urls')),
