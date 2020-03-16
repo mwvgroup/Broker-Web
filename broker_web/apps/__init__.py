@@ -3,7 +3,7 @@
 
 """Custom django applications built for the Pitt-Google Broker website"""
 
-from . import (alerts, getting_started, objects, user_subscriptions)
+from . import (alerts, objects, user_subscriptions, utils)
 
 # Todo apps:
 # - The ``alerts`` and ``objects`` apps are very similar, but I expect them
