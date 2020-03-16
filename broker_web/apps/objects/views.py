@@ -56,7 +56,7 @@ class ObjectsJson(View):
 class ObjectsView(View):
     """View for displaying a summary table of objects with recent alerts"""
 
-    template = 'objects/recent-objects.html'
+    template = 'objects/recent_objects.html'
 
     def get(self, request):
         """Handle an incoming HTTP request
