@@ -12,6 +12,7 @@ https://api_docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+# Add apps to python path
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: The following settings need to be changed in production
@@ -35,8 +36,14 @@ INSTALLED_APPS = [
     'guardian',
     'bootstrap4',
     'crispy_forms',
+
+    # Custom apps
+    'apps.users',
+    'apps.alerts',
+    'apps.objects',
 ]
 
+AUTH_USER_MODEL = 'users.CustomUser'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [

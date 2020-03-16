@@ -7,7 +7,7 @@ from django.urls import path
 
 from .views import ProfileView, SubscriptionsView
 
-app_name = 'user_subscriptions'
+app_name = 'users'
 
 urlpatterns = [
     path('profile', ProfileView.as_view(), name='profile'),

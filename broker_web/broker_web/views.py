@@ -26,4 +26,4 @@ class IndexView(View):
             'alerts_in_hour': 0
         }
 
-        return render(request, 'index.html', context)
+        return render(request, 'broker_web/index.html', context)

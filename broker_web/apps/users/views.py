@@ -20,7 +20,7 @@ class ProfileView(PermissionRequiredMixin, View):
             'pbsub_zip': zip(timestamps, messages)
         }
 
-        return render(request, 'user_subscriptions/my_profile.html', context)
+        return render(request, 'users/my_profile.html', context)
 
 
 class SubscriptionsView(PermissionRequiredMixin, View):
@@ -28,4 +28,4 @@ class SubscriptionsView(PermissionRequiredMixin, View):
     permission_required = 'user.is_authenticated'
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'user_subscriptions/subscriptions.html')
+        return render(request, 'users/subscriptions.html')
