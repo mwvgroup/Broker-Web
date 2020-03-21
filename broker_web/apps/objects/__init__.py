@@ -6,8 +6,6 @@ objects. The focus of this app is on the object itself, and not the
 corresponding alerts.
 """
 
-from . import forms, urls, views
-
 # Todo-objects:
 # - Add / use PubSub configuration to / from global settings
 # - Populate the ObjectsJson view using PubSub messages

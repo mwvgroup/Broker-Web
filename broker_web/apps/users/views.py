@@ -27,15 +27,6 @@ class ProfileView(PermissionRequiredMixin, View):
         return render(request, 'users/my_profile.html', context)
 
 
-class SubscriptionsView(PermissionRequiredMixin, View):
-    """View that handles new subscriptions for users"""
-
-    permission_required = 'user.is_authenticated'
-
-    def get(self, request, *args, **kwargs):
-        return render(request, 'users/subscriptions.html')
-
-
 class UserCreateView(CreateView):
     """View that handles ``CustomUser`` creation"""
 

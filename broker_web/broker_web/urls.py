@@ -27,6 +27,7 @@ urlpatterns = [
     path('objects/', include('apps.objects.urls', namespace='objects')),
     path('getting_started/', include(getting_started_urls, namespace='getting-started')),
     path('users/', include('apps.users.urls', namespace='users')),
+    path('subscriptions/', include('apps.subscriptions.urls', namespace='subscriptions')),
 ]
 
 # Built in Django URL patterns
