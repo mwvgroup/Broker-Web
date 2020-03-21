@@ -14,9 +14,9 @@ pip install -r requirements.txt
 
 To launch the application, run the following and follow the prompts:
 ```python
-python broker_tom/manage.py migrate
-python broker_tom/manage.py createsuperuser
-python broker_tom/manage.py runserver
+python broker_web/manage.py migrate
+python broker_web/manage.py createsuperuser
+python broker_web/manage.py runserver
 ```
 
 ## Deployment Security Concerns
