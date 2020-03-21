@@ -20,7 +20,7 @@ class SubscriptionsView(PermissionRequiredMixin, View):
 class ProfileView(PermissionRequiredMixin, View):
     """View that handles user profiles"""
 
-    permission_required = 'user.is_active'
+    permission_required = 'user.is_authenticated'
 
     def get(self, request, *args, **kwargs):
         """Handle an incoming HTTP request
