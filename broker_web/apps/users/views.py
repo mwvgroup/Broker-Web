@@ -24,7 +24,7 @@ class SignUp(CreateView):
 
     template_name = 'users/create_new_user.html'
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('activation-sent')
 
     def form_valid(self, form):
         """Sends email confirmation for new user creation
@@ -53,7 +53,8 @@ class SignUp(CreateView):
         email = EmailMessage(email_subject, message, to=[to_email])
         email.send()
 
-        return reverse_lazy('activation-sent')
+        # Parent class ``form_valid`` redirects to ``self.success_url``
+        return super().form_valid(form)
 
 
 class ActivateAccount(View):

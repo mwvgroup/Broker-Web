@@ -18,7 +18,7 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
 
     # Fields shown in the main summary page
-    list_display = ('username', 'email', 'first_name', 'last_name', 'country', 'university')
+    list_display = ('email', 'first_name', 'last_name', 'country', 'university')
 
     # Fields shown when editing a new user
     fieldsets = (
@@ -28,11 +28,11 @@ class CustomUserAdmin(UserAdmin):
 
     # Fields shown when creating a new user
     add_fieldsets = (
-        (None, {'fields': ('username', 'email', 'password1', 'password2', 'is_staff', 'is_active')}),
+        (None, {'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active')}),
     )
 
-    search_fields = ('username', 'email', 'university')
-    ordering = ('username',)
+    search_fields = ('email', 'university')
+    ordering = ('email',)
 
 
 admin.site.register(CustomUser, CustomUserAdmin)

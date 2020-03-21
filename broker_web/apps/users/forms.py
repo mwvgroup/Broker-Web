@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 
 from .models import CustomUser
 
-user_fields = 'username', 'email', 'first_name', 'last_name', 'country', 'university'
+user_fields = 'email', 'first_name', 'last_name', 'country', 'university'
 
 
 class CustomUserCreationForm(UserCreationForm):

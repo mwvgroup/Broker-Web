@@ -15,7 +15,6 @@ from .managers import CustomUserManager
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     """Custom user model for authentication"""
 
-    username = models.CharField(max_length=100, unique=True)
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -25,10 +24,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
-    USERNAME_FIELD = 'username'
+    USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
 
     def __repr__(self):
-        return f'<User(username={self.username})>'
+        return f'<User(email={self.email})>'
