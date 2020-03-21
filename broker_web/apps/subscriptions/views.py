@@ -9,7 +9,7 @@ from django.views.generic import View
 
 
 class SubscriptionsView(PermissionRequiredMixin, View):
-    """View that handles new subscriptions for users"""
+    """View that handles new user subscriptions"""
 
     permission_required = 'user.is_authenticated'
 

@@ -20,11 +20,11 @@ from .tokens import account_activation_token
 class SignUp(CreateView):
     """View that handles ``CustomUser`` creation"""
 
-    template_name = 'users/create_new_user.html'
+    template_name = 'signup/create_new_user.html'
     form_class = CustomUserCreationForm
 
     # Todo: Include app name in reverse lookup in case app is namespaced differently
-    success_url = reverse_lazy('users:activation-sent')
+    success_url = reverse_lazy('signup:activation-sent')
 
     def form_valid(self, form):
         """Sends email confirmation for new user creation
@@ -45,7 +45,7 @@ class SignUp(CreateView):
         current_site = Site.objects.get_current()
 
         email_subject = 'Activate Your Account'
-        message = render_to_string('users/activate_account.html', {
+        message = render_to_string('signup/activate_account.html', {
             'user': user,
             'domain': current_site.domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -83,7 +83,7 @@ class ActivateAccount(View):
         if user is not None and account_activation_token.check_token(user, token):
             user.is_active = True
             user.save()
-            return render(request, 'users/activation_success.html')
+            return render(request, 'signup/activation_success.html')
 
         else:
-            return render(request, 'users/invalid_activation_link.html')
+            return render(request, 'signup/invalid_activation_link.html')

@@ -8,9 +8,9 @@ from django.views.generic import TemplateView
 
 from .views import ActivateAccount, SignUp
 
-app_name = 'users'
+app_name = 'signup'
 
-activation_sent_view = TemplateView.as_view(template_name='users/activation_link_sent.html')
+activation_sent_view = TemplateView.as_view(template_name='signup/activation_link_sent.html')
 
 urlpatterns = [
     path('signup', SignUp.as_view(), name='signup'),

@@ -15,7 +15,7 @@
     Docs</a>
 </li>
 {% if user.is_authenticated %}
-  <li class="nav-item {% if request.resolver_match.namespace == 'users' %}active{% endif %}">
+  <li class="nav-item {% if request.resolver_match.namespace == 'signup' %}active{% endif %}">
     <a class="nav-link" href="{% url 'subscriptions:profile' %}">My Profile</a>
   </li>
 {% endif %}

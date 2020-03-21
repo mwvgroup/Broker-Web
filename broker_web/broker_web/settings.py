@@ -38,12 +38,12 @@ INSTALLED_APPS = [
     'crispy_forms',
 
     # Custom apps
-    'apps.users',
+    'apps.signup',
     'apps.alerts',
     'apps.objects',
 ]
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'signup.CustomUser'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
