@@ -15,3 +15,28 @@ class SubscriptionsView(PermissionRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         return render(request, 'subscriptions/subscriptions.html')
+
+
+class ProfileView(PermissionRequiredMixin, View):
+    """View that handles user profiles"""
+
+    permission_required = 'user.is_active'
+
+    def get(self, request, *args, **kwargs):
+        """Handle an incoming HTTP request
+
+        Args:
+            request (HttpRequest): Incoming HTTP request
+
+        Returns:
+            Outgoing HTTPResponse
+        """
+
+        # Todo get pubsub messages
+        timestamps = [123, 456]
+        messages = ['a', 'b']
+        context = {
+            'pbsub_zip': zip(timestamps, messages)
+        }
+
+        return render(request, 'subscriptions/my_profile.html', context)

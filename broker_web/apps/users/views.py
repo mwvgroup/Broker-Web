@@ -3,8 +3,7 @@
 
 """Defines views for converting a Web requests into a Web responses"""
 
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.sites.models import Site
 from django.core.mail import EmailMessage
 from django.shortcuts import render
 from django.template.loader import render_to_string
@@ -15,8 +14,7 @@ from django.views.generic import CreateView, View
 
 from .forms import CustomUserCreationForm
 from .models import CustomUser
-
-account_activation_token = PasswordResetTokenGenerator()
+from .tokens import account_activation_token
 
 
 class SignUp(CreateView):
@@ -24,7 +22,9 @@ class SignUp(CreateView):
 
     template_name = 'users/create_new_user.html'
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('activation-sent')
+
+    # Todo: Include app name in reverse lookup in case app is namespaced differently
+    success_url = reverse_lazy('users:activation-sent')
 
     def form_valid(self, form):
         """Sends email confirmation for new user creation
@@ -42,10 +42,12 @@ class SignUp(CreateView):
         user.is_active = False
         user.save()
 
+        current_site = Site.objects.get_current()
+
         email_subject = 'Activate Your Account'
         message = render_to_string('users/activate_account.html', {
             'user': user,
-            'domain': 'domain',
+            'domain': current_site.domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
             'token': account_activation_token.make_token(user),
         })
@@ -65,6 +67,7 @@ class ActivateAccount(View):
 
         Args:
             request (HttpRequest): Incoming HTTP request
+            uidb64          (str): Base 64 encoded user id
 
         Returns:
             Outgoing HTTPResponse
@@ -84,28 +87,3 @@ class ActivateAccount(View):
 
         else:
             return render(request, 'users/invalid_activation_link.html')
-
-
-class ProfileView(PermissionRequiredMixin, View):
-    """View that handles user profiles"""
-
-    permission_required = 'user.is_active'
-
-    def get(self, request, *args, **kwargs):
-        """Handle an incoming HTTP request
-
-        Args:
-            request (HttpRequest): Incoming HTTP request
-
-        Returns:
-            Outgoing HTTPResponse
-        """
-
-        # Todo get pubsub messages
-        timestamps = [123, 456]
-        messages = ['a', 'b']
-        context = {
-            'pbsub_zip': zip(timestamps, messages)
-        }
-
-        return render(request, 'users/my_profile.html', context)
