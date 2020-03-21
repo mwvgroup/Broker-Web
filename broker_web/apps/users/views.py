@@ -5,12 +5,14 @@
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render
-from django.views.generic import View
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, View
+
+from .forms import CustomUserCreationForm
 
 
 class ProfileView(PermissionRequiredMixin, View):
-
-    permission_required = 'user.is_authenticated'
+    permission_required = 'user.is_active'
 
     def get(self, request, *args, **kwargs):
         # Todo get pubsub messages
@@ -24,8 +26,15 @@ class ProfileView(PermissionRequiredMixin, View):
 
 
 class SubscriptionsView(PermissionRequiredMixin, View):
-
     permission_required = 'user.is_authenticated'
 
     def get(self, request, *args, **kwargs):
         return render(request, 'users/subscriptions.html')
+
+
+class UserCreateView(CreateView):
+    """View that handles ``User`` creation."""
+
+    template_name = 'users/create_new_user.html'
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('home')

@@ -23,8 +23,8 @@ getting_started_urls = apps.utils.create_static_template_routes(
 # URLs for custom views
 urlpatterns = [
     path('', views.IndexView.as_view(), name='home'),
-    path('', include('apps.alerts.urls', namespace='alerts')),
-    path('', include('apps.objects.urls', namespace='objects')),
+    path('alerts/', include('apps.alerts.urls', namespace='alerts')),
+    path('objects/', include('apps.objects.urls', namespace='objects')),
     path('getting_started/', include(getting_started_urls, namespace='getting-started')),
     path('users/', include('apps.users.urls', namespace='users')),
 ]

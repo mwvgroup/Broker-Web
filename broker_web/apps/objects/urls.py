@@ -10,7 +10,7 @@ from . import views
 app_name = 'objects'
 
 urlpatterns = [
-    path('objects/', views.ObjectsView.as_view(), name='recent-objects'),
-    path('objects/<int:pk>', views.ObjectSummaryView.as_view(), name='object-summary'),
-    path('objects/json/', views.ObjectsJson.as_view(), name='objects-json')
+    path('', views.ObjectsView.as_view(), name='recent-objects'),
+    path('<int:pk>', views.ObjectSummaryView.as_view(), name='object-summary'),
+    path('json/', views.ObjectsJson.as_view(), name='objects-json')
 ]
