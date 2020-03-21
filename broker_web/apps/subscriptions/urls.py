@@ -7,9 +7,9 @@ from django.urls import path
 
 from .views import ProfileView, SubscriptionsView
 
-app_name = 'user_subscriptions'
+app_name = 'subscriptions'
 
 urlpatterns = [
+    path('', SubscriptionsView.as_view(), name='subscriptions'),
     path('profile', ProfileView.as_view(), name='profile'),
-    path('subscriptions', SubscriptionsView.as_view(), name='subscriptions')
 ]

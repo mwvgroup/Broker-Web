@@ -8,11 +8,30 @@ from django.shortcuts import render
 from django.views.generic import View
 
 
-class ProfileView(PermissionRequiredMixin, View):
+class SubscriptionsView(PermissionRequiredMixin, View):
+    """View that handles new user subscriptions"""
 
     permission_required = 'user.is_authenticated'
 
     def get(self, request, *args, **kwargs):
+        return render(request, 'subscriptions/subscriptions.html')
+
+
+class ProfileView(PermissionRequiredMixin, View):
+    """View that handles user profiles"""
+
+    permission_required = 'user.is_authenticated'
+
+    def get(self, request, *args, **kwargs):
+        """Handle an incoming HTTP request
+
+        Args:
+            request (HttpRequest): Incoming HTTP request
+
+        Returns:
+            Outgoing HTTPResponse
+        """
+
         # Todo get pubsub messages
         timestamps = [123, 456]
         messages = ['a', 'b']
@@ -20,12 +39,4 @@ class ProfileView(PermissionRequiredMixin, View):
             'pbsub_zip': zip(timestamps, messages)
         }
 
-        return render(request, 'user_subscriptions/my_profile.html', context)
-
-
-class SubscriptionsView(PermissionRequiredMixin, View):
-
-    permission_required = 'user.is_authenticated'
-
-    def get(self, request, *args, **kwargs):
-        return render(request, 'user_subscriptions/subscriptions.html')
+        return render(request, 'subscriptions/my_profile.html', context)

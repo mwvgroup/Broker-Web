@@ -12,6 +12,7 @@ https://api_docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+# Add apps to python path
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: The following settings need to be changed in production
@@ -35,8 +36,14 @@ INSTALLED_APPS = [
     'guardian',
     'bootstrap4',
     'crispy_forms',
+
+    # Custom apps
+    'apps.signup',
+    'apps.alerts',
+    'apps.objects',
 ]
 
+AUTH_USER_MODEL = 'signup.CustomUser'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
@@ -75,7 +82,7 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'temp/db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

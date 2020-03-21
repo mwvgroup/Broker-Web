@@ -4,7 +4,7 @@
 {% block title %}My Profile{% endblock %}
 
 {% block content %}
-  <h2>{{user.first_name}} {{user.last_name}} David Tennant</h2>
+  <h2>{{user.first_name}} {{user.last_name}}</h2>
   <ul class="list-unstyled">
     <li> <b>Email:</b> {% if user.email %}{{user.email}}{% else %}None{% endif %} </li>
     <li> <b>Affiliate University:</b> {% if user.university %}{{user.university}}{% else %}None{% endif %} </li>
