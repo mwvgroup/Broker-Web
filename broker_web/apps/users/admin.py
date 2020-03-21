@@ -11,23 +11,28 @@ from .models import CustomUser
 
 
 class CustomUserAdmin(UserAdmin):
+    """Custom admin interface for user management"""
+
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ('email', 'is_staff', 'is_active',)
-    list_filter = ('email', 'is_staff', 'is_active',)
+
+    # Fields shown in the main summary page
+    list_display = ('username', 'email', 'first_name', 'last_name', 'country', 'university')
+
+    # Fields shown when editing a new user
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
+        ('User Data', {'fields': list_display}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
+
+    # Fields shown when creating a new user
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active')}
-         ),
+        (None, {'fields': ('username', 'email', 'password1', 'password2', 'is_staff', 'is_active')}),
     )
-    search_fields = ('email',)
-    ordering = ('email',)
+
+    search_fields = ('username', 'email', 'university')
+    ordering = ('username',)
 
 
 admin.site.register(CustomUser, CustomUserAdmin)

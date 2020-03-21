@@ -12,6 +12,8 @@ from .forms import CustomUserCreationForm
 
 
 class ProfileView(PermissionRequiredMixin, View):
+    """View that handles user profiles"""
+
     permission_required = 'user.is_active'
 
     def get(self, request, *args, **kwargs):
@@ -26,6 +28,8 @@ class ProfileView(PermissionRequiredMixin, View):
 
 
 class SubscriptionsView(PermissionRequiredMixin, View):
+    """View that handles new subscriptions for users"""
+
     permission_required = 'user.is_authenticated'
 
     def get(self, request, *args, **kwargs):
@@ -33,7 +37,7 @@ class SubscriptionsView(PermissionRequiredMixin, View):
 
 
 class UserCreateView(CreateView):
-    """View that handles ``User`` creation."""
+    """View that handles ``CustomUser`` creation"""
 
     template_name = 'users/create_new_user.html'
     form_class = CustomUserCreationForm
