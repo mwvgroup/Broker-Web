@@ -722,19 +722,19 @@ form label {
   padding: .75rem;
   vertical-align: top;
   border-top: 1px solid #ddd;
-  -moz-transition: 0.2s ease-in-out;
-  -o-transition: 0.2s ease-in-out;
-  -webkit-transition: 0.2s ease-in-out;
-  -ms-transition: 0.2s ease-in-out;
-  transition: 0.2s ease-in-out;
+  -moz-transition: 0.1s ease-in-out;
+  -o-transition: 0.1s ease-in-out;
+  -webkit-transition: 0.1s ease-in-out;
+  -ms-transition: 0.1s ease-in-out;
+  transition: 0.1s ease-in-out;
 }
 
 .table tr {
-  -moz-transition: 0.2s ease-in-out;
-  -o-transition: 0.2s ease-in-out;
-  -webkit-transition: 0.2s ease-in-out;
-  -ms-transition: 0.2s ease-in-out;
-  transition: 0.2s ease-in-out;
+  -moz-transition: 0.1s ease-in-out;
+  -o-transition: 0.1s ease-in-out;
+  -webkit-transition: 0.1s ease-in-out;
+  -ms-transition: 0.1s ease-in-out;
+  transition: 0.1s ease-in-out;
 }
 
 .table-inverse {
@@ -2162,26 +2162,6 @@ select.form-control.shop-option:not([size]):not([multiple]) {
 input, textarea {
   font-family: "Didact Gothic", sans-serif !important;
   letter-spacing: 0.02rem;
-}
-
-select.form-control:not([size]):not([multiple]) {
-  height: 60px;
-}
-
-select.selector {
-  -webkit-appearance: menulist !important;
-}
-
-select.multiple-selector {
-  -webkit-appearance: listbox !important;
-  max-height: 70px;
-}
-
-select:focus {
-  outline: none !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-  border-color: #c3c6c8 !important;
 }
 
 option {
