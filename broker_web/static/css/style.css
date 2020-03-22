@@ -707,6 +707,10 @@ form label {
 
 /*------- end of typography -------*/
 /*------- tables -------*/
+.dataTables_length label {
+  white-space: nowrap;
+}
+
 .table thead th {
   vertical-align: bottom;
   border-bottom: 1px solid #ddd;

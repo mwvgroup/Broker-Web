@@ -54,14 +54,17 @@
 {% block title %}Alerts{% endblock %}
 
 {% block content %}
+  <div class="row">
+    <div class="col-md-12">
+      <h2> Recent Alerts</h2>
+      <p>
+        This page provides a limited summary of recently processed alerts and their
+        status in the <b>PGB</b> pipeline.
+      </p>
+    </div>
+  </div>
 
-  <h2> Recent Alerts</h2>
-  <p>
-    This page provides a limited summary of recently processed alerts and their
-    status in the <b>PGB</b> pipeline.
-  </p>
-
-  <div class="row justify-content-md-center padded-row">
+  <div class="row justify-content-md-center pt-20">
     <div class="collapse" id="collapseform">
       <div class="col-md-12">
         <div class="card">
@@ -98,9 +101,9 @@
 
   <div class="row">
     <div class="col-md-12">
-      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseform" aria-expanded="false" aria-controls="collapseform" style="float: right">
+      <a href="#" type="button" type="button" data-toggle="collapse" data-target="#collapseform" aria-expanded="false" aria-controls="collapseform" style="float: right">
         Show filter options
-      </button>
+      </a>
       <table id="alerts_table" class="table table-striped">
         <thead>
         <tr>
