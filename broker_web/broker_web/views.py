@@ -27,3 +27,19 @@ class IndexView(View):
         }
 
         return render(request, 'broker_web/index.html', context)
+
+
+class ContactView(View):
+    """View for the index page"""
+
+    def get(self, request):
+        """Handle an incoming HTTP request
+
+        Args:
+            request (HttpRequest): Incoming HTTP request
+
+        Returns:
+            Outgoing HTTPResponse
+        """
+
+        return render(request, 'broker_web/contact.html')
