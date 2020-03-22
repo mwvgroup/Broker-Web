@@ -35,8 +35,6 @@ class SignUp(CreateView):
             form (django.forms.Form): User creation form
         """
 
-        super().form_valid(form)
-
         # Create an inactive user
         user = form.save(commit=False)
         user.is_active = False
@@ -51,6 +49,7 @@ class SignUp(CreateView):
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
             'token': account_activation_token.make_token(user),
         })
+
         to_email = form.cleaned_data.get('email')
         email = EmailMessage(email_subject, message, to=[to_email])
         email.send()

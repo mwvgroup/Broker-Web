@@ -15,6 +15,7 @@
           <form action="{% url 'signup:signup' %}" method="POST" onsubmit="return checkRecaptcha();">
             {% csrf_token %}
             {{ form|crispy }}
+            {% include 'recaptcha.html' %}
             <button type="submit" class="btn btn-primary">Sign Up!</button>
           </form>
         </div>

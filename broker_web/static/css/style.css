@@ -4667,6 +4667,7 @@ header.fh {
 footer {
   background: #fcfcfc;
   padding: 2rem 0;
+  bottom:0;
 }
 
 footer p {
