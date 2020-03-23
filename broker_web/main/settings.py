@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     'guardian',  # Extra authentication backend with per object permissions
     'bootstrap4',  # Front-end component library for building templates
     'crispy_forms',  # Makes forms look pretty
+
+    # Custom apps
     'broker_web.apps.alerts',  # Custom app for displaying alert information
     'broker_web.apps.contact',  # Custom app for "contact Us" form
     'broker_web.apps.objects',  # Custom app for displaying object information

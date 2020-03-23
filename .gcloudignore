@@ -1,2 +1,4 @@
-# Copy files from .gitignore
+.gcloudignore
+.git
+.gitignore
 #!include:.gitignore
