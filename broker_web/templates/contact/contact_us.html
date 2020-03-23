@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <h2>Contact Us</h2>
+        <p>
+          Have a question? Feel free to drop us a line! Please make sure to
+          include your name and a brief description of you inquiry. You
+          should hear back from us within a few business days.
+        </p>
+
+        <div class="card">
+          <div class="card-body">
+            <form action="{% url 'contact:contact' %}" method="POST">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+
+    </div>
+  </div>
+{% endblock %}

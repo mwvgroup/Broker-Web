@@ -1,64 +1,109 @@
 {% load static bootstrap4 %}
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    {% bootstrap_css %}
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" type="text/css" rel="stylesheet"/>
+<head>
+  <!-- Meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    {% block additional_css %}{% endblock %}
+  <!-- Favicon -->
+  <link rel="icon" href="{% static 'images/favicon.png' %}">
 
-    <!-- Bootstrap JS -->
-    {% bootstrap_javascript jquery='True' %}
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+  <!-- Site Title -->
+  <title>{% block title %}{% endblock %}</title>
 
-    {% block additional_js %}{% endblock %}
+  <!-- CSS -->
+  {% bootstrap_css %}
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'css/doc.css' %}" rel="stylesheet">
+  <link href="{% static 'css/prism.css' %}" rel="stylesheet">
+  {% block additional_css %}{% endblock %}
 
-    <title>PG Broker | {% block title %}{% endblock %}</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="/">PG Broker</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Jura:300,400,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap" rel="stylesheet">
+  <link href="{% static 'css/fontawesome-all.min.css' %}" rel="stylesheet" type="text/css">
+</head>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          {% include 'navbar_content.html' %}
+<body data-spy="scroll" data-target="#nav-scroll">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white p-x-15 rounded raised superior-nav">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" alt=""></a>
+      <div class="collapse navbar-collapse" id="navbar-toggle">
+
+        <!-- Navigation menu -->
+        {% include 'navbar_content.html' %}
+
+        <!-- Log in button -->
+        <ul class="navbar-button p-0 m-0 ml-15">
+          {% if user.is_authenticated %}
+            <li>
+              <a class="btn btn-primary" title="logout" href="{% url 'logout' %}">Logout</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="btn btn-primary" title="logout" href="{% url 'login' %}">Login</a>
+            </li>
+          {% endif %}
         </ul>
-        <ul class="navbar-nav ml-auto">
-        {% if user.is_authenticated %}
-          <li>
-            <a class="btn btn-outline-success" title="logout" href="{% url 'logout' %}">Logout</a>
-          </li>
-        {% else %}
-          <li class="nav-item">
-            <a class="btn btn-outline-success" title="logout" href="{% url 'login' %}">Login</a>
-          </li>
-        {% endif %}
-        </ul>
+
+      </div><!-- / navbar-collapse -->
+    </div><!-- / container -->
+  </nav><!-- / navbar -->
+
+  <nav id="nav-scroll"
+     class="navbar navbar-expand-lg navbar-light bg-light sticky-top right-toggler secondary-nav">
+    <div class="container">
+
+      <button class="navbar-toggler collapsed" type="button"
+          data-toggle="collapse" data-target="#navbar-toggle-secondary"
+          aria-controls="navbar-toggle-secondary" aria-expanded="false"
+          aria-label="Toggle navigation">
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+        <span class="sr-only">Toggle navigation</span>
+      </button><!-- / navbar-toggler -->
+
+      <div class="navbar-collapse collapse" id="navbar-toggle-secondary" style="">
+        {% block secondary-navbar %}{% endblock %}
+      </div><!-- / navbar-collapse -->
+
+    </div><!-- / container -->
+  </nav><!-- / secondary-nav -->
+
+  {% block header-content %}{% endblock %}
+  <div class="container pt-40">
+    {% block content %}{% endblock %}
+  </div>
+
+</body>
+
+<footer class="bg-inverse dark mt-50">
+  <div class="container">
+    <div class="row v-center mobile-center">
+      <div class="col-md-8 footer-left-area mb-0 tablet-top">
+        <p>
+          <img src="{% static 'images/logo-light.png' %}" alt="" class="footer-logo hide-mobile mb-0 mr-20">
+        </p>
       </div>
-    </nav>
+      <div class="col-md-4 footer-right-area">
+        <p>
+          <a href="{% url 'contact:contact' %}" class="text-link">Contact Us</a>
+        </p>
+      </div><!-- / social-icons -->
+    </div><!-- / row -->
+  </div><!-- / container -->
+</footer>
 
-    <main role="main" class="container">
-      {% bootstrap_messages %}
-      <div class="content">
-        {% block content %}
-        {% endblock %}
-      </div>
+<!-- Bootstrap JS -->
+{% bootstrap_javascript jquery='True' %}
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
-    </main>
-
-  {% block javascript %}
-    {% endblock %}
-    {% block extra_javascript %}
-  {% endblock %}
-  </body>
+{% block additional_js %}{% endblock %}
 </html>

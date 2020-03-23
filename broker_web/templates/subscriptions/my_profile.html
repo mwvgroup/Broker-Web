@@ -4,55 +4,65 @@
 {% block title %}My Profile{% endblock %}
 
 {% block content %}
-  <h2>{{user.first_name}} {{user.last_name}}</h2>
-  <ul class="list-unstyled">
-    <li> <b>Email:</b> {% if user.email %}{{user.email}}{% else %}None{% endif %} </li>
-    <li> <b>Affiliate University:</b> {% if user.university %}{{user.university}}{% else %}None{% endif %} </li>
-  </ul>
-
-  <br>
-
-  <div class="section-header">
-    <h3>My Topic Subscriptions</h3>
-    <span><a href="{% url 'subscriptions:subscriptions' %}">(Edit)</a></span>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>{{user.first_name}} {{user.last_name}}</h2>
+      <ul class="list-unstyled">
+        <li> <b>Email:</b> {% if user.email %}{{user.email}}{% else %}None{% endif %} </li>
+        <li> <b>Affiliate University:</b> {% if user.university %}{{user.university}}{% else %}None{% endif %} </li>
+      </ul>
+    </div>
   </div>
 
-  <br>
-  <div class="section-header">
-    <h3> Submitted Observations </h3>
+  <div class="row pt-10">
+    <div class="col-md-12">
+      <h3>My Topic Subscriptions</h3>
+      <span><a href="{% url 'subscriptions:subscriptions' %}">(Edit)</a></span>
+    </div>
   </div>
-  <table class="table table-striped">
-    <tr>
-      <th>Timestamp</th>
-      <th>Observatory</th>
-      <th>Status</th>
-    </tr>
-    {% for observation in submitted_observations %}
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    {% endfor %}
-  </table>
 
-  <br>
-
-  <div class="section-header">
-    <h3> Recent Subscribed Alerts </h3>
+  <div class="row pt-20">
+    <div class="col-md-12">
+      <div class="section-header">
+        <h3> Submitted Observations </h3>
+      </div>
+      <table class="table table-striped">
+        <tr>
+          <th>Timestamp</th>
+          <th>Observatory</th>
+          <th>Status</th>
+        </tr>
+        {% for observation in submitted_observations %}
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
   </div>
-  <table class="table table-striped">
-    <tr>
-      <th>Timestamp</th>
-      <th>Topic</th>
-      <th>Alert</th>
-    </tr>
-    {% for time, message in subscribed_alerts %}
-    <tr>
-      <td><a href="{% url 'alerts:recent-alerts' %}{{time}}">{{time}}</a></td>
-      <td>Some topic</td>
-      <td>message</td>
-    </tr>
-    {% endfor %}
-  </table>
+
+
+  <div class="row pt-20">
+    <div class="col-md-12">
+      <div class="section-header">
+        <h3> Recent Subscribed Alerts </h3>
+      </div>
+      <table class="table table-striped">
+        <tr>
+          <th>Timestamp</th>
+          <th>Topic</th>
+          <th>Alert</th>
+        </tr>
+        {% for time, message in subscribed_alerts %}
+          <tr>
+            <td><a href="{% url 'alerts:recent-alerts' %}{{time}}">{{time}}</a></td>
+            <td>Some topic</td>
+            <td>message</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
 {% endblock %}

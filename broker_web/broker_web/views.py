@@ -4,7 +4,9 @@
 """Defines views for converting a Web requests into a Web responses"""
 
 from django.shortcuts import render
-from django.views.generic import View
+from django.views.generic import TemplateView, View
+
+why_pgb_view = TemplateView.as_view(template_name='broker_web/why_pgb.html')
 
 
 class IndexView(View):

@@ -42,9 +42,9 @@
       $('[data-toggle="collapse"]').click(function () {
         $(this).toggleClass("active");
         if ($(this).hasClass("active")) {
-          $(this).text("Hide");
+          $(this).text("Hide filter options");
         } else {
-          $(this).text("Show");
+          $(this).text("Show filter options");
         }
     });
 
@@ -54,14 +54,17 @@
 {% block title %}Alerts{% endblock %}
 
 {% block content %}
+  <div class="row">
+    <div class="col-md-12">
+      <h2> Recent Alerts</h2>
+      <p>
+        This page provides a limited summary of recently processed alerts and their
+        status in the <b>PGB</b> pipeline.
+      </p>
+    </div>
+  </div>
 
-  <h2> Recent Alerts</h2>
-  <p>
-    This page provides a limited summary of recently processed alerts and their
-    status in the <b>PGB</b> pipeline.
-  </p>
-
-  <div class="row justify-content-md-center padded-row">
+  <div class="row justify-content-md-center pt-20">
     <div class="collapse" id="collapseform">
       <div class="col-md-12">
         <div class="card">
@@ -87,9 +90,7 @@
                 <div class="form-group col-md-4">
                   {{ form.include_internal|as_crispy_field }}
                 </div>
-                <div class="form-group col-md-1">
-                  <button type="submit" class="btn btn-primary">Filter</button>
-                </div>
+                <button type="submit" class="btn btn-primary">Filter</button>
               </div>
             </form>
           </div>
@@ -100,9 +101,9 @@
 
   <div class="row">
     <div class="col-md-12">
-      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseform" aria-expanded="false" aria-controls="collapseform" style="float: right">
+      <a href="#" type="button" type="button" data-toggle="collapse" data-target="#collapseform" aria-expanded="false" aria-controls="collapseform" style="float: right">
         Show filter options
-      </button>
+      </a>
       <table id="alerts_table" class="table table-striped">
         <thead>
         <tr>

@@ -1,21 +1,22 @@
-<li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-  <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-</li>
-<li class="nav-item {% if request.resolver_match.namespace == 'alerts' %}active{% endif %}">
-  <a class="nav-link" href="{% url 'alerts:recent-alerts' %}">Alerts</a>
-</li>
-<li class="nav-item {% if request.resolver_match.namespace == 'objects' %}active{% endif %}">
-  <a class="nav-link" href="{% url 'objects:recent-objects' %}">Objects</a>
-</li>
-<li class="nav-item {% if request.resolver_match.namespace == 'getting-started' %}active{% endif %}">
-  <a class="nav-link" href="{% url 'getting-started:introduction' %}">Getting Started</a>
-</li>
-<li class="nav-item {% if request.resolver_match.url_name == 'api-docs' %}active{% endif %}">
-  <a class="nav-link" href="https://pitt-broker.readthedocs.io/en/latest/">API
-    Docs</a>
-</li>
-{% if user.is_authenticated %}
-  <li class="nav-item {% if request.resolver_match.namespace == 'signup' %}active{% endif %}">
-    <a class="nav-link" href="{% url 'subscriptions:profile' %}">My Profile</a>
+<ul class="navbar-nav ml-auto">
+  <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+    <a class="nav-link" href="{% url 'home' %}">Home</a>
   </li>
-{% endif %}
+  <li class="nav-item {% if request.resolver_match.url_name == 'why-pgb' %}active{% endif %}">
+    <a class="nav-link" href="{% url 'why-pgb' %}">Why Use PGB?</a>
+  </li>
+  <li class="nav-item {% if request.resolver_match.namespace == 'getting-started' %}active{% endif %}">
+    <a class="nav-link" href="{% url 'getting-started:introduction' %}">Getting Started</a>
+  </li>
+  <li class="nav-item {% if request.resolver_match.namespace == 'alerts' %}active{% endif %}">
+    <a class="nav-link" href="{% url 'alerts:recent-alerts' %}">Alerts</a>
+  </li>
+  <li class="nav-item {% if request.resolver_match.namespace == 'objects' %}active{% endif %}">
+    <a class="nav-link" href="{% url 'objects:recent-objects' %}">Objects</a>
+  </li>
+  {% if user.is_authenticated %}
+    <li class="nav-item {% if request.resolver_match.namespace == 'signup' %}active{% endif %}">
+      <a class="nav-link" href="{% url 'subscriptions:profile' %}">My Profile</a>
+    </li>
+  {% endif %}
+</ul>

@@ -21,6 +21,7 @@ SECRET_KEY = 'x(py&amp;_$o7&amp;f6r((fucm+ow2%8_2ifh#uf5#=kf+g)p!09ni0op'
 DEBUG = True
 ALLOWED_HOSTS = []
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+CONTACT_EMAILS = ['admin@example.com']
 ###############################################################################
 
 # Application definition
@@ -38,9 +39,11 @@ INSTALLED_APPS = [
     'crispy_forms',
 
     # Custom apps
-    'apps.signup',
     'apps.alerts',
+    'apps.contact',
     'apps.objects',
+    'apps.signup',
+    'apps.subscriptions',
 ]
 
 AUTH_USER_MODEL = 'signup.CustomUser'
