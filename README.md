@@ -122,16 +122,12 @@ Full documentation on configuring Django applications for App Engine is availabl
    ./cloud_sql_proxy -instances "[REGION_NAME]"=tcp:3306
    ```
 
-4. Make the necesary database migrations and set up an admin account.
+4. Make the necessary database migrations and set up an admin account.
 
    ```bash
    python manage.py migrate --sync-db 
    python manage.py createsuperuser
    ```
-
-#### Set Up Continuous Deployment
-
-TODO
 
 ## Launching a Local Version
 
@@ -162,6 +158,15 @@ Next, launch the web application via the management script:
 ```bash
 python broker_web/manage.py runserver  # Run the web server
 ```
+
+## Deploying a New Version to Production
+
+Application versions can be deployed manually using `gcloud`:
+
+```bash
+gcloud app deploy
+```
+
 
 ## Deployment Security Concerns
 
