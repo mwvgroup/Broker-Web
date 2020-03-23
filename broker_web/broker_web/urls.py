@@ -10,7 +10,7 @@ from django.contrib import admin
 from django.urls import include
 from django.urls import path
 
-from . import views
+from .views import IndexView, why_pgb_view
 
 getting_started_paths = (
     'getting_started/introduction.html',
@@ -22,7 +22,8 @@ getting_started_urls = apps.utils.create_static_template_routes(
 
 # URLs for custom views
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='home'),
+    path('', IndexView.as_view(), name='home'),
+    path('why_pgb', why_pgb_view, name='why-pgb'),
     path('contact/', include('apps.contact.urls', namespace='contact')),
     path('alerts/', include('apps.alerts.urls', namespace='alerts')),
     path('objects/', include('apps.objects.urls', namespace='objects')),

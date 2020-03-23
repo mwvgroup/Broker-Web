@@ -2,6 +2,9 @@
   <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
     <a class="nav-link" href="{% url 'home' %}">Home</a>
   </li>
+  <li class="nav-item {% if request.resolver_match.url_name == 'why-pgb' %}active{% endif %}">
+    <a class="nav-link" href="{% url 'why-pgb' %}">Why Use PGB?</a>
+  </li>
   <li class="nav-item {% if request.resolver_match.namespace == 'getting-started' %}active{% endif %}">
     <a class="nav-link" href="{% url 'getting-started:introduction' %}">Getting Started</a>
   </li>
@@ -10,9 +13,6 @@
   </li>
   <li class="nav-item {% if request.resolver_match.namespace == 'objects' %}active{% endif %}">
     <a class="nav-link" href="{% url 'objects:recent-objects' %}">Objects</a>
-  </li>
-  <li class="nav-item {% if request.resolver_match.url_name == 'api-docs' %}active{% endif %}">
-    <a class="nav-link" href="https://pitt-broker.readthedocs.io/en/latest/">API Docs</a>
   </li>
   {% if user.is_authenticated %}
     <li class="nav-item {% if request.resolver_match.namespace == 'signup' %}active{% endif %}">
