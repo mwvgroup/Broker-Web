@@ -4,4 +4,5 @@ django-guardian
 django-bootstrap4
 django-crispy
 django-environ
+pymysql
 numpy

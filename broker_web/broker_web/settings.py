@@ -11,7 +11,12 @@ https://api_docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+
 import environ
+import pymysql
+
+pymysql.version_info = (1, 3, 13, "final", 0)  # https://stackoverflow.com/a/59591269
+pymysql.install_as_MySQLdb()
 
 # Add apps to python path
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -102,14 +107,32 @@ TEMPLATES = [
 ]
 
 # Database connection settings
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-# Todo: configure to env: {'default': env.db('DATABASE_URL')}
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if os.getenv('GAE_APPLICATION', None):
+    # Running on production App Engine, so connect to Google Cloud SQL using
+    # the unix socket at /cloudsql/<your-cloudsql-connection string>
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/cloudsql/ardent-cycling-243415:us-east1:broker-web',
+            'USER': env.str('DB_USER'),
+            'PASSWORD': env.str('DB_PASSWORD'),
+            'NAME': 'web_backend',
+        }
     }
-}
+
+else:
+    # Running locally so connect to Cloud SQL via the proxy.
+    # To start the proxy see https://cloud.google.com/sql/docs/mysql-connect-proxy
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'USER': env.str('DB_USER'),
+            'PASSWORD': env.str('DB_PASSWORD'),
+            'NAME': 'web_backend',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

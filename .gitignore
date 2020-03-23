@@ -1,5 +1,5 @@
-# ZTF alert data
-broker/ztf_archive/data/
+# GCP SQL Proxy
+cloud_sql_proxy
 
 # OS files
 *.DS_Store
