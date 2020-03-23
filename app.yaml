@@ -1,0 +1,10 @@
+runtime: python37
+
+entrypoint: gunicorn -b :8080 broker_web.main.wsgi
+
+env_variables:
+  STATIC_URL: 'https://storage.googleapis.com/broker-web-static/static/'
+
+handlers:
+  - url: /static
+    static_dir: static

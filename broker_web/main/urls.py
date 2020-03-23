@@ -3,9 +3,7 @@
 
 """django URL Configuration. Lists routes from URLs to views"""
 
-import apps
-from django.conf import settings
-from django.conf.urls.static import static
+import broker_web.apps as apps
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
@@ -24,12 +22,12 @@ getting_started_urls = apps.utils.create_static_template_routes(
 urlpatterns = [
     path('', IndexView.as_view(), name='home'),
     path('why_pgb', why_pgb_view, name='why-pgb'),
-    path('contact/', include('apps.contact.urls', namespace='contact')),
-    path('alerts/', include('apps.alerts.urls', namespace='alerts')),
-    path('objects/', include('apps.objects.urls', namespace='objects')),
+    path('contact/', include('broker_web.apps.contact.urls', namespace='contact')),
+    path('alerts/', include('broker_web.apps.alerts.urls', namespace='alerts')),
+    path('objects/', include('broker_web.apps.objects.urls', namespace='objects')),
     path('getting_started/', include(getting_started_urls, namespace='getting-started')),
-    path('signup/', include('apps.signup.urls', namespace='signup')),
-    path('subscriptions/', include('apps.subscriptions.urls', namespace='subscriptions')),
+    path('signup/', include('broker_web.apps.signup.urls', namespace='signup')),
+    path('subscriptions/', include('broker_web.apps.subscriptions.urls', namespace='subscriptions')),
 ]
 
 # Built in Django URL patterns

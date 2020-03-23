@@ -64,18 +64,18 @@ INSTALLED_APPS = [
     'guardian',  # Extra authentication backend with per object permissions
     'bootstrap4',  # Front-end component library for building templates
     'crispy_forms',  # Makes forms look pretty
-    'apps.alerts',  # Custom app for displaying alert information
-    'apps.contact',  # Custom app for "contact Us" form
-    'apps.objects',  # Custom app for displaying object information
-    'apps.signup',  # Custom app for user creation / authentication
-    'apps.subscriptions',  # Custom app for alert subscriptions
+    'broker_web.apps.alerts',  # Custom app for displaying alert information
+    'broker_web.apps.contact',  # Custom app for "contact Us" form
+    'broker_web.apps.objects',  # Custom app for displaying object information
+    'broker_web.apps.signup',  # Custom app for user creation / authentication
+    'broker_web.apps.subscriptions',  # Custom app for alert subscriptions
 ]
 
 # App configuration
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Site configuration
-ROOT_URLCONF = 'broker_web.urls'
+ROOT_URLCONF = 'broker_web.main.urls'
 SITE_ID = 1  # For description, see https://stackoverflow.com/a/25468782/6466457
 LOGIN_REDIRECT_URL = '/'
 AUTH_USER_MODEL = 'signup.CustomUser'  # Use custom user model for authentication

@@ -42,25 +42,30 @@ Full documentation on configuring Django applications for App Engine is availabl
 
 #### Configure GCP
 
-1. Enable the Cloud SQL Admin API.
+1. Create a bucket for hosting static files.
+   ```bash
+   gsutil mb -p [PROJECT_NAME] -c [STORAGE_CLASS] -l [BUCKET_LOCATION] -b on gs://[BUCKET_NAME]/
+   ```
+
+2. Enable the Cloud SQL Admin API.
 
    ```bash
    gcloud services enable sqladmin
    ```
 
-2. Create a Cloud SQL instance.
+3. Create a Cloud SQL instance.
 
    ```bash
    gcloud sql instances create [INSTANCE_NAME] --tier=[MACHINE_TYPE] --region=[REGION]
    ```
 
-3. Create a database on the Cloud SQL instance.
+4. Create a database on the Cloud SQL instance.
 
    ```bash
    gcloud sql databases create [DATABASE_NAME] --instance=[INSTANCE_NAME]
    ```
 
-4. Create a new user account that your application will user to access the database.
+5. Create a new user account that your application will user to access the database.
 
    ```bash
    gcloud sql users create [USER_NAME] --instance=[INSTANCE_NAME] --password=[PASSWORD]
