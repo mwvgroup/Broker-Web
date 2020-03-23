@@ -4,24 +4,37 @@
 
 {% block title %}Home{% endblock %}
 
-{% block content %}
-  <div class="row v-center p-y-50">
-    <div class="col-md-5 mb-40 dark">
-      <h1 class="mb-10">Pitt-Google Broker</h1>
-      <p class="mb-20 lead">
-        A cloud-base alert broker for next generation astronomical surveys.
-      </p>
-      <p>
-        <a href="{% url 'getting-started:introduction' %}" class="btn btn-secondary-gradient rounded m-10 ml-0 smooth-scroll"><span class="fa fa-book mr-2"></span>
-          <span>Learn More</span>
-        </a>
-        <a href="{% url 'signup:signup' %}" class="btn btn-primary-gradient rounded m-10 ml-0 smooth-scroll"><span class="fa fa-user mr-2"></span>
-          <span>Sign Up</span>
-        </a>
-      </p>
+{% block header-content %}
+  <header class="bg-img img-bottom pt-30 pb-50" style="background-image: url({% static 'images/header-bg.png' %})">
+    <div class="container pt-40">
+      <div class="row v-center p-y-50">
+        <div class="col-md-5 mb-40 dark">
+          <h1 class="mb-10">Pitt-Google Alert Broker</h1>
+          <p class="mb-20 lead">
+            A cloud-base alert broker for real time processing of data from
+            next generation astronomical surveys. Put a few sentences
+            describing our broker here. Also add a better background image to
+            the top of this page (I'm thinking LSST on the mountain - DJP).
+          </p>
+          <p>
+            <a href="{% url 'getting-started:introduction' %}"
+               class="btn btn-secondary-gradient rounded m-10 ml-0 smooth-scroll"><span
+                class="fa fa-book mr-2"></span>
+              <span>Learn More</span>
+            </a>
+            <a href="{% url 'signup:signup' %}"
+               class="btn btn-primary-gradient rounded m-10 ml-0 smooth-scroll"><span
+                class="fa fa-user mr-2"></span>
+              <span>Sign Up</span>
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
+  </header>
+{% endblock %}
 
+{% block content %}
   <div id="features" class="container p-y-100">
     <div class="row">
 
