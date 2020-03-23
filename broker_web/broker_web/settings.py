@@ -4,24 +4,47 @@
 """Django settings
 
 For more information on this file, see
-https://api_docs.djangoproject.com/en/2.1/topics/settings/
+https://api_docs.djangoproject.com/en/3.0/topics/settings/
 
 For the full list of settings and their values, see
-https://api_docs.djangoproject.com/en/2.1/ref/settings/
+https://api_docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import environ
 
 # Add apps to python path
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# SECURITY WARNING: The following settings need to be changed in production
+# Read environment settings from BASE_DIR
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+
+def gen_secret_key(length=50, chars=None):
+    """Generate a secret key for Django
+
+    Args:
+        length (int): The length of the key
+        chars  (str): Characters to use
+    """
+
+    import string
+    from django.utils.crypto import get_random_string
+
+    if chars is None:
+        chars = string.ascii_lowercase + string.digits + string.punctuation
+
+    return get_random_string(length, chars)
+
+
+# SECURITY WARNING: Make sure the following settings are properly configured in production
 ###############################################################################
-SECRET_KEY = 'x(py&amp;_$o7&amp;f6r((fucm+ow2%8_2ifh#uf5#=kf+g)p!09ni0op'
-DEBUG = True
-ALLOWED_HOSTS = []
+SECRET_KEY = env.str('SECRET_KEY', default=gen_secret_key)
+DEBUG = env.bool('DEBUG', default=False)
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-CONTACT_EMAILS = ['admin@example.com']
+CONTACT_EMAILS = env.list('CONTACT_EMAILS', default=[])
 ###############################################################################
 
 INSTALLED_APPS = [
@@ -80,6 +103,7 @@ TEMPLATES = [
 
 # Database connection settings
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+# Todo: configure to env: {'default': env.db('DATABASE_URL')}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

@@ -3,4 +3,5 @@ django_extensions
 django-guardian
 django-bootstrap4
 django-crispy
+django-environ
 numpy
