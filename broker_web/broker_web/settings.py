@@ -40,7 +40,7 @@ def gen_secret_key(length=50, chars=None):
 
 # SECURITY WARNING: Make sure the following settings are properly configured in production
 ###############################################################################
-SECRET_KEY = env.str('SECRET_KEY', default=gen_secret_key)
+SECRET_KEY = env.str('SECRET_KEY', default=gen_secret_key())
 DEBUG = env.bool('DEBUG', default=False)
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
