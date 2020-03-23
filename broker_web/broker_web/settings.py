@@ -24,30 +24,33 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CONTACT_EMAILS = ['admin@example.com']
 ###############################################################################
 
-# Application definition
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'django.contrib.admin',  # Django administration interface
     'django.contrib.auth',  # Core authentication framework and associated models
     'django.contrib.contenttypes',  # Allows permissions to be associated with models
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'django_extensions',
-    'guardian',
-    'bootstrap4',
-    'crispy_forms',
-
-    # Custom apps
-    'apps.alerts',
-    'apps.contact',
-    'apps.objects',
-    'apps.signup',
-    'apps.subscriptions',
+    'django.contrib.sessions',  # Session framework for cookies handling
+    'django.contrib.messages',  # Displays one-time notification messages
+    'django.contrib.staticfiles',  # Renders paths to static files
+    'django.contrib.sites',  # Handles multi-site hosting on multiple domains
+    'django_extensions',  # Extends capability of django management commands
+    'guardian',  # Extra authentication backend with per object permissions
+    'bootstrap4',  # Front-end component library for building templates
+    'crispy_forms',  # Makes forms look pretty
+    'apps.alerts',  # Custom app for displaying alert information
+    'apps.contact',  # Custom app for "contact Us" form
+    'apps.objects',  # Custom app for displaying object information
+    'apps.signup',  # Custom app for user creation / authentication
+    'apps.subscriptions',  # Custom app for alert subscriptions
 ]
 
-AUTH_USER_MODEL = 'signup.CustomUser'
+# App configuration
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Site configuration
+ROOT_URLCONF = 'broker_web.urls'
+SITE_ID = 1  # For description, see https://stackoverflow.com/a/25468782/6466457
+LOGIN_REDIRECT_URL = '/'
+AUTH_USER_MODEL = 'signup.CustomUser'  # Use custom user model for authentication
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,8 +61,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
-
-ROOT_URLCONF = 'broker_web.urls'
 
 TEMPLATES = [
     {
@@ -77,11 +78,8 @@ TEMPLATES = [
     },
 ]
 
-# Todo broker_web:
-# - Configure settings to use correct backend db (e.g. GCP Cloud SQL)
-
-# Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+# Database connection settings
+# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -90,33 +88,22 @@ DATABASES = {
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-SITE_ID = 1  # See https://stackoverflow.com/a/25468782/6466457
-LOGIN_REDIRECT_URL = '/'
-# LOGOUT_REDIRECT_URL = '/'
-
+# Authentication configuration
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'guardian.backends.ObjectPermissionBackend',
 )
 
 # Internationalization
-# https://docs.djangoproject.com/en/2.1/topics/i18n/
+# https://docs.djangoproject.com/en/3.0/topics/i18n/
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -125,10 +112,7 @@ USE_TZ = True
 DATETIME_FORMAT = 'Y-m-d H:m:s'
 DATE_FORMAT = 'Y-m-d'
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
+# Static files (CSS, JavaScript, Images, etc.)
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, '_static')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-MEDIA_ROOT = os.path.join(BASE_DIR, 'data')
-MEDIA_URL = '/data/'
