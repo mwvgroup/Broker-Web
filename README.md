@@ -42,30 +42,39 @@ Full documentation on configuring Django applications for App Engine is availabl
 
 #### Configure GCP
 
+First configure a Storage Bucket for publicly hosting static files:
+
 1. Create a bucket for hosting static files.
    ```bash
    gsutil mb -p [PROJECT_NAME] -c [STORAGE_CLASS] -l [BUCKET_LOCATION] -b on gs://[BUCKET_NAME]/
    ```
+   
+2. Make the bucket publicly readable
+   ```bash
+   gsutil defacl set public-read gs://broker-web-static
+   ```
 
-2. Enable the Cloud SQL Admin API.
+Next configure the Cloud SQL backend for the website:
+
+1. Enable the Cloud SQL Admin API.
 
    ```bash
    gcloud services enable sqladmin
    ```
 
-3. Create a Cloud SQL instance.
+2. Create a Cloud SQL instance.
 
    ```bash
    gcloud sql instances create [INSTANCE_NAME] --tier=[MACHINE_TYPE] --region=[REGION]
    ```
 
-4. Create a database on the Cloud SQL instance.
+3. Create a database on the Cloud SQL instance.
 
    ```bash
    gcloud sql databases create [DATABASE_NAME] --instance=[INSTANCE_NAME]
    ```
 
-5. Create a new user account that your application will user to access the database.
+4. Create a new user account that your application will user to access the database.
 
    ```bash
    gcloud sql users create [USER_NAME] --instance=[INSTANCE_NAME] --password=[PASSWORD]
@@ -115,8 +124,6 @@ Full documentation on configuring Django applications for App Engine is availabl
        }
    ```
 
-   
-
 3. Launch the SQL proxy so your local application can connect to the SQL database in GCP.
    ```bash
    ./cloud_sql_proxy -instances "[REGION_NAME]"=tcp:3306
@@ -128,6 +135,8 @@ Full documentation on configuring Django applications for App Engine is availabl
    python manage.py migrate --sync-db 
    python manage.py createsuperuser
    ```
+
+5. Add your public recaptcha key to `broker_web/templates/recaptcha.html`
 
 ## Launching a Local Version
 
@@ -163,9 +172,17 @@ python broker_web/manage.py runserver  # Run the web server
 
 Application versions can be deployed manually using `gcloud`:
 
-```bash
-gcloud app deploy
-```
+1. Synchronize static files in the storage bucket
+
+   ```bash
+   gsutil -m rsync -r broker_web/static gs://[BUCKET_LOCATION]/static
+   ```
+   
+2. Deploy the new source code
+
+   ```bash
+   gcloud app deploy
+   ```
 
 
 ## Deployment Security Concerns

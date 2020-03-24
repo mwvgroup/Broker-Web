@@ -163,5 +163,5 @@ DATE_FORMAT = 'Y-m-d'
 
 # Static files (CSS, JavaScript, Images, etc.)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-STATIC_URL = '/static/'
+STATIC_URL = 'https://storage.googleapis.com/broker-web-static/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
