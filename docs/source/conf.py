@@ -6,12 +6,20 @@
 
 # -- Path setup --------------------------------------------------------------
 
-from pathlib import Path
+import os
 import sys
+from pathlib import Path
+from django import setup
 
 # Add broker_web package to path
 package_dir = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(package_dir))
+
+# Set up the broker_web django application so that we can import
+# views and models without raising
+# django.core.exceptions.AppRegistryNotReady: Apps aren't loaded yet.`
+os.environ['DJANGO_SETTINGS_MODULE'] = 'broker_web.main.settings'
+setup()
 
 # -- Project information -----------------------------------------------------
 
@@ -34,8 +42,3 @@ extensions = [
 
 # The theme to use for HTML and HTML Help pages.
 html_theme = 'sphinx_rtd_theme'
-
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
