@@ -143,30 +143,29 @@ Next configure the Cloud SQL backend for the website:
 
 #### Environmental Variables
 
-The following table outlines environmental variables that can be used to configure standard DJANGO settings. These can be configured manually, or specified in a file `broker_web/.env`. 
+The following table outlines environmental variables that can be used to configure standard Django settings. Note that at least one of `DEBUG` or `ALLOWED_HOSTS` must be set for the app to run. For convenience, these can be specified in a `.env` file placed into the project's root directory. However, the application will specifically ignore `.env` files when running on the deployment server.
 
-| Variable         | Example                                                |
-| ---------------- | ------------------------------------------------------ |
-| `SECRET_KEY`     | `"b9ch7q*1ael5p-6n3432$a3ds9ksgm$e9hgm5zba^5c%82d!)8"` |
-| `DEBUG`          | `true`                                                 |
-| `ALLOWED_HOSTS`  | `example_domain.com,example_2.com`                     |
-| `CONTACT_EMAILS` | `admin1@mail.com,admin2@mail.com`                      |
+| Variable         | Example                                                | Required |
+| ---------------- | ------------------------------------------------------ | --- |
+| `SECRET_KEY`     | `"b9ch7q*1ael5p..."` | Yes |
+| `DEBUG`          | `true`                                                 | If `ALLOWED_HOSTS` is not set |
+| `ALLOWED_HOSTS`  | `example_domain.com,example_domain_2.com`              | If `Debug` is not `true` |
+| `CONTACT_EMAILS` | `admin1@mail.com,admin2@mail.com`                      | No |
 
-At least one of `DEBUG` or `ALLOWED_HOSTS` must be set for the app to run. Additionally, the `USER` and `PASSWORD` variables must be set to represent your authentication settings for the MySQL backend.
+Additionally, the `USER` and `PASSWORD` variables must be set to represent your authentication settings for the MySQL backend.
 
 #### Running a Local Server
 
-Start by launching the SQL proxy so the application can connect to the cloud.
+1. Configure environmental variables as defined in the previous section.
+2. Start by launching the SQL proxy so the application can connect to the cloud.
+   ```bash
+   ./cloud_sql_proxy -instances "ardent-cycling-243415:us-east1:broker-web"=tcp:3306
+   ```
+3. Next, launch the web application via the management script:
 
-```bash
-./cloud_sql_proxy -instances "ardent-cycling-243415:us-east1:broker-web"=tcp:3306
-```
-
-Next, launch the web application via the management script:
-
-```bash
-python broker_web/manage.py runserver  # Run the web server
-```
+   ```bash
+   python broker_web/manage.py runserver  # Run the web server
+   ```
 
 ## Deploying a New Version to Production
 
@@ -183,3 +182,5 @@ Application versions can be deployed manually using `gcloud`:
    ```bash
    gcloud app deploy
    ```
+
+Deployment settings can be configured using the standard `app.yaml` file.
