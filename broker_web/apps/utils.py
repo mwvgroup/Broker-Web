@@ -65,7 +65,6 @@ from warnings import warn
 from django.http import JsonResponse
 from django.urls import path
 from django.views.generic import TemplateView
-from django.core.paginator import Paginator
 
 
 def create_static_template_routes(template_paths, app_name=None):
@@ -129,7 +128,7 @@ def paginate_to_json(request, data):
     response = {
         'draw': draw,
         'data': paginated_alerts,
-        'recordsTotal': len(paginated_alerts),
+        'recordsTotal': len(data),
         'recordsFiltered': len(filtered_alerts),
     }
 
