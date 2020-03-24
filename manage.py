@@ -5,12 +5,17 @@
 
 import os
 import sys
+from pathlib import Path
+
+sys.path.insert(0, Path(__file__).resolve().parent / 'broker_web/')
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'broker_web.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'broker_web.main.settings')
+
     try:
         from django.core.management import execute_from_command_line
+
     except ImportError as exc:
         raise ImportError(
             "Couldn't import Django. Are you sure it's installed and "

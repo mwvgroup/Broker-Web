@@ -1,0 +1,9 @@
+#!include:.gitignore
+
+# Ignore the ignore files
+.gcloudignore
+.git
+.gitignore
+
+# Ignore static files. These should be in a storage bucket, not App Engine
+broker_web/static/

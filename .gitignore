@@ -1,5 +1,6 @@
-# GCP SQL Proxy
+# GCP related files
 cloud_sql_proxy
+app.yaml
 
 # OS files
 *.DS_Store
