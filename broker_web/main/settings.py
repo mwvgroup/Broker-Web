@@ -15,37 +15,19 @@ import os
 import environ
 import pymysql
 
+# Set up environment
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 pymysql.version_info = (1, 3, 13, "final", 0)  # https://stackoverflow.com/a/59591269
 pymysql.install_as_MySQLdb()
-
-# Add apps to python path
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Read environment settings from BASE_DIR
 env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-
-def gen_secret_key(length=50, chars=None):
-    """Generate a secret key for Django
-
-    Args:
-        length (int): The length of the key
-        chars  (str): Characters to use
-    """
-
-    import string
-    from django.utils.crypto import get_random_string
-
-    if chars is None:
-        chars = string.ascii_lowercase + string.digits + string.punctuation
-
-    return get_random_string(length, chars)
-
+# Read environment settings from file only if we are not deployed to App Engine
+if not os.getenv('GAE_APPLICATION', False):
+    environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # SECURITY WARNING: Make sure the following settings are properly configured in production
 ###############################################################################
-SECRET_KEY = env.str('SECRET_KEY', default=gen_secret_key())
+SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
