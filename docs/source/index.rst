@@ -1,7 +1,8 @@
 Broker-Web Documentation
 ========================
 
-This is the official developer documentation for the Pitt-Google Broker Website.
+This is the official developer documentation for the Pitt-Google Broker
+Website. The website
 
 
 .. toctree::
@@ -9,7 +10,6 @@ This is the official developer documentation for the Pitt-Google Broker Website.
    :maxdepth: 0
 
    Overview<self>
-   project_sctructure
 
 .. toctree::
    :hidden:
