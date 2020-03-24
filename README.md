@@ -183,13 +183,3 @@ Application versions can be deployed manually using `gcloud`:
    ```bash
    gcloud app deploy
    ```
-
-
-## Deployment Security Concerns
-
-This repository is not configured for secure deployment without modification.
-Please take the following steps before deployment
-
-1. Update `broker_tom/templates/recaptcha.html` to reflect the correct reCAPTCHA public key.
-   This project uses reCAPTCHA V2 (see https://www.google.com/recaptcha)
-1. For debugging, the captcha verification can be turned off by disabling certain javascript features in browser. Move captcha verification to serverside. 
