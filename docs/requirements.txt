@@ -1,0 +1,4 @@
+# Extra dependencies for building docs
+sphinx
+sphinx-copybutton
+sphinx_rtd_theme

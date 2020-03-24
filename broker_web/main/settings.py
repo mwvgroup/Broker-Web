@@ -23,7 +23,7 @@ env = environ.Env()
 
 # Read environment settings from file only if we are not deployed to App Engine
 if not os.getenv('GAE_APPLICATION', False):
-    environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+    environ.Env.read_env(os.path.join(os.path.dirname(BASE_DIR), '.env'))
 
 # SECURITY WARNING: Make sure the following settings are properly configured in production
 ###############################################################################
