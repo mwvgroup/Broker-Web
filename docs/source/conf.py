@@ -19,6 +19,7 @@ sys.path.insert(0, str(package_dir))
 # views and models without raising
 # django.core.exceptions.AppRegistryNotReady: Apps aren't loaded yet.`
 os.environ['DJANGO_SETTINGS_MODULE'] = 'broker_web.main.settings'
+os.environ['SECRET_KEY'] = 'FAKE_KEY_FOR_BUILDING_DOCS'
 setup()
 
 # -- Project information -----------------------------------------------------
