@@ -1,20 +1,39 @@
-.. Broker-Web documentation master file, created by
-   sphinx-quickstart on Tue Mar 24 13:17:17 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Broker-Web Documentation
+========================
 
-Welcome to Broker-Web's documentation!
-======================================
+This is the official developer documentation for the Pitt-Google Broker Website.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+.. toctree::
+   :hidden:
+   :maxdepth: 0
 
+   Overview<self>
 
-Indices and tables
-==================
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+   :caption: Configuration:
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   configuration/installation
+   configuration/project_configuration
+   configuration/running_locally
+   configuration/deployment
+
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+   :caption: Backend API:
+
+   package_api/sndata
+
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+   :caption: Custom Django Apps:
+
+   package_api/base_classes
+   package_api/utils
