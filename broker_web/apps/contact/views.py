@@ -3,12 +3,13 @@
 
 """Defines views for converting a Web requests into a Web responses"""
 
-from django.core.mail import BadHeaderError, send_mail
+from django.conf import settings
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
-from django.conf import settings
+
 from .forms import ContactForm
+from ..utils import send_email
 
 success_view = TemplateView.as_view(template_name='contact/contact_sent.html')
 
@@ -32,12 +33,18 @@ class ContactView(FormView):
 
         subject = form.cleaned_data['subject']
         email = form.cleaned_data['email']
+        name = form.cleaned_data['name']
         message = form.cleaned_data['message']
 
-        try:
-            send_mail(subject, message, email, settings.CONTACT_EMAILS)
+        response = send_email(
+            from_address=email,
+            from_name=name,
+            to_address=settings.CONTACT_EMAIL,
+            to_name='PGB Team',
+            subject=subject,
+            message=message)
 
-        except BadHeaderError:
-            return HttpResponse('Invalid header found.')
+        if response.status_code != 200:
+            return HttpResponse('Invalid header found. Your message may ot have sent')
 
         return super().form_valid(form)

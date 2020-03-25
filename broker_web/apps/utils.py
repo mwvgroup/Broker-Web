@@ -62,9 +62,11 @@ Todo: Add a usage example for paginate_to_json
 from pathlib import Path
 from warnings import warn
 
+from django.conf import settings
 from django.http import JsonResponse
 from django.urls import path
 from django.views.generic import TemplateView
+from mailjet_rest import Client
 
 
 def create_static_template_routes(template_paths, app_name=None):
@@ -133,3 +135,42 @@ def paginate_to_json(request, data):
     }
 
     return JsonResponse(response)
+
+
+def send_email(from_address, from_name, to_address, to_name, subject, message):
+    """Send an email via the mailjet api
+
+    Args:
+        to_address (str): Address to send to
+        to_name    (str): Name of recipient
+        subject (str): Email subject line
+        message (str): HTML email content
+
+    Returns:
+        Standard HTTP status code as an int (200 == success)
+    """
+
+    api_key = settings.MAILJET_API_KEY
+    api_secret = settings.MAILJET_SECRET
+    mailjet = Client(auth=(api_key, api_secret), version='v3.1')
+
+    data = {
+        'Messages': [
+            {
+                "From": {
+                    "Email": from_address,
+                    "Name": from_name
+                },
+                "To": [
+                    {
+                        "Email": to_address,
+                        "Name": to_name
+                    }
+                ],
+                "Subject": subject,
+                "HTMLPart": message,
+            }
+        ]
+    }
+
+    return mailjet.send.create(data=data)

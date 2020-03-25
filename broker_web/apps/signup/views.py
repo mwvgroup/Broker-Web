@@ -3,8 +3,9 @@
 
 """Defines views for converting a Web requests into a Web responses"""
 
+from django.conf import settings
 from django.contrib.sites.models import Site
-from django.core.mail import EmailMessage
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
@@ -15,6 +16,7 @@ from django.views.generic import CreateView, View
 from .forms import CustomUserCreationForm
 from .models import CustomUser
 from .tokens import account_activation_token
+from ..utils import send_email
 
 
 class SignUp(CreateView):
@@ -51,8 +53,17 @@ class SignUp(CreateView):
         })
 
         to_email = form.cleaned_data.get('email')
-        email = EmailMessage(email_subject, message, to=[to_email])
-        email.send()
+        response = send_email(
+            from_address=settings.CONTACT_EMAIL,
+            from_name='The PGB Team',
+            to_address=to_email,
+            to_name='',
+            subject=email_subject,
+            message=message
+        )
+
+        if response.status_code != 200:
+            return HttpResponse('Invalid header found. Your message may ot have sent')
 
         # Parent class ``form_valid`` redirects to ``self.success_url``
         return super().form_valid(form)
