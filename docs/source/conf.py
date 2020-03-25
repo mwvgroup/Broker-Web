@@ -30,6 +30,9 @@ author = 'PGB Team'
 
 # -- General configuration ---------------------------------------------------
 
+# The master toctree document.
+master_doc = 'index'
+
 # Add any Sphinx extension module names here, as strings.
 extensions = [
     'sphinx.ext.autodoc',
