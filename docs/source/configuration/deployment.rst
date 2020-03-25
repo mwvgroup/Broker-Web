@@ -1,8 +1,11 @@
 Deployment
 ==========
 
-These instructions will allow you to deploy a local version of the PGB website
-which runs against the websites full deployment SQL backend in GCP.
+These instructions will allow you to deploy a version of the PGB website.
+
+.. important:: Unless manually configured otherwise, deployments run against
+   the project's official SQL backend in GCP. This includes locally running
+   server instances. Use admin capabilities with care.
 
 Environmental Variables
 -----------------------
@@ -14,21 +17,19 @@ be specified in a ``.env`` file placed into the project's root directory.
 However, the application will specifically ignore ``.env`` files when running
 on the deployment server.
 
-+--------------------+---------------------------------------------+---------------------------------+
-| Variable           | Example                                     | Required                        |
-+====================+=============================================+=================================+
-| ``SECRET_KEY``     | ``"b9ch7q*1ael5p..."``                      | Yes                             |
-+--------------------+---------------------------------------------+---------------------------------+
-| ``DEBUG``          | ``true``                                    | If ``ALLOWED_HOSTS`` is not set |
-+--------------------+---------------------------------------------+---------------------------------+
-| ``ALLOWED_HOSTS``  | ``example_domain.com,example_domain_2.com`` | If ``Debug`` is not ``true``    |
-+--------------------+---------------------------------------------+---------------------------------+
-| ``CONTACT_EMAILS`` | ``admin1@mail.com,admin2@mail.com``         | No                              |
-+--------------------+---------------------------------------------+---------------------------------+
-
-Additionally, the ``USER`` and ``PASSWORD`` variables must be set to represent
-your authentication settings for the MySQL backend
-(see the Project Configuration documentation).
++-----------------------+---------------------------------------------+---------------------------------+
+| Variable              | Description                                 | Required                        |
++=======================+=============================================+=================================+
+| ``SECRET_KEY``        | Django secret key                           | Yes                             |
++-----------------------+---------------------------------------------+---------------------------------+
+| ``DEBUG``             | Whether to run in debugging mode            | If ``ALLOWED_HOSTS`` is not set |
++-----------------------+---------------------------------------------+---------------------------------+
+| ``ALLOWED_HOSTS``     | Block requests except from these domains    | If ``Debug`` is not ``true``    |
++-----------------------+---------------------------------------------+---------------------------------+
+| ``DB_USER``           | SQL backend username                        | Yes                             |
++-----------------------+---------------------------------------------+---------------------------------+
+| ``DB_PASSWORD``       | SQL backend password                        | Yes                             |
++-----------------------+---------------------------------------------+---------------------------------+
 
 Running a Local Server
 ----------------------
