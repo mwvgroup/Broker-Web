@@ -37,8 +37,8 @@ class ContactView(FormView):
         message = form.cleaned_data['message']
 
         response = send_email(
-            from_address=email,
-            from_name=name,
+            from_address='pgalertbroker@gmail.com',
+            from_name=name + ':' + email,
             to_address=settings.CONTACT_EMAIL,
             to_name='PGB Team',
             subject=subject,

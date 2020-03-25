@@ -150,8 +150,8 @@ def send_email(from_address, from_name, to_address, to_name, subject, message):
         Standard HTTP status code as an int (200 == success)
     """
 
-    api_key = settings.MAILJET_API_KEY
-    api_secret = settings.MAILJET_SECRET
+    api_key = settings.MJ_APIKEY_PUBLIC
+    api_secret = settings.MJ_APIKEY_PRIVATE
     mailjet = Client(auth=(api_key, api_secret), version='v3.1')
 
     data = {
@@ -172,5 +172,7 @@ def send_email(from_address, from_name, to_address, to_name, subject, message):
             }
         ]
     }
-
-    return mailjet.send.create(data=data)
+    print(data)
+    response = mailjet.send.create(data=data)
+    print(response)
+    return response
