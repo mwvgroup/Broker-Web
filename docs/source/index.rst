@@ -18,7 +18,6 @@ Website. The website
 
    configuration/installation
    configuration/project_configuration
-   configuration/running_locally
    configuration/deployment
 
 .. toctree::

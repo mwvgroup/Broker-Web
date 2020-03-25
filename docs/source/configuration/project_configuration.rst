@@ -21,14 +21,14 @@ First configure a Storage Bucket for publicly hosting static files:
 
 1. Create a bucket for hosting static files.
 
-.. code-block::
+.. code-block:: bash
 
    gsutil mb -p [PROJECT_NAME] -c [STORAGE_CLASS] -l [BUCKET_LOCATION] -b on gs://[BUCKET_NAME]/
 
 
 2. Make the bucket publicly readable
 
-.. code-block::
+.. code-block:: bash
 
    gsutil defacl set public-read gs://broker-web-static
 
@@ -37,28 +37,28 @@ Cloud SQL
 
 1. Start by making sure the Cloud SQL Admin API is enables.
 
-.. code-block::
+.. code-block:: bash
 
    gcloud services enable sqladmin
 
 
 2. Create a Cloud SQL instance.
 
-.. code-block::
+.. code-block:: bash
 
    gcloud sql instances create [INSTANCE_NAME] --tier=[MACHINE_TYPE] --region=[REGION]
 
 
 3. Create a database on the Cloud SQL instance.
 
-.. code-block::
+.. code-block:: bash
 
    gcloud sql databases create [DATABASE_NAME] --instance=[INSTANCE_NAME]
 
 
 4. Create a new user account that your application will user to access the database.
 
-.. code-block::
+.. code-block:: bash
 
    gcloud sql users create [USER_NAME] --instance=[INSTANCE_NAME] --password=[PASSWORD]
 
@@ -71,7 +71,7 @@ Configure the Django Application
    The connection name will be listed in the format
    ``[PROJECT_NAME]:[REGION_NAME]:[INSTANCE_NAME]``.
 
-.. code-block::
+.. code-block:: bash
 
    gcloud sql instances describe [INSTANCE_NAME]
 
@@ -80,7 +80,7 @@ Configure the Django Application
    new database you just created. In general, the settings should look like
    the following:
 
-.. code-block::
+.. code-block:: bash
 
    # broker_web/settings.py
 
@@ -116,14 +116,14 @@ Configure the Django Application
 
 3. Launch the SQL proxy so your local application can connect to the SQL database in GCP.
 
-.. code-block::
+.. code-block:: bash
 
    ./cloud_sql_proxy -instances "[REGION_NAME]"=tcp:3306
 
 
 4. Make the necessary database migrations and set up an admin account.
 
-.. code-block::
+.. code-block:: bash
 
    python manage.py migrate --sync-db
    python manage.py createsuperuser

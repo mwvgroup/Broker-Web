@@ -13,7 +13,7 @@ Source code for the website, including the necessary ``requirements.txt`` file,
 is available on `GitHub`_. To download the code from this repository and
 install the dependencies:
 
-.. code-block::
+.. code-block:: bash
 
    # Download project source code
    git clone https://github.com/mwvgroup/Broker-Web
@@ -34,14 +34,14 @@ can connect to the necessary SQL backends when running locally.
 
 For Mac OS 64 bit, use:
 
-.. code-block::
+.. code-block:: bash
 
    curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64
    chmod +x cloud_sql_proxy
 
 For Linux 64 bit, use:
 
-.. code-block::
+.. code-block:: bash
 
    wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
    chmod +x cloud_sql_proxy
