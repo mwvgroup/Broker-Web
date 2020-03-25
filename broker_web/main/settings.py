@@ -31,8 +31,8 @@ SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 CONTACT_EMAIL = env.str('CONTACT_EMAIL', default=None)
-MJ_APIKEY_PUBLIC = env.str('MJ_APIKEY_PUBLIC')
-MJ_APIKEY_PRIVATE = env.str('MJ_APIKEY_PRIVATE')
+MJ_APIKEY_PUBLIC = env.str('MJ_APIKEY_PUBLIC', None)
+MJ_APIKEY_PRIVATE = env.str('MJ_APIKEY_PRIVATE', None)
 ###############################################################################
 
 INSTALLED_APPS = [
