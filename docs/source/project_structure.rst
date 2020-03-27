@@ -27,9 +27,11 @@ Data Access:
 2. Ability for users to define custom topic subscriptions
 3. User configurable subscriptions to PGB alert topics
 4. User configurable subscriptions notifications. Options to:
-   1. Send to email
-   2. Subscribe on slack
-   3. Alert within website
+
+   - Send to email
+   - Subscribe on slack
+   - Alert within website
+
 5. Guides on how to access data in the cloud
 6. Options throughout the UI to share data via collaborators, both via email
    and from within the web application.
@@ -168,7 +170,7 @@ This project is broken down into separate development stages listed below.
 In general, later phases depend on the completion of work in earlier phases.
 However, there is some room for simultaneous work on successive phases.
 Late stage phases (5-7) are intentionally left blank, and are to be outlined in
-detail before being undertaken.
+detail before be-ing undertaken.
 
 Phase 1 – Establish a Foundational Website
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -178,6 +180,7 @@ most of the heavy lifting out of the for a rudimentary, functional website so
 team team members can contribute in later phases during spare or 20% time.
 
 - Design jinja HTML templates for core website pages including:
+
   - A landing page
   - Getting started pages for describing PGB services and products
   - A page with tabulated data of recently published alerts
@@ -185,13 +188,17 @@ team team members can contribute in later phases during spare or 20% time.
   - A page with tabulated data of recently observed objects
   - A page displaying information for a single object and it's data products
 
-- Build a Django backend capable of supporting the above listed pages. At a minimum include apps for:
+- Build a Django backend capable of supporting the above listed pages.
+  At a minimum include apps for:
+
   - Interacting ith alert data (`alerts`)
   - Interacting ith object data (`objects`)
   - Signing up new users (`signup`)
   - User profiles (`subscriptions`)
 
-- Add a custom user authentication model to the backend that includes at minimum
+- Add a custom user authentication model to the backend that includes at
+  minimum:
+
   - Username and / or email
   - First and last name
   - Host country / university
@@ -205,7 +212,8 @@ This phase is targeted at ensuring the project has a solid foundation for
 moving forward efficiently. Some of the work in this phase may have already
 been implement in Phase 1 by virtue of good coding habits.
 
-- Use sphinx to write dedicated documentation for
+- Use sphinx to write dedicated documentation for:
+
   - Installation instructions
   - Configuring GCP services to support the project
   - Project goals
@@ -233,7 +241,10 @@ Static content (phase 3a):
 
 PGB content (phase 3b):
 
-- Connect the `alerts` app to PGB and populate
+- Connect the `alerts` app to PGB and populate pages with real data
+- Connect the `objects` app to PGB and populate pages with real data
+- Add PGB online status to the home page
+- Add plots of alert data to object pages
 
 Phase 4 – Design review and Deployment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
