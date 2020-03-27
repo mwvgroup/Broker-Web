@@ -12,6 +12,7 @@ Website.
    :maxdepth: 0
 
    Overview<self>
+   project_structure
 
 .. toctree::
    :hidden:
