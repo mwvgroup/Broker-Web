@@ -4,8 +4,6 @@ Broker-Web Documentation
 This is the official developer documentation for the Pitt-Google Broker
 Website.
 
-.. note:: These docs are under current construction. Expect some missing content.
-
 
 .. toctree::
    :hidden:
