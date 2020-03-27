@@ -1,7 +1,7 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""Managers for managing DB changes"""
+"""The ``managers`` module defines ``Manager`` objects to handle DB changes"""
 
 from django.contrib.auth.base_user import BaseUserManager
 

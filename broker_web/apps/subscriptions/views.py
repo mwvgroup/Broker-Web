@@ -1,7 +1,9 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""Defines views for converting a Web requests into a Web responses"""
+"""The ``views`` module defines ``View`` objects for converting web requests
+into a rendered responses.
+"""
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render

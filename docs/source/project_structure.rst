@@ -42,7 +42,7 @@ TOM Integration:
 3. Alert notifications when observations are completed (email and in site)
 
 Authentication:
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^
 
 1. Email validation when signing up for a new user account
 2. Recaptcha validation when logging in and creating new accounts
@@ -119,6 +119,7 @@ Level 1 Requirements
 | `4.1.2 – Name, Role, Value`_                                     | Build all elements for accessibility                        |
 +------------------------------------------------------------------+-------------------------------------------------------------+
 
+.. _wuhcag.com: https://www.wuhcag.com/
 .. _1.1.1 – Non-text Content: https://www.wuhcag.com/non-text-content/
 .. _1.2.1 – Audio-only and Video-only (Pre-recorded): https://www.wuhcag.com/audio-only-video-only-prerecorded/
 .. _1.2.2 – Captions (Pre-recorded): https://www.wuhcag.com/captions-prerecorded/

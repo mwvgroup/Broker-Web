@@ -1,7 +1,9 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""Defines views for converting a Web requests into a Web responses"""
+"""The ``views`` module defines ``View`` objects for converting web requests
+into a rendered responses.
+"""
 
 import numpy as np
 from django.shortcuts import render

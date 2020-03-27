@@ -1,7 +1,7 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""WSGI configuration
+"""Web Server Gateway Interface configuration
 
 This module exposes the WSGI callable as a module-level variable named
 ``application``.

@@ -1,7 +1,9 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""Defines views for converting a Web requests into a Web responses"""
+"""The ``views`` module defines ``View`` objects for converting web requests
+into a rendered responses.
+"""
 
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMessage

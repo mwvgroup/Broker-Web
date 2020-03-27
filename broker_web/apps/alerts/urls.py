@@ -1,7 +1,7 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""django URL Configuration. Lists routes from URLs to views"""
+"""The ``urls`` module configures routes from URLs to views."""
 
 from django.urls import path
 

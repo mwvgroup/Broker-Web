@@ -1,7 +1,23 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""django URL Configuration. Lists routes from URLs to views"""
+"""URL routing for the main django application. URLS from each application
+is routed to the following namespaces:
+
++-----------------------+-------------------+
+| Application           | Namespace         |
++=======================+===================+
+|``apps.contact``       | ``contact``       |
++-----------------------+-------------------+
+|``apps.alerts``        | ``alerts``        |
++-----------------------+-------------------+
+|``apps.objects``       | ``objects``       |
++-----------------------+-------------------+
+|``apps.signup``        | ``signup``        |
++-----------------------+-------------------+
+|``apps.subscriptions`` | ``subscriptions`` |
++-----------------------+-------------------+
+"""
 
 import broker_web.apps as apps
 from django.contrib import admin

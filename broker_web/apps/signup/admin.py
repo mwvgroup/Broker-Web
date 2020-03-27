@@ -1,7 +1,9 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""Custom app level interfaces for the Admin Panel"""
+"""The ``admin`` module defines app level interfaces for the website's
+admin panel.
+"""
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin

@@ -27,9 +27,9 @@ Website.
    :caption: Custom Django Apps:
 
    apps/main
-   apps/utils
    apps/alerts
    apps/contact
    apps/objects
    apps/signup
    apps/subscriptions
+   apps/utils

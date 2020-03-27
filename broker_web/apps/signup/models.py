@@ -1,7 +1,9 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""Models for representing backend DB constructs"""
+"""The ``models`` module defines ``Model`` objects for representing backend DB
+constructs.
+"""
 
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
