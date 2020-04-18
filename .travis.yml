@@ -12,7 +12,6 @@ services:
 
 before_install:
   - mysql -e 'CREATE DATABASE brokerweb;'
-  - python manage.py migrate --run-syncdb
 
 # Install codeclimate API
 # https://docs.codeclimate.com/
@@ -24,7 +23,8 @@ install:
   - pip install coverage
   - pip install pytest-cov
 
-# before_script:
+before_script:
+  - python manage.py migrate --run-syncdb
 #   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
 #   - chmod +x ./cc-test-reporter
 #   - ./cc-test-reporter before-build
