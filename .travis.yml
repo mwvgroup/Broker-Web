@@ -12,6 +12,7 @@ services:
 
 before_install:
   - mysql -e 'CREATE DATABASE brokerweb;'
+  - python manage.py migrate --run-syncdb
 
 # Install codeclimate API
 # https://docs.codeclimate.com/
