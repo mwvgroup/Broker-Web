@@ -4,13 +4,10 @@
 """The ``urls`` module configures routes from URLs to views."""
 
 from django.urls import path, re_path
-from django.views.generic import TemplateView
 
-from .views import ActivateAccount, SignUp
+from .views import ActivateAccount, SignUp, activation_sent_view
 
 app_name = 'signup'
-
-activation_sent_view = TemplateView.as_view(template_name='signup/activation_link_sent.html')
 
 urlpatterns = [
     path('signup', SignUp.as_view(), name='signup'),
