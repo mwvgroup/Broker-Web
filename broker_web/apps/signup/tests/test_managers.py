@@ -1,31 +1,13 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""Tests for the ``signup`` application"""
+"""Tests for the ``managers`` module"""
 
-import os
-import sys
-from pathlib import Path
-
-from django import setup
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 
-def setUpModule():
-    # Add broker_web package to path
-    package_dir = Path(__file__).resolve().parent.parent
-    sys.path.insert(0, str(package_dir))
-
-    # Set up the broker_web django application so that we can import
-    # views and models without raising
-    # django.core.exceptions.AppRegistryNotReady: Apps aren't loaded yet.`
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'broker_web.main.settings'
-    os.environ['SECRET_KEY'] = 'FAKE_KEY_FOR_BUILDING_DOCS'
-    setup()
-
-
-class UsersManagersTests(TestCase):
+class CustomUserManager(TestCase):
     """Test user creation"""
 
     def test_create_user(self):
