@@ -57,7 +57,7 @@ class AlertsJson(View):
         return paginate_to_json(request, alerts)
 
 
-class AlertsView(View):
+class RecentAlertsView(View):
     """View for displaying a summary table of recent alerts"""
 
     template = 'alerts/recent-alerts.html'
@@ -75,7 +75,7 @@ class AlertsView(View):
         context = {'form': FilterAlertsForm()}
         return render(request, self.template, context)
 
-    def post(self, request):
+    def post(self, request):  # Todo: Test and complete this function
         """Fill in the page's form with values from the POST request
 
         Args:

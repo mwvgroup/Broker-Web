@@ -4,34 +4,15 @@
 """Tests for the ``urls`` module."""
 
 from django.test import TestCase
-from django.urls import resolve, reverse
 
-from broker_web.apps.contact.urls import app_name
-from broker_web.apps.contact import views
+from broker_web.apps.base_tests import BaseURLRouting
+from broker_web.apps.contact import urls, views
 
 
-class TestUrlRouting(TestCase):
+class TestUrlRouting(TestCase, BaseURLRouting):
     """Test URLs are routed to the correct views"""
 
-    app_name = app_name
-
-    def assert_view_routed(self, name, view, args=None, is_class_view=True):
-        """Assert reverse lookup of the given name equals the given view
-
-        Args:
-            name             (str): URL name
-            view (class, callable): Class or function view
-            args            (list): Optional arguments to use in reverse URL lookup
-            is_class_view   (bool): Whether ``view`` is a class view
-        """
-
-        url = reverse(f'{self.app_name}:{name}', args=args)
-
-        returned_view = resolve(url).func
-        if is_class_view:
-            returned_view = returned_view.view_class
-
-        self.assertEqual(view, returned_view)
+    app_name = urls.app_name
 
     def test_contact_routing(self):
         """Test 'contact' is routed to``ContactView``"""
