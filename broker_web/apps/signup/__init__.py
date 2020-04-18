@@ -4,3 +4,5 @@
 """A django application for managing creation and authentication of new user
 accounts.
 """
+
+from .urls import app_name

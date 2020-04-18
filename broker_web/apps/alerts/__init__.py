@@ -5,6 +5,8 @@
 alerts published in a collection of configured PubSub topics.
 """
 
+from .urls import app_name
+
 # Todo alerts:
 # - Add / use PubSub configuration to / from global settings
 # - Populate the AlertsJson view using PubSub messages
