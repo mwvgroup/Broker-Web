@@ -121,17 +121,13 @@ elif os.getenv('GAE_REMOTE', None):
 else:
     # Running locally against dummy db
     # mysql.server start
-    # mysql -h localhost -u root
+    # mysql -u root
     # > create database brokerweb;
     # > exit
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'brokerweb',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': '',
-            'PORT': ''
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
 

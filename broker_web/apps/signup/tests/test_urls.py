@@ -6,7 +6,7 @@
 from django.test import TestCase
 from django.urls import resolve, reverse
 
-from broker_web.apps.signup import app_name
+from broker_web.apps.signup.urls import app_name
 from broker_web.apps.signup import views
 
 
@@ -47,4 +47,6 @@ class TestUrlRouting(TestCase):
     def test_activate_routing(self):
         """Test 'activate' is routed to``ActivateAccount``"""
 
-        self.assert_view_routed('activate', views.ActivateAccount)
+        dummy_activation_key = 'AB/CD-EFGHIJKLMN/'
+        self.assert_view_routed(
+            'activate', views.ActivateAccount, args=[dummy_activation_key])

@@ -9,13 +9,10 @@ class AlertsView(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.url = reverse(f'{self.app_name}:alerts')
-        self.template = 'alerts/alert_summary.html'
+        self.url = reverse(f'{self.app_name}:recent-alerts')
+        self.template = 'alerts/recent-alerts.html'
 
     def test_get(self):
         response = self.client.get(self.url)
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, self.template)
-
-    def test_post(self):
-        pass

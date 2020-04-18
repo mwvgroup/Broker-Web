@@ -6,7 +6,7 @@
 from django.test import TestCase
 from django.urls import resolve, reverse
 
-from broker_web.apps.contact import app_name
+from broker_web.apps.contact.urls import app_name
 from broker_web.apps.contact import views
 
 

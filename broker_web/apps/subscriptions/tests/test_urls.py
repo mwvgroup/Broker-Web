@@ -6,7 +6,7 @@
 from django.test import TestCase
 from django.urls import resolve, reverse
 
-from broker_web.apps.subscriptions import app_name
+from broker_web.apps.subscriptions.urls import app_name
 from broker_web.apps.subscriptions import views
 
 
