@@ -29,7 +29,7 @@ install:
 #   - ./cc-test-reporter before-build
 
 script:
-  - python manage.py test
+  - python manage.py test broker_web
 
 # after_script:
 #   - coverage xml
