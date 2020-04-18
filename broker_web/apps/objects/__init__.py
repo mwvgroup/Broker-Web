@@ -6,8 +6,6 @@ astronomical objects. The focus of this app is on the object itself, and not
 the corresponding alerts.
 """
 
-from .urls import app_name
-
 # Todo-objects:
 # - Add / use PubSub configuration to / from global settings
 # - Populate the ObjectsJson view using PubSub messages

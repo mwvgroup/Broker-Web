@@ -104,8 +104,8 @@ if os.getenv('GAE_APPLICATION', None):
         }
     }
 
-else:
-    # Running locally so connect to Cloud SQL via the proxy.
+elif os.getenv('GAE_REMOTE', None):
+    # Running locally, but connect to Cloud SQL via the proxy.
     # To start the proxy see https://cloud.google.com/sql/docs/mysql-connect-proxy
     DATABASES = {
         'default': {
@@ -115,6 +115,23 @@ else:
             'USER': env.str('DB_USER'),
             'PASSWORD': env.str('DB_PASSWORD'),
             'NAME': 'web_backend',
+        }
+    }
+
+else:
+    # Running locally against dummy db
+    # mysql.server start
+    # mysql -h localhost -u root
+    # > create database brokerweb;
+    # > exit
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'brokerweb',
+            'USER': 'root',
+            'PASSWORD': '',
+            'HOST': '',
+            'PORT': ''
         }
     }
 

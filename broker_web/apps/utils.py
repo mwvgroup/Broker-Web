@@ -71,7 +71,6 @@ HTTP requests for pagination of data. For example, it can be used in a view as:
            return paginate_to_json(request, data)
 """
 
-
 from pathlib import Path
 from warnings import warn
 

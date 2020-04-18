@@ -5,5 +5,3 @@
 
 # Todo-subscriptions:
 # - Add a model to which users can manage their topic subscriptions
-
-from .urls import app_name
