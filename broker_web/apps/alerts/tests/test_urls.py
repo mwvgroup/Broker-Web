@@ -4,12 +4,12 @@
 """Tests for the ``urls`` module."""
 
 from django.test import TestCase
+from django.urls import resolve, reverse
 
 from broker_web.apps.alerts import urls, views
-from broker_web.apps.base_tests import BaseURLRouting
 
 
-class TestUrlRouting(TestCase, BaseURLRouting):
+class TestUrlRouting(TestCase):
     """Test URLs are routed to the correct views"""
 
     app_name = urls.app_name
@@ -17,16 +17,18 @@ class TestUrlRouting(TestCase, BaseURLRouting):
     def test_alerts_json_routing(self):
         """Test 'alerts-json' is routed to``AlertsJson``"""
 
-        self.assert_view_routed('alerts-json', views.AlertsJson)
+        url = reverse(f'{self.app_name}:alerts-json')
+        self.assertEqual(views.AlertsJson, resolve(url).func.view_class)
 
     def test_recent_alerts_routing(self):
         """Test 'recent-alerts' is routed to``RecentAlertsView``"""
 
-        self.assert_view_routed('recent-alerts', views.RecentAlertsView)
+        url = reverse(f'{self.app_name}:recent-alerts')
+        self.assertEqual(views.RecentAlertsView, resolve(url).func.view_class)
 
     def test_alert_summary_routing(self):
         """Test 'alert-summary' is routed to``AlertSummaryView``"""
 
         dummy_alert_pk = '123'
-        self.assert_view_routed(
-            'alert-summary', views.AlertSummaryView, args=[dummy_alert_pk])
+        url = reverse(f'{self.app_name}:alert-summary', args=[dummy_alert_pk])
+        self.assertEqual(views.AlertSummaryView, resolve(url).func.view_class)

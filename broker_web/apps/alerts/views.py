@@ -30,6 +30,7 @@ class AlertsJson(View):
         def random_int_arr(n):
             return np.round(1e12 * np.random.random(num_alerts))
 
+        # Simulate placeholder data
         num_alerts = 100000
         surveys = ['ztf' for _ in range(num_alerts)]
         alert_ids = random_int_arr(num_alerts)
@@ -75,7 +76,7 @@ class RecentAlertsView(View):
         context = {'form': FilterAlertsForm()}
         return render(request, self.template, context)
 
-    def post(self, request):  # Todo: Test and complete this function
+    def post(self, request):  # Todo: Add filtering from form and update tests
         """Fill in the page's form with values from the POST request
 
         Args:
