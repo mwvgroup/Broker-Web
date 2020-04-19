@@ -129,11 +129,12 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'brokerweb',
+            'NAME': 'web_backend',
             'USER': 'root',
             'PASSWORD': '',
             'HOST': '',
             'PORT': '',
+            'TEST_NAME': 'test_web_backend'
         }
     }
 
