@@ -15,6 +15,8 @@ class ContactView(TestCase):
 
     url_name = f'{urls.app_name}:contact'
     template = 'contact/contact_us.html'
+
+    success_url_name = f'{urls.app_name}:contact-sent'
     success_template = 'contact/contact_sent.html'
 
     def test_get(self):
@@ -26,9 +28,13 @@ class ContactView(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, self.template)
 
-    def test_form_valid(self):
+    def test_form_valid_redirect(self):
+        """Test ``form_valid`` method redirects to correct success URL"""
+
         self.assertEqual(
-            self.success_template, ContactView.success_template, 'Incorrect success template')
+            self.success_template,
+            ContactView.success_template,
+            'Incorrect success template')
 
         valid_form = ContactForm(data=dict(
             email='test@email.com',
@@ -36,16 +42,13 @@ class ContactView(TestCase):
             message='Test message.'
         ))
 
-        valid_form.is_valid()
+        valid_form.is_valid()  # So the form's cleaned_data attribute is set
         view = views.ContactView()
         response = view.form_valid(valid_form)
-        self.fail()
+        self.assertEqual(302, response.status_code, 'Status code is not 302 redirect')
 
-    def test_form_invalid(self):
-        view = views.ContactView()
-        invalid_form = ContactForm(data={})
-
-        self.fail()
+        success_url = reverse(self.success_url_name)
+        self.assertEqual(success_url, response.url)
 
 
 class SuccessView(TestCase):
