@@ -33,9 +33,12 @@ class TestTokenGenerator(TestCase):
         is_valid = self.token_generator.check_token(self.test_user, invalid_token)
         self.assertFalse(is_valid)
 
-    def test_token_is_unique(self):
-        """Test tokens are unique even when generated for the same user"""
+    def test_user_token_is_unique(self):
+        """Test tokens are unique even when generated for different users"""
 
         token1 = self.token_generator.make_token(self.test_user)
+
+        self.test_user.pk += 10
         token2 = self.token_generator.make_token(self.test_user)
+
         self.assertNotEqual(token1, token2)
