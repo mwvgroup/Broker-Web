@@ -62,6 +62,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 ROOT_URLCONF = 'broker_web.main.urls'
 SITE_ID = 1  # For description, see https://stackoverflow.com/a/25468782/6466457
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/users/login/'
 AUTH_USER_MODEL = 'signup.CustomUser'  # Use custom user model for authentication
 
 MIDDLEWARE = [
@@ -104,8 +105,8 @@ if os.getenv('GAE_APPLICATION', None):
         }
     }
 
-else:
-    # Running locally so connect to Cloud SQL via the proxy.
+elif os.getenv('GAE_REMOTE', None):
+    # Running locally, but connect to Cloud SQL via the proxy.
     # To start the proxy see https://cloud.google.com/sql/docs/mysql-connect-proxy
     DATABASES = {
         'default': {
@@ -115,6 +116,25 @@ else:
             'USER': env.str('DB_USER'),
             'PASSWORD': env.str('DB_PASSWORD'),
             'NAME': 'web_backend',
+        }
+    }
+
+else:
+    # Running locally against dummy db
+    # If running mysql
+    # mysql.server start
+    # mysql -u root
+    # > create database brokerweb;
+    # > exit
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'web_backend',
+            'USER': 'root',
+            'PASSWORD': '',
+            'HOST': '',
+            'PORT': '',
+            'TEST_NAME': 'test_web_backend'
         }
     }
 

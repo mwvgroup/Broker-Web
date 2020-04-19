@@ -125,7 +125,7 @@ Configure the Django Application
 
 .. code-block:: bash
 
-   python manage.py migrate --sync-db
+   python manage.py migrate --run-syncdb
    python manage.py createsuperuser
 
 

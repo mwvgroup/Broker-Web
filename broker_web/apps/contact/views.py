@@ -5,11 +5,12 @@
 into a rendered responses.
 """
 
+from django.conf import settings
 from django.core.mail import BadHeaderError, send_mail
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
-from django.conf import settings
+
 from .forms import ContactForm
 
 success_view = TemplateView.as_view(template_name='contact/contact_sent.html')

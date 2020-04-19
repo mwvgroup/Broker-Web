@@ -55,7 +55,7 @@ class ObjectsJson(View):
         return paginate_to_json(request, objects)
 
 
-class ObjectsView(View):
+class RecentObjectsView(View):
     """View for displaying a summary table of objects with recent alerts"""
 
     template = 'objects/recent_objects.html'
