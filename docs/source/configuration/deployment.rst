@@ -109,7 +109,7 @@ for deployment should include the following:
    entrypoint: gunicorn -b :$PORT broker_web.main.wsgi
 
    env_variables:
-     SECRET_KEY: '[YOUT-SECRET-KEY]'
+     SECRET_KEY: '[YOUR-SECRET-KEY]'
      STATIC_URL: 'https://storage.googleapis.com/[BUCKET-NAME]/static/'
      DB_USER: [SQL-DB-USERNAME]
      DB_PASSWORD: [SQL-DB-PASSWORD]
