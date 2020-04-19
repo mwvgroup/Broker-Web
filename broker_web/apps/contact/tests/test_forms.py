@@ -9,7 +9,7 @@ from broker_web.apps.contact.forms import ContactForm
 
 
 class TestContactForm(TestCase):
-    """Test URLs are routed to the correct views"""
+    """Test the ``ContactForm`` validates correctly"""
 
     def test_valid_form(self):
         """Test a full form is valid invalid"""

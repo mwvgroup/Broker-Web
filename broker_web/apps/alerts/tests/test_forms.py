@@ -9,7 +9,7 @@ from broker_web.apps.alerts.forms import FilterAlertsForm
 
 
 class TestFilterAlertsForm(TestCase):
-    """Test URLs are routed to the correct views"""
+    """Test the ``FilterAlertsForm`` validates correctly"""
 
     def test_empty_form(self):
         """Test that an empty form is valid"""

@@ -9,7 +9,7 @@ from broker_web.apps.objects.forms import FilterObjectsForm
 
 
 class TestFilterObjectsForm(TestCase):
-    """Test URLs are routed to the correct views"""
+    """Test the ``FilterObjectsForm`` validates correctly"""
 
     def test_empty_form(self):
         """Test that an empty form is valid"""

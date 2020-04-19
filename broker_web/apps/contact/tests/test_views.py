@@ -42,7 +42,7 @@ class ContactView(TestCase):
             message='Test message.'
         ))
 
-        valid_form.is_valid()  # So the form's cleaned_data attribute is set
+        valid_form.is_valid()  # to set the form's ``cleaned_data`` attribute
         view = views.ContactView()
         response = view.form_valid(valid_form)
         self.assertEqual(302, response.status_code, 'Status code is not 302 redirect')
