@@ -4,12 +4,12 @@
 """Tests for the ``urls`` module."""
 
 from django.test import TestCase
+from django.urls import resolve, reverse
 
-from broker_web.apps.base_tests import BaseURLRouting
 from broker_web.apps.subscriptions import urls, views
 
 
-class TestUrlRouting(TestCase, BaseURLRouting):
+class TestUrlRouting(TestCase):
     """Test URLs are routed to the correct views"""
 
     app_name = urls.app_name
@@ -17,9 +17,11 @@ class TestUrlRouting(TestCase, BaseURLRouting):
     def test_subscriptions_routing(self):
         """Test 'subscriptions' is routed to``SubscriptionsView``"""
 
-        self.assert_view_routed('subscriptions', views.SubscriptionsView)
+        url = reverse(f'{self.app_name}:subscriptions')
+        self.assertEqual(views.SubscriptionsView, resolve(url).func.view_class)
 
     def test_profile_routing(self):
         """Test 'profile' is routed to``ProfileView``"""
 
-        self.assert_view_routed('profile', views.ProfileView)
+        url = reverse(f'{self.app_name}:profile')
+        self.assertEqual(views.ProfileView, resolve(url).func.view_class)
