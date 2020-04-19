@@ -29,6 +29,6 @@ class TestUrlRouting(TestCase):
     def test_activate_routing(self):
         """Test 'activate' is routed to``ActivateAccount``"""
 
-        dummy_activation_key = 'AB/CD-EFGHIJKLMN/'
-        url = reverse(f'{self.app_name}:activate', args=[dummy_activation_key])
+        dummy_activation_key = {'uidb64': 'AB', 'token': 'CDE-FGHIJK'}
+        url = reverse(f'{self.app_name}:activate', kwargs=dummy_activation_key)
         self.assertEqual(views.ActivateAccount, resolve(url).func.view_class)

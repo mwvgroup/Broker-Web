@@ -39,16 +39,16 @@ class TestActivateAccount(TestCase):
         self.client = Client()
 
     def test_get_with_invalid_token(self):
-        bad_signup_token = 'AB/CDE-FGHIJK'
-        url = reverse(self.url_name, args=[bad_signup_token])
+        bad_signup_token = {'uidb64': 'AB', 'token': 'CDE-FGHIJK'}
+        url = reverse(self.url_name, kwargs=bad_signup_token)
         response = self.client.get(url)
 
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, self.invalid_token_template)
 
     def test_get_with_valid_token(self):
-        good_signup_token = '5fs-bc56877c7112fc225fe1'
-        url = reverse(self.url_name, args=[good_signup_token])
+        good_signup_token = {'uidb64': 'AB', 'token': 'CDE-FGHIJK'}
+        url = reverse(self.url_name, kwargs=good_signup_token)
         response = self.client.get(url)
 
         self.assertEqual(200, response.status_code)
