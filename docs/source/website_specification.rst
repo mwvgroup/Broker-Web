@@ -13,7 +13,7 @@ based environment. While this provides many benefits from a computational and
 scalability perspective, familiarity of cloud based services is not common
 within all parts of the scientific / astronomical community. To mitigate this
 potential obstacle for PGB users, this project is intended to provide a
-limited, public web interface for PGB services. This includes (but is not
+public web interface for PGB services. This includes (but is not
 limited to) providing basic access to PGB data products, either in whole or in
 part.
 
@@ -23,7 +23,7 @@ Functionality
 Data Access:
 ^^^^^^^^^^^^
 
-1. Access to tabulated data for recent alerts / object (e.g. last week or month or 10,000 alerts).
+1. Access to tabulated data for recent alerts / objects (e.g. last week or month or 10,000 alerts).
 2. Ability for users to define custom topic subscriptions
 3. User configurable subscriptions to PGB alert topics
 4. User configurable subscriptions notifications. Options to:
@@ -32,8 +32,9 @@ Data Access:
    - Subscribe on slack
    - Alert within website
 
-5. Guides on how to access data in the cloud
-6. Options throughout the UI to share data via collaborators, both via email
+5. Guides on how to access data in the cloud and instructions on where to go
+   for more information on cloud deployment.
+6. Options throughout the UI to share data with collaborators, both via email
    and from within the web application.
 
 TOM Integration:

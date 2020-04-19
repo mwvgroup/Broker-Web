@@ -2,7 +2,7 @@ Broker-Web Documentation
 ========================
 
 This is the official developer documentation for the Pitt-Google Broker
-Website.
+Website backend.
 
 
 .. toctree::
@@ -10,7 +10,7 @@ Website.
    :maxdepth: 0
 
    Overview<self>
-   project_structure
+   website_specification
 
 .. toctree::
    :hidden:
@@ -18,7 +18,7 @@ Website.
    :caption: Configuration:
 
    configuration/installation
-   configuration/project_configuration
+   configuration/gcp_configuration
    configuration/deployment
 
 .. toctree::
