@@ -15,5 +15,9 @@ install:
 
 script:
   - coverage run --source='.' manage.py test broker_web
+
+  # So that we can investigate failed migrations when building the test database
+  - mysql -e 'use test_brokerweb; SHOW TABLES;'
+
+  # So that we can read off test coverage from the travis build
   - coverage report
-  - mysql -e 'SHOW TABLES;'
