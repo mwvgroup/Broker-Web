@@ -18,8 +18,10 @@ class GenericTests:
     def test_unauthenticated_get(self):
         """Test ``get`` method returns correct template with 200 status code"""
 
+        # Define the url for the view, and the login url that the user should
+        # be redirected to for being unauthenticated.
         view_url = reverse(self.url_name)
-        login_url = reverse('login')
+        login_url = reverse('login') + '?next=' + view_url
 
         response = Client().get(view_url)
         self.assertEqual(302, response.status_code)

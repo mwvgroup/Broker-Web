@@ -62,6 +62,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 ROOT_URLCONF = 'broker_web.main.urls'
 SITE_ID = 1  # For description, see https://stackoverflow.com/a/25468782/6466457
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/users/login/'
 AUTH_USER_MODEL = 'signup.CustomUser'  # Use custom user model for authentication
 
 MIDDLEWARE = [
