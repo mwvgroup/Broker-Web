@@ -1,26 +1,24 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""Defines views for converting a Web requests into a Web responses"""
+"""The ``views`` module defines ``View`` objects for converting web requests
+into rendered responses.
+"""
 
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import View
 
 
-class SubscriptionsView(PermissionRequiredMixin, View):
+class SubscriptionsView(LoginRequiredMixin, View):
     """View that handles new user subscriptions"""
-
-    permission_required = 'user.is_authenticated'
 
     def get(self, request, *args, **kwargs):
         return render(request, 'subscriptions/subscriptions.html')
 
 
-class ProfileView(PermissionRequiredMixin, View):
+class ProfileView(LoginRequiredMixin, View):
     """View that handles user profiles"""
-
-    permission_required = 'user.is_authenticated'
 
     def get(self, request, *args, **kwargs):
         """Handle an incoming HTTP request

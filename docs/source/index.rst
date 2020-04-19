@@ -2,7 +2,7 @@ Broker-Web Documentation
 ========================
 
 This is the official developer documentation for the Pitt-Google Broker
-Website. The website
+Website backend.
 
 
 .. toctree::
@@ -10,6 +10,7 @@ Website. The website
    :maxdepth: 0
 
    Overview<self>
+   website_specification
 
 .. toctree::
    :hidden:
@@ -17,8 +18,7 @@ Website. The website
    :caption: Configuration:
 
    configuration/installation
-   configuration/project_configuration
-   configuration/running_locally
+   configuration/gcp_configuration
    configuration/deployment
 
 .. toctree::
@@ -27,9 +27,9 @@ Website. The website
    :caption: Custom Django Apps:
 
    apps/main
-   apps/utils
    apps/alerts
    apps/contact
    apps/objects
    apps/signup
    apps/subscriptions
+   apps/utils

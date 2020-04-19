@@ -1,9 +1,9 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""django app for serving data concerning recently observed astronomical
-objects. The focus of this app is on the object itself, and not the
-corresponding alerts.
+"""A django application for serving data concerning recently observed
+astronomical objects. The focus of this app is on the object itself, and not
+the corresponding alerts.
 """
 
 # Todo-objects:

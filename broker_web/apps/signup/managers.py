@@ -1,7 +1,7 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""Managers for managing DB changes"""
+"""The ``managers`` module defines ``Manager`` objects to handle DB changes"""
 
 from django.contrib.auth.base_user import BaseUserManager
 
@@ -12,6 +12,7 @@ class CustomUserManager(BaseUserManager):
     def create_user(self, email, password, **extra_fields):
         """Create and save a User with the given email and password."""
 
+        extra_fields.setdefault('is_active', False)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save()

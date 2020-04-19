@@ -7,6 +7,7 @@ import os
 import sys
 from pathlib import Path
 
+# Add project applications to Python Path
 sys.path.insert(0, Path(__file__).resolve().parent / 'broker_web/')
 
 

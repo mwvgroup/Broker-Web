@@ -23,9 +23,7 @@ class IndexView(View):
         """
 
         context = {
-            'online': False,
-            'alerts_in_day': 0,
-            'alerts_in_hour': 0
+            'online': False
         }
 
         return render(request, 'broker_web/index.html', context)

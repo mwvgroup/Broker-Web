@@ -1,7 +1,9 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""Defines views forms for data entry and query construction"""
+"""The ``forms`` module defines views forms for data entry and query
+construction.
+"""
 
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 
@@ -11,7 +13,7 @@ user_fields = 'email', 'first_name', 'last_name', 'country', 'university'
 
 
 class CustomUserCreationForm(UserCreationForm):
-    """Custom form for creating new ``CustomUser``s"""
+    """Custom form for creating a new ``CustomUser``"""
 
     class Meta(UserCreationForm.Meta):
         model = CustomUser

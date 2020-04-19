@@ -30,7 +30,7 @@ you can write:
 .. code-block:: python
    :linenos:
 
-   from apps.static_templates import create_static_template_routes
+   from apps.utils import create_static_template_routes
 
    template_paths = (
        'template_1',
@@ -53,10 +53,22 @@ Paginating JSON Responses
 -------------------------
 
 The ``paginate_to_json`` function handles the generation of JSON responses to
-HTTP requests for pagination of data.
+HTTP requests for pagination of data. For example, it can be used in a view as:
 
-Todo: Add a usage example for paginate_to_json
+.. code-block:: python
+   :linenos:
 
+   from django.views.generic import View
+
+   from apps.utile import paginate_to_json
+
+   class MyView(View):
+
+       template = 'myt_template_path.html'
+
+       def get(self, request, *args, **kwargs):
+           data = [{'field1': 'value1'}, {'field1': 'value2'}, ...]
+           return paginate_to_json(request, data)
 """
 
 from pathlib import Path

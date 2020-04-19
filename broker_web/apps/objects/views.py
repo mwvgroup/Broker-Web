@@ -1,7 +1,9 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""Defines views for converting a Web requests into a Web responses"""
+"""The ``views`` module defines ``View`` objects for converting web requests
+into rendered responses.
+"""
 
 import numpy as np
 from django.shortcuts import render
@@ -53,7 +55,7 @@ class ObjectsJson(View):
         return paginate_to_json(request, objects)
 
 
-class ObjectsView(View):
+class RecentObjectsView(View):
     """View for displaying a summary table of objects with recent alerts"""
 
     template = 'objects/recent_objects.html'

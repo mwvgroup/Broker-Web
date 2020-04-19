@@ -1,7 +1,9 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""Defines views for converting a Web requests into a Web responses"""
+"""The ``views`` module defines ``View`` objects for converting web requests
+into rendered responses.
+"""
 
 from django.conf import settings
 from django.contrib.sites.models import Site
@@ -12,11 +14,14 @@ from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views.generic import CreateView, View
+from django.views.generic import TemplateView
 
 from .forms import CustomUserCreationForm
 from .models import CustomUser
 from .tokens import account_activation_token
 from ..utils import send_email
+
+activation_sent_view = TemplateView.as_view(template_name='signup/activation_link_sent.html')
 
 
 class SignUp(CreateView):
