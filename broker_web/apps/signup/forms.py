@@ -13,7 +13,7 @@ user_fields = 'email', 'first_name', 'last_name', 'country', 'university'
 
 
 class CustomUserCreationForm(UserCreationForm):
-    """Custom form for creating new ``CustomUser``s"""
+    """Custom form for creating a new ``CustomUser``"""
 
     class Meta(UserCreationForm.Meta):
         model = CustomUser
