@@ -4,12 +4,12 @@
 """Tests for the ``urls`` module."""
 
 from django.test import TestCase
+from django.urls import resolve, reverse
 
-from broker_web.apps.base_tests import BaseURLRouting
 from broker_web.apps.signup import urls, views
 
 
-class TestUrlRouting(TestCase, BaseURLRouting):
+class TestUrlRouting(TestCase):
     """Test URLs are routed to the correct views"""
 
     app_name = urls.app_name
@@ -17,17 +17,18 @@ class TestUrlRouting(TestCase, BaseURLRouting):
     def test_signup_routing(self):
         """Test 'signup' is routed to``SignUp``"""
 
-        self.assert_view_routed('signup', views.SignUp)
+        url = reverse(f'{self.app_name}:signup')
+        self.assertEqual(views.SignUp, resolve(url).func.view_class)
 
     def test_activation_sent_routing(self):
-        """Test 'activation-sent' is routed to``AlertSummaryView``"""
+        """Test 'activation-sent' is routed to``activation_sent_view``"""
 
-        self.assert_view_routed(
-            'activation-sent', views.activation_sent_view, is_class_view=False)
+        url = reverse(f'{self.app_name}:activation-sent')
+        self.assertEqual(views.activation_sent_view, resolve(url).func)
 
     def test_activate_routing(self):
         """Test 'activate' is routed to``ActivateAccount``"""
 
         dummy_activation_key = 'AB/CD-EFGHIJKLMN/'
-        self.assert_view_routed(
-            'activate', views.ActivateAccount, args=[dummy_activation_key])
+        url = reverse(f'{self.app_name}:activate', args=[dummy_activation_key])
+        self.assertEqual(views.ActivateAccount, resolve(url).func.view_class)

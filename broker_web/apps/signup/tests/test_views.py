@@ -3,37 +3,53 @@
 
 """Tests for the ``views`` module."""
 
-from django.test import TestCase
+from django.test import Client, TestCase
 from django.urls import reverse
 
-from broker_web.apps.base_tests import ViewTests
 from broker_web.apps.signup import urls
 
 
-class SignUpView(TestCase, ViewTests):
+class TestSignUpView(TestCase):
     """Tests for the ``SignUp`` view"""
 
-    app_name = urls.app_name
-    url = reverse(f'{urls.app_name}:signup')
+    url_name = f'{urls.app_name}:signup'
     template = 'signup/create_new_user.html'
 
-    def test_get_200(self):
-        """Test ``get`` method returns correct template with 200 status code"""
+    def setUp(self):
+        self.client = Client()
 
-        self.assert_200_template('get', self.url, self.template)
+    def test_get(self):
+        """Test ``get`` method returns correct template and object id"""
 
-    def test_form_validation(self):
-        self.fail()
+        url = reverse(self.url_name)
+        response = self.client.get(url)
+
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, self.template)
 
 
-class ActivateAccountView(TestCase, ViewTests):
-    app_name = urls.app_name
+class TestActivateAccount(TestCase):
+    """Tests for the ``ActivateAccount`` view"""
+
+    url_name = f'{urls.app_name}:activate'
+    invalid_token_template = 'signup/invalid_activation_link.html'
+    valid_token_template = 'signup/activation_success.html'
+
+    def setUp(self):
+        self.client = Client()
 
     def test_get_with_invalid_token(self):
-
         bad_signup_token = 'AB/CDE-FGHIJK'
-        url = reverse(f'{urls.app_name}:activate', args=[bad_signup_token])
-        self.assert_200_template('get', url, 'signup/invalid_activation_link.html')
+        url = reverse(self.url_name, args=[bad_signup_token])
+        response = self.client.get(url)
+
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, self.invalid_token_template)
 
     def test_get_with_valid_token(self):
-        self.assert_200_template('get', url, 'signup/activation_success.html')
+        good_signup_token = 'AB/CDE-FGHIJK'
+        url = reverse(self.url_name, args=[good_signup_token])
+        response = self.client.get(url)
+
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, self.valid_token_template)
