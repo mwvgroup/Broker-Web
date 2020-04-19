@@ -120,12 +120,7 @@ elif os.getenv('GAE_REMOTE', None):
     }
 
 else:
-    # Running locally against dummy db
-    # If running mysql
-    # mysql.server start
-    # mysql -u root
-    # > create database brokerweb;
-    # > exit
+    # Running against local db
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',

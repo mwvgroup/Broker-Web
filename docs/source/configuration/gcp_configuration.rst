@@ -1,5 +1,5 @@
-Project Configuration
-=====================
+GCP Configuration
+=================
 
 Full documentation on configuring Django applications for App Engine is
 available in the official `App Engine docs`_. Notes are provided here if

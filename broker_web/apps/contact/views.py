@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 """The ``views`` module defines ``View`` objects for converting web requests
-into a rendered responses.
+into rendered responses.
 """
 
 from django.conf import settings

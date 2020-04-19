@@ -1,38 +1,73 @@
 Deployment
 ==========
 
-These instructions will allow you to deploy a version of the PGB website.
+The PGB website supports database configurations for three scenarios:
 
-.. important:: Unless manually configured otherwise, deployments run against
-   the project's official SQL backend in GCP. This includes locally running
-   server instances. Use admin capabilities with care.
+1. Running locally against a local database
+2. Running locally against the deployment database in the cloud
+3. Full deployment to the cloud
+
+This page provides instructions for all three scenarios.
 
 Environmental Variables
 -----------------------
 
 The following table outlines environmental variables that can be used to
-configure standard Django settings. Note that at least one of ``DEBUG`` or
-``ALLOWED_HOSTS`` must be set for the app to run. For convenience, these can
-be specified in a ``.env`` file placed into the project's root directory.
-However, the application will specifically ignore ``.env`` files when running
-on the deployment server.
+configure standard Django settings. Note that at least one of the ``DEBUG`` or
+``ALLOWED_HOSTS`` variables must be set for the app to run.
 
-+-----------------------+---------------------------------------------+---------------------------------+
-| Variable              | Description                                 | Required                        |
-+=======================+=============================================+=================================+
-| ``SECRET_KEY``        | Django secret key                           | Yes                             |
-+-----------------------+---------------------------------------------+---------------------------------+
-| ``DEBUG``             | Whether to run in debugging mode            | If ``ALLOWED_HOSTS`` is not set |
-+-----------------------+---------------------------------------------+---------------------------------+
-| ``ALLOWED_HOSTS``     | Block requests except from these domains    | If ``Debug`` is not ``true``    |
-+-----------------------+---------------------------------------------+---------------------------------+
-| ``DB_USER``           | SQL backend username                        | Yes                             |
-+-----------------------+---------------------------------------------+---------------------------------+
-| ``DB_PASSWORD``       | SQL backend password                        | Yes                             |
-+-----------------------+---------------------------------------------+---------------------------------+
++-----------------------+------------------------------------------+---------------------------------+
+| Variable              | Description                              | Required                        |
++=======================+==========================================+=================================+
+| ``SECRET_KEY``        | Django secret key                        | Yes                             |
++-----------------------+------------------------------------------+---------------------------------+
+| ``DEBUG``             | Whether to run in debugging mode         | Must be ``True`` if             |
+|                       |                                          | ``ALLOWED_HOSTS`` is not set    |
++-----------------------+------------------------------------------+---------------------------------+
+| ``ALLOWED_HOSTS``     | Block requests except from these domains | If ``Debug`` is not ``true``    |
++-----------------------+------------------------------------------+---------------------------------+
+| ``CONTACT_EMAILS``    | List of developer contact emails         | no                              |
++-----------------------+------------------------------------------+---------------------------------+
 
-Running a Local Server
-----------------------
+If you are running against the official project database, you will also need
+to specify the database username and password.
+
++-----------------------+------------------------------------------+---------------------------------+
+| Variable              | Description                              | Required                        |
++=======================+==========================================+=================================+
+| ``DB_USER``           | SQL backend username                     | For GCP only                    |
++-----------------------+------------------------------------------+---------------------------------+
+| ``DB_PASSWORD``       | SQL backend password                     | For GCP only                    |
++-----------------------+------------------------------------------+---------------------------------+
+
+For convenience, environmental variables can be specified in a ``.env`` file
+placed into the project's root directory. However, the application will
+specifically ignore ``.env`` files when running on the deployment server.
+
+Running Locally
+---------------
+
+1. Configure environmental variables as defined in the previous section.
+
+2. If not already available, create the ``web_backend`` database in MySQL. The
+   ``python manage.py migrate`` command ensures that your local database
+   follows the same schema as the database used in production.
+
+.. code-block:: bash
+
+   mysql.server start
+   mysql -u root -e 'create database web_backend;'
+   python broker_web/manage.py migrate
+
+3. Next, launch the web application via the management script:
+
+.. code-block:: bash
+
+   python broker_web/manage.py runserver  # Run the web server
+
+
+Running against the cloud
+-------------------------
 
 1. Configure environmental variables as defined in the previous section.
 
@@ -67,7 +102,7 @@ Deployment settings can be configured using the a ``app.yaml`` file. The
 official ``app.yaml`` docs can be found `here`_. At a minimum, your settings
 for deployment should include the following:
 
-.. code-block:: python
+.. code-block:: yaml
 
    runtime: python37
 
