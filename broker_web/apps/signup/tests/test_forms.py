@@ -5,7 +5,7 @@
 
 from django.test import TestCase
 
-from broker_web.apps.signup.forms import CustomUserCreationForm, CustomUserChangeForm
+from broker_web.apps.signup.forms import CustomUserChangeForm, CustomUserCreationForm
 
 
 class TestCustomUserCreationForm(TestCase):
@@ -32,4 +32,3 @@ class TestCustomUserChangeForm(TestCase):
 
         form = CustomUserChangeForm(data={})
         self.assertFalse(form.is_valid())
-

@@ -21,7 +21,7 @@ class TestTokenGenerator(TestCase):
 
     def test_valid_token(self):
         """Test generated token is identified as invalid"""
-        
+
         valid_token = self.token_generator.make_token(self.test_user)
         is_valid = self.token_generator.check_token(self.test_user, valid_token)
         self.assertTrue(is_valid)

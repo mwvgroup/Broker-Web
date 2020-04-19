@@ -19,11 +19,11 @@ is routed to the following namespaces:
 +-----------------------+-------------------+
 """
 
-import broker_web.apps as apps
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
 
+import broker_web.apps as apps
 from .views import IndexView, why_pgb_view
 
 getting_started_paths = (

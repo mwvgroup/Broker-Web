@@ -38,7 +38,6 @@ class TestActivateAccount(TestCase):
     valid_token_template = 'signup/activation_success.html'
 
     def setUp(self):
-
         # Create client and test user
         self.client = Client()
         self.test_user = models.CustomUser(pk=1)
