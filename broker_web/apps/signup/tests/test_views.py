@@ -47,7 +47,7 @@ class TestActivateAccount(TestCase):
         self.assertTemplateUsed(response, self.invalid_token_template)
 
     def test_get_with_valid_token(self):
-        good_signup_token = 'AB/CDE-FGHIJK'
+        good_signup_token = '5fs-bc56877c7112fc225fe1'
         url = reverse(self.url_name, args=[good_signup_token])
         response = self.client.get(url)
 

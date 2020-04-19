@@ -7,7 +7,6 @@ from django.http import JsonResponse
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from broker_web.apps.base_tests import ViewTests
 from broker_web.apps.objects import urls
 
 
@@ -58,7 +57,7 @@ class RecentObjectsView(TestCase):
         self.assertTemplateUsed(response, self.template)
 
 
-class ObjectSummaryView(TestCase, ViewTests):
+class ObjectSummaryView(TestCase):
     """Tests for the ``ObjectSummary`` view"""
 
     url_name = f'{urls.app_name}:object-summary'
