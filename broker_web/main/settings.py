@@ -11,6 +11,7 @@ https://api_docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from warnings import warn
 
 import environ
 import pymysql
@@ -32,7 +33,14 @@ DEBUG = env.bool('DEBUG', default=False)
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CONTACT_EMAILS = env.list('CONTACT_EMAILS', default=[])
+RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY', default='')
+RECAPTCHA_PRIVATE_KEY = env.str('RECAPTCHA_PRIVATE_KEY', default='')
+NOCAPTCHA = True
 ###############################################################################
+
+if not (RECAPTCHA_PUBLIC_KEY or RECAPTCHA_PRIVATE_KEY):
+    warn('Recaptcha keys not set in environment. '
+         'Recaptcha verification may not work correctly')
 
 INSTALLED_APPS = [
     'django.contrib.admin',  # Django administration interface
@@ -46,6 +54,7 @@ INSTALLED_APPS = [
     'guardian',  # Extra authentication backend with per object permissions
     'bootstrap4',  # Front-end component library for building templates
     'crispy_forms',  # Makes forms look pretty
+    'captcha',  # Impliments Google recaptcha service
 
     # Custom apps
     'broker_web.apps.alerts',  # Custom app for displaying alert information

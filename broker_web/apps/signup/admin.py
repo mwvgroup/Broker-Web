@@ -20,7 +20,7 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
 
     # Fields shown in the main summary page
-    list_display = ('email', 'first_name', 'last_name', 'country', 'university')
+    list_display = ('email', 'first_name', 'last_name', 'country', 'affiliation')
 
     # Fields shown when editing a new user
     fieldsets = (
@@ -33,7 +33,7 @@ class CustomUserAdmin(UserAdmin):
         (None, {'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active')}),
     )
 
-    search_fields = ('email', 'university')
+    search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
 
 
