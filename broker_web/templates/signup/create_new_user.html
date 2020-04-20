@@ -2,7 +2,7 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %}Create user{% endblock %}
+{% block title %}Sign Up{% endblock %}
 
 {% block content %}
   <div class="row justify-content-center">
@@ -12,10 +12,9 @@
 
       <div class="card">
         <div class="card-body">
-          <form action="{% url 'signup:signup' %}" method="POST" onsubmit="return checkRecaptcha();">
+          <form action="{% url 'signup:signup' %}" method="POST">
             {% csrf_token %}
             {{ form|crispy }}
-            {% include 'recaptcha.html' %}
             <button type="submit" class="btn btn-primary">Sign Up!</button>
           </form>
         </div>

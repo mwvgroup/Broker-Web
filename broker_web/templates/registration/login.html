@@ -12,10 +12,9 @@
       <h2>Log in</h2>
       <div class="card">
         <div class="card-body">
-          <form method="post" action="{% url 'login' %}" onsubmit="return checkRecaptcha();" novalidate>
+          <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             {{ form|crispy }}
-            {% include 'recaptcha.html' %}
             <button type="submit" class="btn btn-primary">Log in</button>
             <a href="{% url 'password_reset' %}" class="btn btn-link">Forgot your password?</a>
             <a href="{% url 'signup:signup' %}" class="btn btn-link">Need an account?</a>
