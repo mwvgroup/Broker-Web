@@ -6,6 +6,7 @@ into rendered responses.
 """
 
 import requests
+from captcha.fields import ReCaptchaField
 from django.conf import settings
 from django.contrib import auth
 from django.contrib import messages
@@ -15,8 +16,9 @@ from django.shortcuts import render
 from django.views.generic import View
 
 
-# Todo: Replace AuthenticationForm with subclass that has a recaptcha component
-# Todo: Can we inherit user validation?
+class ReCAPTCHAForm(AuthenticationForm):
+    captcha = ReCaptchaField()
+
 
 def verify_recaptcha(request, *args, **kwargs):
     """Verify a recaptcha response
@@ -54,7 +56,7 @@ class Login(View):
             Outgoing HTTPResponse
         """
 
-        form = AuthenticationForm()
+        form = ReCAPTCHAForm()
         return render(request, "main/login.html", {"form": form})
 
     def post(self, request, *args, **kwargs):
@@ -67,7 +69,7 @@ class Login(View):
             Outgoing HTTPResponse
         """
 
-        form = AuthenticationForm(request, data=request.POST)
+        form = ReCAPTCHAForm(request, data=request.POST)
         if form.is_valid():
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
