@@ -113,7 +113,7 @@ for deployment should include the following:
      STATIC_URL: 'https://storage.googleapis.com/[BUCKET-NAME]/static/'
      DB_USER: [SQL-DB-USERNAME]
      DB_PASSWORD: [SQL-DB-PASSWORD]
-     ALLOWED_HOSTS: [OFFICIAL-PGB-WEBSITE-DOMAIN],
+     ALLOWED_HOSTS: [OFFICIAL-PGB-WEBSITE-DOMAIN]
 
    handlers:
      - url: /static
