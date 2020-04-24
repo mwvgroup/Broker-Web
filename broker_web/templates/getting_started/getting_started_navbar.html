@@ -1,13 +1,19 @@
 <nav id="nav-scroll" class="side-nav left-nav side-nav sticky-nav pl-0 bg-white rounded">
   <ul class="navbar-nav m-x-auto">
     <li class="nav-item {% if request.resolver_match.url_name == 'introduction' %}active{% endif %}">
-      <a class="nav-link smooth-scroll" href="{% url 'getting-started:introduction' %}"><i class="fas fa-home"></i><span>Introduction</span></a>
-    </li><!-- / nav-item -->
+     <a class="nav-link" href ="{% url 'getting-started:introduction' %}"><i class="fa fa-home"></i><span>Introduction</span></a>
+    </li>
     <li class="nav-item {% if request.resolver_match.url_name == 'data-products-overview' %}active{% endif %}">
-      <a class="nav-link smooth-scroll" href="{% url 'getting-started:data-products-overview' %}"><i class="fas fa-database"></i>Data Products Overview</a>
+     <a class="nav-link" href ="{% url 'getting-started:data-products-overview' %}"><i class="fa fa-database"></i>Data Products Overview</a>
+    </li>
+    <li class="nav-item {% if request.resolver_match.url_name == 'data-access' %}active{% endif %}">
+     <a class="nav-link" href ="{% url 'getting-started:data-access' %}"><i class="fa fa-sign-in"></i>Data Access</a>
+    </li>
+    <li class="nav-item {% if request.resolver_match.url_name == 'broker-design' %}active{% endif %}">
+      <a class="nav-link" href="{% url 'getting-started:broker-design' %}"><i class="fa fa-hard-hat"></i>Broker Design</a>
     </li>
     <li class="nav-item {% if request.resolver_match.url_name == 'technical-resources' %}active{% endif %}">
-      <a class="nav-link smooth-scroll" href="{% url 'getting-started:technical-resources' %}"><i class="fas fa-book"></i>Technical Resources</a>
+     <a class="nav-link" href ="{% url 'getting-started:technical-resources' %}"><i class="fa fa-book"></i>Technical Resources</a>
     </li>
   </ul>
 </nav>

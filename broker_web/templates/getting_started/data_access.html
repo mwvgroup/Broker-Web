@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Data Products Overview{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-lg-3 tablet-lg-top-30">
+      {% include 'getting_started/getting_started_navbar.html' %}
+    </div>
+
+    <div class="col-lg-9">
+      <h2 id="data_access">Data Access</h2>
+      <p>
+          We facilitate open access to the alert data by making it available
+          through multiple channels and in multiple formats. Our cloud-based
+          broker is flexible and modularized, with access hooks at multiple
+          stages of the pipeline so that users can access the data at any
+          stage from raw to processed, value-added, and/or filtered.
+          We provide the data in two formats: live alert streams (filtered
+          and unfiltered) and long-term databases. Our filtering options
+          include both predefined filters (based on our object classifications
+          and basic properties of the raw data) and custom, user-defined
+          filters to support the analysis of advanced users.
+      </p>
+      <p>
+          Our Google cloud implementation also makes it easier for users to
+          create, deploy, and manage their analysis pipelines in astronomy's
+          big-data era. Users have access to Google's scalable,
+          high-performance compute resources at the location of the data
+          eliminating the need for individual users to manage the bandwidth
+          and storage resources and complicated server environments required
+          for sophisticated analysis of large datasets.
+      </p>
+    </div>
+  </div>
+{% endblock %}
