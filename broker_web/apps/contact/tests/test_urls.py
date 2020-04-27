@@ -24,4 +24,4 @@ class TestUrlRouting(TestCase):
         """Test 'contact-sent' is routed to``success_view``"""
 
         url = reverse(f'{self.app_name}:contact-sent')
-        self.assertEqual(views.success_view, resolve(url).func)
+        self.assertEqual(views.SuccessView, resolve(url).func)

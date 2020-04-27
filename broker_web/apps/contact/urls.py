@@ -1,7 +1,16 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""The ``urls`` module configures routes from URLs to views."""
+"""The ``urls`` module configures routes from URLs to views.
+
++--------------------+----------------------------+---------------------------+
+| URL                | View                       | name                      |
++====================+============================+===========================+
+|``/``               | ``ContactView``            | ``contact``               |
++--------------------+----------------------------+---------------------------+
+|``sent``            | ``SuccessView``            | ``contact-sent``          |
++--------------------+----------------------------+---------------------------+
+"""
 
 from django.urls import path
 
@@ -11,5 +20,5 @@ app_name = 'contact'
 
 urlpatterns = [
     path('', views.ContactView.as_view(), name='contact'),
-    path('sent', views.success_view, name='contact-sent'),
+    path('sent', views.SuccessView, name='contact-sent'),
 ]

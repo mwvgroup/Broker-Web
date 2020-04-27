@@ -1,7 +1,22 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""The ``urls`` module configures routes from URLs to views."""
+"""The ``urls`` module configures routes from URLs to views.
+
++------------------------+--------------------------+-------------------------+
+| URL                    | View                     | name                    |
++========================+==========================+=========================+
+|``/``                   | ``Introduction``         | ``introduction``        |
++------------------------+--------------------------+-------------------------+
+|``data_products``       | ``DataProducts``         | ``data-products``       |
++------------------------+--------------------------+-------------------------+
+|``technical_resources`` | ``TechnicalResources``   | ``technical-resources`` |
++------------------------+--------------------------+-------------------------+
+|``data_access``         | ``DataAccess``           | ``data-access``         |
++------------------------+--------------------------+-------------------------+
+|``broker_design``       | ``BrokerDesign``         | ``broker-design``       |
++------------------------+--------------------------+-------------------------+
+"""
 
 from django.urls import path
 

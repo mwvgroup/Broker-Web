@@ -13,7 +13,7 @@ from django.views.generic import FormView, TemplateView
 
 from .forms import ContactForm
 
-success_view = TemplateView.as_view(template_name='contact/contact_sent.html')
+SuccessView = TemplateView.as_view(template_name='contact/contact_sent.html')
 
 
 class ContactView(FormView):

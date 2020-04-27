@@ -1,7 +1,18 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""The ``urls`` module configures routes from URLs to views."""
+"""The ``urls`` module configures routes from URLs to views.
+
++--------------------+----------------------------+---------------------------+
+| URL                | View                       | name                      |
++====================+============================+===========================+
+|``/``               | ``RecentObjectsView``      | ``recent-objects``        |
++--------------------+----------------------------+---------------------------+
+|``/<int:pk>``       | ``ObjectSummaryView``      | ``object-summary``        |
++--------------------+----------------------------+---------------------------+
+|``json/``           | ``ObjectsJson``            | ``objects-json``          |
++--------------------+----------------------------+---------------------------+
+"""
 
 from django.urls import path
 
