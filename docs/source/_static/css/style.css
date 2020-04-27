@@ -9,3 +9,11 @@ table {
 h2 {
     padding-top: 10px;
 }
+
+.rst-content dd {
+    width: 75%;
+}
+
+.rst-content dt {
+    width: 100%;
+}
