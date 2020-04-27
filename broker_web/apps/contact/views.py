@@ -3,6 +3,11 @@
 
 """The ``views`` module defines ``View`` objects for converting web requests
 into rendered responses.
+
+.. autosummary::
+   :nosignatures:
+
+   broker_web.apps.contact.views.ContactView
 """
 
 from django.conf import settings

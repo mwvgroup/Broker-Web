@@ -46,3 +46,4 @@ extensions = [
 
 # The theme to use for HTML and HTML Help pages.
 html_theme = 'sphinx_rtd_theme'
+html_static_path = ['_static']

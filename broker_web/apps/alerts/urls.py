@@ -8,9 +8,9 @@
 +====================+============================+===========================+
 |``/``               | ``RecentAlertsView``       | ``recent-alerts``         |
 +--------------------+----------------------------+---------------------------+
-|``/<int:pk>``       | ``AlertSummaryView``       | ``alert-summary``         |
+|``<int:pk>``       | ``AlertSummaryView``        | ``alert-summary``         |
 +--------------------+----------------------------+---------------------------+
-|``json/``           | ``AlertsJson``             | ``alerts-json``           |
+|``json/``           | ``AlertsJsonView``         | ``alerts-json``           |
 +--------------------+----------------------------+---------------------------+
 """
 
@@ -23,5 +23,5 @@ app_name = 'alerts'
 urlpatterns = [
     path('', views.RecentAlertsView.as_view(), name='recent-alerts'),
     path('<int:pk>', views.AlertSummaryView.as_view(), name='alert-summary'),
-    path('json/', views.AlertsJson.as_view(), name='alerts-json'),
+    path('json/', views.AlertsJsonView.as_view(), name='alerts-json'),
 ]

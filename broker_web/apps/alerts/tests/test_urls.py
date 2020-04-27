@@ -15,10 +15,10 @@ class TestUrlRouting(TestCase):
     app_name = urls.app_name
 
     def test_alerts_json_routing(self):
-        """Test 'alerts-json' is routed to``AlertsJson``"""
+        """Test 'alerts-json' is routed to``AlertsJsonView``"""
 
         url = reverse(f'{self.app_name}:alerts-json')
-        self.assertEqual(views.AlertsJson, resolve(url).func.view_class)
+        self.assertEqual(views.AlertsJsonView, resolve(url).func.view_class)
 
     def test_recent_alerts_routing(self):
         """Test 'recent-alerts' is routed to``RecentAlertsView``"""

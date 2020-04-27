@@ -13,7 +13,7 @@ Submodules
    broker_web.main.views
    broker_web.main.wsgi
 
-URL Routing
------------
+App URL Routing
+---------------
 
 .. automodule:: broker_web.main.urls

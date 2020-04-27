@@ -11,7 +11,7 @@ from broker_web.apps.objects import urls
 
 
 class ObjectsJsonView(TestCase):
-    """Tests for the ``ObjectsJson`` view"""
+    """Tests for the ``ObjectsJsonView`` view"""
 
     url_name = f'{urls.app_name}:objects-json'
     app_name = urls.app_name

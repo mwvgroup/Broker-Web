@@ -3,6 +3,13 @@
 
 """The ``views`` module defines ``View`` objects for converting web requests
 into rendered responses.
+
+.. autosummary::
+   :nosignatures:
+
+   broker_web.apps.objects.views.ObjectsJsonView
+   broker_web.apps.objects.views.ObjectSummaryView
+   broker_web.apps.objects.views.RecentObjectsView
 """
 
 import numpy as np
@@ -13,7 +20,7 @@ from .forms import FilterObjectsForm
 from ..utils import paginate_to_json
 
 
-class ObjectsJson(View):
+class ObjectsJsonView(View):
     """View for serving recently observed objects as a paginated JSON response"""
 
     @staticmethod

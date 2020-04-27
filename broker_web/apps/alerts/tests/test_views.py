@@ -11,7 +11,7 @@ from broker_web.apps.alerts import urls
 
 
 class TestAlertsJson(TestCase):
-    """Tests for the ``AlertsJson`` view"""
+    """Tests for the ``AlertsJsonView`` view"""
 
     url_name = f'{urls.app_name}:alerts-json'
 
@@ -29,7 +29,7 @@ class TestAlertsJson(TestCase):
 
 
 class TestRecentAlerts(TestCase):
-    """Tests for the ``RecentAlerts`` view"""
+    """Tests for the ``RecentAlertsView`` view"""
 
     url_name = f'{urls.app_name}:recent-alerts'
     template = 'alerts/recent-alerts.html'
@@ -57,7 +57,7 @@ class TestRecentAlerts(TestCase):
 
 
 class TestAlertSummary(TestCase):
-    """Tests for the ``AlertSummary`` view"""
+    """Tests for the ``AlertSummaryView`` view"""
 
     url_name = f'{urls.app_name}:alert-summary'
     template = 'alerts/alert_summary.html'

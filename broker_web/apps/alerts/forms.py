@@ -3,6 +3,11 @@
 
 """The ``forms`` module defines views forms for data entry and query
 construction.
+
+.. autosummary::
+   :nosignatures:
+
+   broker_web.apps.alerts.forms.FilterAlertsForm
 """
 
 from django import forms

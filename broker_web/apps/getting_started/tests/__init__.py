@@ -7,6 +7,6 @@ alerts published in a collection of configured PubSub topics.
 
 # Todo alerts:
 # - Add / use PubSub configuration to / from global settings
-# - Populate the AlertsJson view using PubSub messages
-# - Use arguments from the filter results from to filter values in AlertsJson
+# - Populate the AlertsJsonView view using PubSub messages
+# - Use arguments from the filter results from to filter values in AlertsJsonView
 # - Move ``forms.topics`` into global settings
