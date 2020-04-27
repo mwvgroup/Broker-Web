@@ -3,6 +3,12 @@
 
 """The ``forms`` module defines views forms for data entry and query
 construction.
+
+.. autosummary::
+   :nosignatures:
+
+   broker_web.apps.signup.forms.CustomUserChangeForm
+   broker_web.apps.signup.forms.CustomUserCreationForm
 """
 
 from captcha.fields import ReCaptchaField

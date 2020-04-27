@@ -1,7 +1,16 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""The ``urls`` module configures routes from URLs to views."""
+"""The ``urls`` module configures routes from URLs to views.
+
++--------------------+----------------------------+---------------------------+
+| URL                | View                       | name                      |
++====================+============================+===========================+
+|``/``               | ``SubscriptionsView``      | ``subscriptions``         |
++--------------------+----------------------------+---------------------------+
+|``profile``         | ``ProfileView``            | ``profile``               |
++--------------------+----------------------------+---------------------------+
+"""
 
 from django.urls import path
 

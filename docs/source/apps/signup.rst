@@ -4,39 +4,44 @@ apps.signup
 .. automodule:: broker_web.apps.signup
 
 
-Admin
------
+apps.signup.urls
+----------------
+
+.. automodule:: broker_web.apps.signup.urls
+   :members:
+
+apps.signup.admin
+-----------------
 
 .. automodule:: broker_web.apps.signup.admin
    :members:
 
-Forms
------
+apps.signup.forms
+-----------------
 
 .. automodule:: broker_web.apps.signup.forms
    :members:
 
-Magagers
---------
+apps.signup.managers
+--------------------
 
 .. automodule:: broker_web.apps.signup.managers
    :members:
 
-Models
-------
+apps.signup.models
+------------------
 
 .. automodule:: broker_web.apps.signup.models
    :members:
 
-Tokens
-------
+apps.signup.tokens
+------------------
 
 .. automodule:: broker_web.apps.signup.tokens
    :members:
 
-
-Views
------
+apps.signup.views
+-----------------
 
 .. automodule:: broker_web.apps.signup.views
    :members:

@@ -29,6 +29,7 @@ Website backend.
    apps/main
    apps/alerts
    apps/contact
+   apps/getting_started
    apps/objects
    apps/signup
    apps/subscriptions

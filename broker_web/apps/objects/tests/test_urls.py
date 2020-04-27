@@ -16,10 +16,10 @@ class TestUrlRouting(TestCase):
     app_name = urls.app_name
 
     def test_objects_json_routing(self):
-        """Test 'objects-json' is routed to``ObjectsJson``"""
+        """Test 'objects-json' is routed to``ObjectsJsonView``"""
 
         url = reverse(f'{self.app_name}:objects-json')
-        self.assertEqual(views.ObjectsJson, resolve(url).func.view_class)
+        self.assertEqual(views.ObjectsJsonView, resolve(url).func.view_class)
 
     def test_recent_objects_routing(self):
         """Test 'recent-objects' is routed to``RecentObjectsView``"""

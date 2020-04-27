@@ -3,6 +3,13 @@
 
 """The ``views`` module defines ``View`` objects for converting web requests
 into rendered responses.
+
+.. autosummary::
+   :nosignatures:
+
+   broker_web.apps.alerts.views.AlertsJsonView
+   broker_web.apps.alerts.views.AlertSummaryView
+   broker_web.apps.alerts.views.RecentAlertsView
 """
 
 import numpy as np
@@ -13,8 +20,8 @@ from .forms import FilterAlertsForm
 from ..utils import paginate_to_json
 
 
-class AlertsJson(View):
-    """View for serving recent alerts as a paginated JSON response"""
+class AlertsJsonView(View):
+    """Serves recent alerts as a paginated JSON response"""
 
     @staticmethod
     def fetch_alerts_as_dicts(request):
@@ -59,7 +66,7 @@ class AlertsJson(View):
 
 
 class RecentAlertsView(View):
-    """View for displaying a summary table of recent alerts"""
+    """Provides a summary table of recently ingested alerts"""
 
     template = 'alerts/recent-alerts.html'
 
@@ -91,7 +98,7 @@ class RecentAlertsView(View):
 
 
 class AlertSummaryView(View):
-    """View for displaying information about a single alert"""
+    """Displays information about a single alert"""
 
     template = 'alerts/alert_summary.html'
 

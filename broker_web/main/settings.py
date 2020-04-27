@@ -57,11 +57,12 @@ INSTALLED_APPS = [
     'captcha',  # Impliments Google recaptcha service
 
     # Custom apps
-    'broker_web.apps.alerts',  # Custom app for displaying alert information
-    'broker_web.apps.contact',  # Custom app for "contact Us" form
-    'broker_web.apps.objects',  # Custom app for displaying object information
-    'broker_web.apps.signup',  # Custom app for user creation / authentication
-    'broker_web.apps.subscriptions',  # Custom app for alert subscriptions
+    'broker_web.apps.alerts',  # Displays alert information
+    'broker_web.apps.contact',  # Adds a "contact Us" form
+    'broker_web.apps.getting_started',  # Handles the getting started guide
+    'broker_web.apps.objects',  # Displays object information
+    'broker_web.apps.signup',  # Handles user creation / authentication
+    'broker_web.apps.subscriptions',  # Handles alert topic subscriptions
 ]
 
 # App configuration

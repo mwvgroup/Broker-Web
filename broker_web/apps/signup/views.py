@@ -3,6 +3,13 @@
 
 """The ``views`` module defines ``View`` objects for converting web requests
 into rendered responses.
+
+.. autosummary::
+   :nosignatures:
+
+   broker_web.apps.signup.views.ActivateAccount
+   broker_web.apps.signup.views.ActivationSentView
+   broker_web.apps.signup.views.SignUp
 """
 
 from django.contrib.sites.models import Site
@@ -19,7 +26,7 @@ from .forms import CustomUserCreationForm
 from .models import CustomUser
 from .tokens import account_activation_token
 
-activation_sent_view = TemplateView.as_view(template_name='signup/activation_link_sent.html')
+ActivationSentView = TemplateView.as_view(template_name='signup/activation_link_sent.html')
 
 
 class SignUp(CreateView):

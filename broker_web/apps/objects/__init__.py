@@ -8,6 +8,6 @@ the corresponding alerts.
 
 # Todo-objects:
 # - Add / use PubSub configuration to / from global settings
-# - Populate the ObjectsJson view using PubSub messages
-# - Use arguments from the filter results from to filter values in ObjectsJson
+# - Populate the ObjectsJsonView view using PubSub messages
+# - Use arguments from the filter results from to filter values in ObjectsJsonView
 # - Move ``forms.topics`` into global settings

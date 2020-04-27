@@ -3,6 +3,12 @@
 
 """The ``views`` module defines ``View`` objects for converting web requests
 into rendered responses.
+
+.. autosummary::
+   :nosignatures:
+
+   broker_web.apps.subscriptions.views.ProfileView
+   broker_web.apps.subscriptions.views.SubscriptionsView
 """
 
 from django.contrib.auth.mixins import LoginRequiredMixin

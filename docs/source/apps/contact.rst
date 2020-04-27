@@ -3,15 +3,20 @@ apps.contact
 
 .. automodule:: broker_web.apps.contact
 
+apps.contact.urls
+-----------------
 
-Forms
------
+.. automodule:: broker_web.apps.contact.urls
+   :members:
+
+apps.contact.forms
+------------------
 
 .. automodule:: broker_web.apps.contact.forms
    :members:
 
-Views
------
+apps.contact.views
+------------------
 
 .. automodule:: broker_web.apps.contact.views
    :members:

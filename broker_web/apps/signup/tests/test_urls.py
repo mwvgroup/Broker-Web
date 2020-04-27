@@ -24,7 +24,7 @@ class TestUrlRouting(TestCase):
         """Test 'activation-sent' is routed to``activation_sent_view``"""
 
         url = reverse(f'{self.app_name}:activation-sent')
-        self.assertEqual(views.activation_sent_view, resolve(url).func)
+        self.assertEqual(views.ActivationSentView, resolve(url).func)
 
     def test_activate_routing(self):
         """Test 'activate' is routed to``ActivateAccount``"""
