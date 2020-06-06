@@ -1,15 +1,15 @@
-Installation
-============
+Installation and Setup
+======================
 
 This page provides instructions for downloading the necessary dependancies and
 deploying the website against a remote or local database.
 
-Python dependencies
+Python Dependencies
 -------------------
 
 The broker website is packaged as the ``broker_web`` Python package, which
 is available on `GitHub`_. To download the code from this repository and
-install the dependencies:
+install the dependencies, use:
 
 .. code-block:: bash
 
@@ -17,41 +17,76 @@ install the dependencies:
    git clone https://github.com/mwvgroup/Broker-Web
 
    # Install Python dependencies with pip
-   cd Broker-Web
-   pip install -r requirements.txt
+   pip install -r Broker-Web/requirements.txt
 
+Local Database
+--------------
 
-GCP Dependencies
-----------------
+The source code expects you to have already established a MySQL database for
+storing user and website data. If this database is not already available on
+your local machine, you can create a user and databases for development
+as shown below.
 
-The broker website is built to run in the cloud using App Engine.
-If you intend to run the website against a local development database,
-this step can be skipped. If you intend to run the website
-using GCP resources you will need to install the ``gcloud`` command line
-tool which is available `here`_.
+.. important:: It is strongly recommended for security reasons that you use
+   a dedicated set of credentials when developing. This means the username
+   and password for your local database should be different from any
+   credentials you may have for the deployed database.
 
-You will also need to install the Google
-Cloud SQL Proxy so the website can connect to the necessary SQL backends
-when running locally.
+.. code-block:: mysql
 
-For Mac OS 64 bit, use:
+   CREATE DATABASE [DB_NAME];
+   CREATE USER '[DB_USER]'@'localhost' IDENTIFIED BY '[DB_PASSWORD]';
+   GRANT ALL PRIVILEGES ON [DB_NAME].* TO 'DB_USER'@'localhost';
+   FLUSH PRIVILEGES;
 
-.. code-block:: bash
+You should repeat the above process twice: Once for the database you
+wish to develop against, and once to set permissions for the database
+you want tot run tests against.
 
-   curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64
-   chmod +x cloud_sql_proxy
+Environmental Variables
+-----------------------
 
-For Linux 64 bit, use:
+The following table outlines environmental variables that can be used to
+configure standard Django settings. Note that at least one of the ``DEBUG`` or
+``ALLOWED_HOSTS`` variables must be set for the app to run.
 
-.. code-block:: bash
++-----------------------+------------------------------------------+---------------------------------+
+| Variable              | Description                              | Required                        |
++=======================+==========================================+=================================+
+| ``SECRET_KEY``        | Django secret key                        | Yes                             |
++-----------------------+------------------------------------------+---------------------------------+
+| ``DEBUG``             | Whether to run in debugging mode         | Must be ``True`` if             |
+|                       |                                          | ``ALLOWED_HOSTS`` is not set    |
++-----------------------+------------------------------------------+---------------------------------+
+| ``ALLOWED_HOSTS``     | Block requests except from these domains | If ``Debug`` is not ``true``    |
++-----------------------+------------------------------------------+---------------------------------+
+| ``CONTACT_EMAILS``    | List of developer contact emails         | no                              |
++-----------------------+------------------------------------------+---------------------------------+
 
-   wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
-   chmod +x cloud_sql_proxy
+You will also need to specify various environmental variables for configuring
+your database connection.
 
++-----------------------+------------------------------------------+---------------------------------+
+| Variable              | Description                              | Required                        |
++=======================+==========================================+=================================+
+| ``DB_NAME``           | Name of the MySQL database               | No (Default = ``web_backend``   |
++-----------------------+------------------------------------------+---------------------------------+
+| ``DB_USER``           | MySQL username                           | yes                             |
++-----------------------+------------------------------------------+---------------------------------+
+| ``DB_PASSWORD``       | MySQL password                           | yes                             |
++-----------------------+------------------------------------------+---------------------------------+
+| ``DB_HOST``           | Database host connection                 | For local database only         |
++-----------------------+------------------------------------------+---------------------------------+
+| ``DB_PASSWORD``       | Port number to connect on                | For local database only         |
++-----------------------+------------------------------------------+---------------------------------+
+| ``TEST_NAME``         | Name of the MySQL database used in tests | Np (Default = ``text_[DB_NAME]``|
++-----------------------+------------------------------------------+---------------------------------+
 
-For other installations see the appropriate section of the
-official `App Engine docs`_.
+.. note:: For convenience, environmental variables can be specified in a
+   ``.env`` file
+   placed into the project's root directory. However, **the application will
+   specifically ignore ``.env`` files when running on the deployment server**.
+
 
 .. _GitHub: https://github.com/mwvgroup/Broker-Web
 .. _here: https://cloud.google.com/sdk/docs/downloads-interactive
-.. _App Engine docs: https://cloud.google.com/python/django/appengine](https://cloud.google.com/python/django/appengine

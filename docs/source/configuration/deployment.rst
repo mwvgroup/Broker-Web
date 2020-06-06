@@ -9,62 +9,36 @@ The PGB website supports database configurations for three scenarios:
 
 This page provides instructions for all three scenarios.
 
-Environmental Variables
------------------------
+GCP Dependencies
+----------------
 
-The following table outlines environmental variables that can be used to
-configure standard Django settings. Note that at least one of the ``DEBUG`` or
-``ALLOWED_HOSTS`` variables must be set for the app to run.
+The broker website is built to run in the cloud using App Engine.
+If you intend to run the website against a local development database,
+this step can be skipped. If you intend to run the website
+using GCP resources you will need to install the ``gcloud`` command line
+tool which is available `here`_. You will also need to install the Google
+Cloud SQL Proxy so the website can connect to the necessary SQL backends
+when running locally.
 
-+-----------------------+------------------------------------------+---------------------------------+
-| Variable              | Description                              | Required                        |
-+=======================+==========================================+=================================+
-| ``SECRET_KEY``        | Django secret key                        | Yes                             |
-+-----------------------+------------------------------------------+---------------------------------+
-| ``DEBUG``             | Whether to run in debugging mode         | Must be ``True`` if             |
-|                       |                                          | ``ALLOWED_HOSTS`` is not set    |
-+-----------------------+------------------------------------------+---------------------------------+
-| ``ALLOWED_HOSTS``     | Block requests except from these domains | If ``Debug`` is not ``true``    |
-+-----------------------+------------------------------------------+---------------------------------+
-| ``CONTACT_EMAILS``    | List of developer contact emails         | no                              |
-+-----------------------+------------------------------------------+---------------------------------+
-
-If you are running against the official project database, you will also need
-to specify the database username and password.
-
-+-----------------------+------------------------------------------+---------------------------------+
-| Variable              | Description                              | Required                        |
-+=======================+==========================================+=================================+
-| ``DB_USER``           | SQL backend username                     | For GCP only                    |
-+-----------------------+------------------------------------------+---------------------------------+
-| ``DB_PASSWORD``       | SQL backend password                     | For GCP only                    |
-+-----------------------+------------------------------------------+---------------------------------+
-
-For convenience, environmental variables can be specified in a ``.env`` file
-placed into the project's root directory. However, the application will
-specifically ignore ``.env`` files when running on the deployment server.
-
-Running Locally
----------------
-
-1. Configure environmental variables as defined in the previous section.
-
-2. If not already available, create the ``web_backend`` database in MySQL. The
-   ``python manage.py migrate`` command ensures that your local database
-   follows the same schema as the database used in production.
+For Mac OS 64 bit, use:
 
 .. code-block:: bash
 
-   mysql.server start
-   mysql -u root -e 'create database web_backend;'
-   python broker_web/manage.py migrate
+   curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64
+   chmod +x cloud_sql_proxy
 
-3. Next, launch the web application via the management script:
+For Linux 64 bit, use:
 
 .. code-block:: bash
 
-   python broker_web/manage.py runserver  # Run the web server
+   wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+   chmod +x cloud_sql_proxy
 
+
+For other installations see the appropriate section of the
+official `App Engine docs`_.
+
+.. _App Engine docs: https://cloud.google.com/python/django/appengine](https://cloud.google.com/python/django/appengine
 
 Running against the cloud
 -------------------------
