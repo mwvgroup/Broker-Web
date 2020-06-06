@@ -16,14 +16,14 @@ from warnings import warn
 import environ
 import pymysql
 
-# Set up environment
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 pymysql.version_info = (1, 3, 13, "final", 0)  # https://stackoverflow.com/a/59591269
 pymysql.install_as_MySQLdb()
 env = environ.Env()
 
 # Read environment settings from file only if we are not deployed to App Engine
-if not os.getenv('GAE_APPLICATION', False):
+running_in_app_engine = os.getenv('GAE_APPLICATION', False)
+if not running_in_app_engine:
     environ.Env.read_env(os.path.join(os.path.dirname(BASE_DIR), '.env'))
 
 # SECURITY WARNING: Make sure the following settings are properly configured in production
@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'guardian',  # Extra authentication backend with per object permissions
     'bootstrap4',  # Front-end component library for building templates
     'crispy_forms',  # Makes forms look pretty
-    'captcha',  # Impliments Google recaptcha service
+    'captcha',  # Implements Google recaptcha service
 
     # Custom apps
     'broker_web.apps.alerts',  # Displays alert information
@@ -102,7 +102,8 @@ TEMPLATES = [
 ]
 
 # Database connection settings
-if os.getenv('GAE_APPLICATION', None):
+default_db_name = 'web_backend'
+if running_in_app_engine:
     # Running on production App Engine, so connect to Google Cloud SQL using
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
     DATABASES = {
@@ -111,11 +112,11 @@ if os.getenv('GAE_APPLICATION', None):
             'HOST': '/cloudsql/ardent-cycling-243415:us-east1:broker-web',
             'USER': env.str('DB_USER'),
             'PASSWORD': env.str('DB_PASSWORD'),
-            'NAME': 'web_backend',
+            'NAME': env.str('DB_NAME', default_db_name),
         }
     }
 
-elif os.getenv('GAE_REMOTE', None):
+elif os.getenv('GAE_REMOTE', False):
     # Running locally, but connect to Cloud SQL via the proxy.
     # To start the proxy see https://cloud.google.com/sql/docs/mysql-connect-proxy
     DATABASES = {
@@ -125,21 +126,22 @@ elif os.getenv('GAE_REMOTE', None):
             'PORT': '3306',
             'USER': env.str('DB_USER'),
             'PASSWORD': env.str('DB_PASSWORD'),
-            'NAME': 'web_backend',
+            'NAME': env.str('DB_NAME', default_db_name),
+            'TEST_NAME': f'test_{env.str("DB_NAME", default_db_name)}'
         }
     }
 
 else:
-    # Running against local db
+    # Running against a local db
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'web_backend',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': '',
-            'PORT': '',
-            'TEST_NAME': 'test_web_backend'
+            'NAME': env.str('DB_NAME', default_db_name),
+            'USER': env.str('DB_USER'),
+            'PASSWORD': env.str('DB_PASSWORD'),
+            'HOST': env.str('DB_HOST', ''),
+            'PORT': env.str('DB_PORT', ''),
+            'TEST_NAME': f'test_{env.str("DB_NAME", default_db_name)}'
         }
     }
 
