@@ -39,6 +39,10 @@ as shown below.
    GRANT ALL PRIVILEGES ON [DB_NAME].* TO 'DB_USER'@'localhost';
    FLUSH PRIVILEGES;
 
+You should repeat the above process twice: Once for the database you
+wish to develop against, and once to set permissions for the database
+you want tot run tests against.
+
 Environmental Variables
 -----------------------
 
