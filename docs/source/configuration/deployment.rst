@@ -9,27 +9,36 @@ The PGB website supports database configurations for three scenarios:
 
 This page provides instructions for all three scenarios.
 
-Running Locally
----------------
+GCP Dependencies
+----------------
 
-1. Configure environmental variables as defined in the previous section.
+The broker website is built to run in the cloud using App Engine.
+If you intend to run the website against a local development database,
+this step can be skipped. If you intend to run the website
+using GCP resources you will need to install the ``gcloud`` command line
+tool which is available `here`_. You will also need to install the Google
+Cloud SQL Proxy so the website can connect to the necessary SQL backends
+when running locally.
 
-2. If not already available, create the ``web_backend`` database in MySQL. The
-   ``python manage.py migrate`` command ensures that your local database
-   follows the same schema as the database used in production.
-
-.. code-block:: bash
-
-   mysql.server start
-   mysql -u root -e 'create database web_backend;'
-   python broker_web/manage.py migrate
-
-3. Next, launch the web application via the management script:
+For Mac OS 64 bit, use:
 
 .. code-block:: bash
 
-   python broker_web/manage.py runserver  # Run the web server
+   curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64
+   chmod +x cloud_sql_proxy
 
+For Linux 64 bit, use:
+
+.. code-block:: bash
+
+   wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+   chmod +x cloud_sql_proxy
+
+
+For other installations see the appropriate section of the
+official `App Engine docs`_.
+
+.. _App Engine docs: https://cloud.google.com/python/django/appengine](https://cloud.google.com/python/django/appengine
 
 Running against the cloud
 -------------------------

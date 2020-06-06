@@ -1,15 +1,15 @@
-Installation
-============
+Installation and Setup
+======================
 
 This page provides instructions for downloading the necessary dependancies and
 deploying the website against a remote or local database.
 
-Python dependencies
+Python Dependencies
 -------------------
 
 The broker website is packaged as the ``broker_web`` Python package, which
 is available on `GitHub`_. To download the code from this repository and
-install the dependencies:
+install the dependencies, use:
 
 .. code-block:: bash
 
@@ -17,40 +17,27 @@ install the dependencies:
    git clone https://github.com/mwvgroup/Broker-Web
 
    # Install Python dependencies with pip
-   cd Broker-Web
-   pip install -r requirements.txt
+   pip install -r Broker-Web/requirements.txt
 
+Local Database
+--------------
 
-GCP Dependencies
-----------------
+The source code expects you to have already established a MySQL database for
+storing user and website data. If this database is not already available on
+your local machine, you can create a user and databases for development
+as shown below.
 
-The broker website is built to run in the cloud using App Engine.
-If you intend to run the website against a local development database,
-this step can be skipped. If you intend to run the website
-using GCP resources you will need to install the ``gcloud`` command line
-tool which is available `here`_.
+.. important:: It is strongly recommended for security reasons that you use
+   a dedicated set of credentials when developing. This means the username
+   and password for your local database should be different from any
+   credentials you may have for the deployed database.
 
-You will also need to install the Google
-Cloud SQL Proxy so the website can connect to the necessary SQL backends
-when running locally.
+.. code-block:: mysql
 
-For Mac OS 64 bit, use:
-
-.. code-block:: bash
-
-   curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64
-   chmod +x cloud_sql_proxy
-
-For Linux 64 bit, use:
-
-.. code-block:: bash
-
-   wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
-   chmod +x cloud_sql_proxy
-
-
-For other installations see the appropriate section of the
-official `App Engine docs`_.
+   CREATE DATABASE [DB_NAME];
+   CREATE USER '[DB_USER]'@'localhost' IDENTIFIED BY '[DB_PASSWORD]';
+   GRANT ALL PRIVILEGES ON [DB_NAME].* TO 'DB_USER'@'localhost';
+   FLUSH PRIVILEGES;
 
 Environmental Variables
 -----------------------
@@ -91,7 +78,7 @@ your database connection.
 | ``TEST_NAME``         | Name of the MySQL database used in tests | Np (Default = ``text_[DB_NAME]``|
 +-----------------------+------------------------------------------+---------------------------------+
 
-.. note: For convenience, environmental variables can be specified in a
+.. note:: For convenience, environmental variables can be specified in a
    ``.env`` file
    placed into the project's root directory. However, **the application will
    specifically ignore ``.env`` files when running on the deployment server**.
@@ -99,4 +86,3 @@ your database connection.
 
 .. _GitHub: https://github.com/mwvgroup/Broker-Web
 .. _here: https://cloud.google.com/sdk/docs/downloads-interactive
-.. _App Engine docs: https://cloud.google.com/python/django/appengine](https://cloud.google.com/python/django/appengine
