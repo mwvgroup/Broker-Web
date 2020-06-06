@@ -2,22 +2,16 @@ GCP Configuration
 =================
 
 Full documentation on configuring Django applications for App Engine is
-available in the official `App Engine docs`_. Notes are provided here if
+available in the official `App Engine docs`_. Notes are provided here for those
 configuring an environment from scratch. These steps only need to be performed
 once. If you are developing against the official Pitt-Google Broker GCP
-project then these these steps should have already been taken and this section
-can be skipped.
-
-Configure GCP
--------------
-
-You will need to configure the GCP Storage and SQL tools to handle serving
-static and user data respectively.
+project then these these steps should have already been taken.
 
 GCP Storage
-^^^^^^^^^^^
+-----------
 
-First configure a Storage Bucket for publicly hosting static files:
+You will need to configure a GCP Storage Bucket for publicly hosting
+static files:
 
 1. Create a bucket for hosting static files.
 
@@ -33,7 +27,9 @@ First configure a Storage Bucket for publicly hosting static files:
    gsutil defacl set public-read gs://broker-web-static
 
 Cloud SQL
-^^^^^^^^^
+---------
+
+Cloud SQL is used to store website and user data.
 
 1. Start by making sure the Cloud SQL Admin API is enables.
 
@@ -63,9 +59,12 @@ Cloud SQL
    gcloud sql users create [USER_NAME] --instance=[INSTANCE_NAME] --password=[PASSWORD]
 
 
-Configure the Django Application
---------------------------------
+The Django Application
+----------------------
 
+Once Cloud SQL is configures, you will need to create the necessary database
+tables. These steps outline how to connect to the remote database and migrate
+database models from the Django application into the database.
 
 1. Use the Cloud SDK to fetch the connection name of your instance.
    The connection name will be listed in the format

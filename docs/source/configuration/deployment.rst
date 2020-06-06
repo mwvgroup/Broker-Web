@@ -9,41 +9,6 @@ The PGB website supports database configurations for three scenarios:
 
 This page provides instructions for all three scenarios.
 
-Environmental Variables
------------------------
-
-The following table outlines environmental variables that can be used to
-configure standard Django settings. Note that at least one of the ``DEBUG`` or
-``ALLOWED_HOSTS`` variables must be set for the app to run.
-
-+-----------------------+------------------------------------------+---------------------------------+
-| Variable              | Description                              | Required                        |
-+=======================+==========================================+=================================+
-| ``SECRET_KEY``        | Django secret key                        | Yes                             |
-+-----------------------+------------------------------------------+---------------------------------+
-| ``DEBUG``             | Whether to run in debugging mode         | Must be ``True`` if             |
-|                       |                                          | ``ALLOWED_HOSTS`` is not set    |
-+-----------------------+------------------------------------------+---------------------------------+
-| ``ALLOWED_HOSTS``     | Block requests except from these domains | If ``Debug`` is not ``true``    |
-+-----------------------+------------------------------------------+---------------------------------+
-| ``CONTACT_EMAILS``    | List of developer contact emails         | no                              |
-+-----------------------+------------------------------------------+---------------------------------+
-
-If you are running against the official project database, you will also need
-to specify the database username and password.
-
-+-----------------------+------------------------------------------+---------------------------------+
-| Variable              | Description                              | Required                        |
-+=======================+==========================================+=================================+
-| ``DB_USER``           | SQL backend username                     | For GCP only                    |
-+-----------------------+------------------------------------------+---------------------------------+
-| ``DB_PASSWORD``       | SQL backend password                     | For GCP only                    |
-+-----------------------+------------------------------------------+---------------------------------+
-
-For convenience, environmental variables can be specified in a ``.env`` file
-placed into the project's root directory. However, the application will
-specifically ignore ``.env`` files when running on the deployment server.
-
 Running Locally
 ---------------
 
