@@ -61,6 +61,10 @@ Running against the cloud
 Deploying to App Engine
 -----------------------
 
+.. important:: The following section is provided for reference only. All
+   updates to the official website should be performed via
+   continuous deployment.
+
 Application versions can be deployed manually using the ``gcloud`` API:
 
 .. code-block:: bash
