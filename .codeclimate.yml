@@ -1,0 +1,4 @@
+exclude_patterns:
+  - "broker_web/apps/*/tests/"
+  - "broker_web/static/"
+
