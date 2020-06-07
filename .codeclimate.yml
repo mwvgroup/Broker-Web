@@ -1,4 +1,4 @@
 exclude_patterns:
-  - "tests/"
+  - "broker_web/apps/*/tests/"
   - "broker_web/static/"
 
