@@ -1,5 +1,7 @@
 steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   args: ['cp', 'gs://$_BUCKET/app.yaml', 'app.yaml']
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['-m', 'rsync', '-r', 'broker_web/static', 'gs://broker-web-static/static']
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ["app", "deploy"]
+  args: ['app', 'deploy']
