@@ -40,7 +40,7 @@ official `App Engine docs`_.
 
 .. _App Engine docs: https://cloud.google.com/python/django/appengine](https://cloud.google.com/python/django/appengine
 
-Running against the cloud
+Running Against The Cloud
 -------------------------
 
 1. Configure environmental variables as defined in the previous section.
