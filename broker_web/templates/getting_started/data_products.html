@@ -11,6 +11,12 @@
     <div class="col-lg-9">
       <h2>Data Products Overview</h2>
 
+      <h3 id="stream">Alert Streams</h3>
+      We will provide the full alert streams.  We do not anticipate that more than 10-20 sites will want this stream; we are able to scale up to an arbitrary number sites, but will be limited in cost.  The PGB will also provide "semantically compressed" streams that can be more easily and cheaply distributed to ~10,000 users.  PGB will support streams over either Kafka or Pub/Sub.
+
+      <h3 id="database">Prompt Products Database</h3>
+      We aim to provide a synthesized version of the Rubin Observatory LSST Prompt Products Database.  This PPDB consists of data that are nominally public, but current LSST Operations plans restrict access to the system that runs the PPDB to LSST Data Rights holders.  We will synthesize a copy of this PPDB from the alert stream and provide it to anyone in the world.
+
       <h3 id="cross-match">Cross-Matching</h3>
       <p>For each target object, we provide information about coincident or nearby objects that have been cataloged by external surveys including <a href="https://sdss.org">SDSS</a>, <a href="http://legacysurvey.org">DESI Legacy Imaging Surveys</a>, <a href="https://panstarrs.stsci.edu">Pan-STARRS1</a>, <a href="https://wise2.ipac.caltech.edu/docs/release/neowise">[Neo]WISE</a>, and <a href="https://www.cosmos.esa.int/web/gaia/dr2">Gaia</a>. This cross-matching can provide valuable contextual information about the host galaxy and/or known variable stars at the target location, which can be used in object classifications or statistical analysis of populations. The provided information includes basic information about the cross-matched object as well as a link to the database entry of the external catalog. For objects with multiple cross-matches, we provide a ranking of the cross-matched objects by how likely they are to actually be associated with the target object (as opposed to simply being coincident on the sky). The ranking is be integrated with our classification schemes to provide coherent interpretations of the data (for example, an object observed by LSST cannot simultaneously have high likelihoods of both being a nova and residing in a host galaxy at z>0.1).</p>
 
