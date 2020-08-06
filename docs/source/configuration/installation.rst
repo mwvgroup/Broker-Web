@@ -34,14 +34,16 @@ as shown below.
 
 .. code-block:: mysql
 
-   CREATE DATABASE [DB_NAME];
-   CREATE USER '[DB_USER]'@'localhost' IDENTIFIED BY '[DB_PASSWORD]';
-   GRANT ALL PRIVILEGES ON [DB_NAME].* TO 'DB_USER'@'localhost';
-   FLUSH PRIVILEGES;
+   $ mysql -u root -p
+   mysql> CREATE DATABASE [DB_NAME];
+   mysql> CREATE USER '[DB_USER]'@'localhost' IDENTIFIED BY '[DB_PASSWORD]';
+   mysql> GRANT ALL PRIVILEGES ON [DB_NAME].* TO 'DB_USER'@'localhost';
+   mysql> FLUSH PRIVILEGES;
+   mysql> quit;
 
 You should repeat the above process twice: Once for the database you
 wish to develop against, and once to set permissions for the database
-you want tot run tests against.
+you want to run tests against.
 
 Environmental Variables
 -----------------------
@@ -90,3 +92,26 @@ your database connection.
 
 .. _GitHub: https://github.com/mwvgroup/Broker-Web
 .. _here: https://cloud.google.com/sdk/docs/downloads-interactive
+
+Running a Local Instance
+------------------------
+
+With your databases created and environmental variables defined, you can configure
+the database schema using the management script:
+
+.. code-block:: bash
+
+   python manage.py makemigrations
+   python manage.py migrate --run-syncdb
+
+At this point, it is also useful to create an admin account for the website:
+
+.. code-block:: bash
+
+   python manage.py createsuperuser
+
+Finally, a local server for the website can then be launched in standard Django fashion:
+
+.. code-block:: bash
+
+   python manage.py runserver
