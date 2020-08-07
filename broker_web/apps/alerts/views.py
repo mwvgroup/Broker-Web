@@ -13,11 +13,17 @@ into rendered responses.
 """
 
 import numpy as np
+import os
+from google.cloud import pubsub_v1
 from django.shortcuts import render
 from django.views.generic import View
 
+
 from .forms import FilterAlertsForm
 from ..utils import paginate_to_json
+
+
+project_id = os.getenv('GOOGLE_CLOUD_PROJECT')
 
 
 class AlertsJsonView(View):
@@ -33,18 +39,36 @@ class AlertsJsonView(View):
         Return:
             A list of dictionaries representing
         """
+        # Number of alerts to fetch from subscription
+        max_alerts = 100
+        
+        subscriber = pubsub_v1.SubscriberClient()
+        subscription_path = subscriber.subscription_path(project_id, subscription_name)
 
-        def random_int_arr(n):
-            return np.round(1e12 * np.random.random(num_alerts))
+        response = subscriber.pull(subscription_path, max_messages=max_alerts)
+        
+        # Iterate through received messages and then acknowledge receipt
+        ack_ids = []
+        alert_ids, object_ids, timestamps = [], [], []
 
-        # Simulate placeholder data
-        num_alerts = 100000
+        for received_alert in response.received_messages:
+            encoded = received_alert.message.data
+            alert = encoded.decode('UTF-8')
+            alert_ids.append(alert['candid'])
+            object_ids.append(alert['objectId'])
+            timestamps.append(alert['candidate']['jd'])
+            
+            ack_ids.append(received_message.ack_id)
+
+        subscriber.acknowledge(subscription_path, ack_ids)
+        
+        # Still simulate some columns
+        num_alerts = len(alert_ids)
+        
         surveys = ['ztf' for _ in range(num_alerts)]
-        alert_ids = random_int_arr(num_alerts)
-        object_ids = random_int_arr(num_alerts)
         topics = ['ztf_all' for _ in range(num_alerts)]
-        timestamps = random_int_arr(num_alerts)
         messages = ['message' for _ in range(num_alerts)]
+
 
         keys = ["survey", "alert_id", "object_id", "topic", "timestamp", "message"]
         vals = zip(surveys, alert_ids, object_ids, topics, timestamps, messages)
