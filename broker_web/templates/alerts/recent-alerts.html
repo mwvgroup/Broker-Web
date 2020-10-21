@@ -11,7 +11,8 @@
         serverSide: true,
         ajax: "{% url 'alerts:alerts-json' %}",
         columns: [
-          {"data": "survey"},
+          {"data": "publisher"},
+          {"data": "pub_time"},
           {
             "data": "alert_id",
             "render": function (data, type, row, meta) {
@@ -32,7 +33,8 @@
               return data;
             }
           },
-          {"data": "timestamp"},
+          {"data": "filter"},
+          {"data": "magnitude"},
           {"data": "ra"},
           {"data": "dec"}
         ]
@@ -107,10 +109,12 @@
       <table id="alerts_table" class="table table-striped">
         <thead>
         <tr>
-          <th>Survey</th>
+          <th>Publisher</th>
+          <th>Publication Time</th>
           <th>Alert Id</th>
           <th>Object Id</th>
-          <th>Timestamp</th>
+          <th>Filter</th>
+          <th>Magnitude</th>
           <th>RA</th>
           <th>Dec</th>
         </tr>

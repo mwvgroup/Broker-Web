@@ -40,14 +40,16 @@ class AlertsJsonView(View):
 
         query = CLIENT.query(f"""
             SELECT
-                publisher as survey, 
-                CAST(candidate.candid AS STRING) as alert_id, 
+                publisher, 
+                CAST(candidate.candid AS STRING) as alert_id,
+                CASE candidate.fid WHEN 1 THEN 'g' WHEN 2 THEN 'R' WHEN 3 THEN 'i' END as filter,
+                ROUND(candidate.magpsf, 2) as magnitude,
                 objectId as object_id, 
-                ROUND(candidate.jd, 0) as timestamp, 
+                ROUND(candidate.jd, 0) as pub_time, 
                 ROUND(candidate.ra, 2) as ra, 
                 ROUND(candidate.dec, 2) as dec 
             FROM `ardent-cycling-243415.ztf_alerts.alerts` 
-            ORDER BY timestamp
+            ORDER BY pub_time
             LIMIT {num_alerts}
         """)
 
