@@ -69,7 +69,7 @@ class ObjectSummaryView(TestCase):
     def test_get(self):
         """Test ``get`` method returns correct template and object id"""
 
-        dummy_object_id = 123
+        dummy_object_id = '123'
         url = reverse(self.url_name, args=[dummy_object_id])
         response = self.client.get(url)
 
