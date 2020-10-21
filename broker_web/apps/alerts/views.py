@@ -184,7 +184,9 @@ class AlertSummaryView(View):
         survey = kwargs.get('survey', 'ztf')
         alert_data = self.get_alert_data_for_id(alert_id, survey)
         context = {
-            'alert_data': alert_data, 'alert_id': alert_id, 'survey': survey,
+            'alert_data': alert_data,
+            'alert_id': alert_id,
+            'survey': survey,
             'science_image': alert_data.pop('cutout_science'),
             'template_image': alert_data.pop('cutout_template'),
             'difference_image': alert_data.pop('cutout_difference')

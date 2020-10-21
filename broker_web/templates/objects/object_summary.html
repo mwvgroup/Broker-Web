@@ -24,7 +24,9 @@
   {% for publisher, alert_id, pub_time in recent_alerts %}
     <tr>
       <td>{{publisher}}</td>
-      <td>{{alert_id}}</td>
+        <td>
+            <a href="{% url 'alerts:alert-summary' pk=alert_id%}">{{alert_id}}</a>
+        </td>
       <td>{{pub_time}}</td>
     </tr>
   {% endfor %}

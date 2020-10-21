@@ -4,6 +4,7 @@
 {% block title %}Alert Summary{% endblock %}
 {% block content %}
   <h1>Alert Id: {{alert_id}}</h1>
+  <h3><b>Object:</b> <a href="{% url 'objects:object-summary' pk=alert_data.objectId %}">{{alert_data.objectId}}</a> </h3>
   <h3><b>Survey:</b> {{survey}}</h3>
 
   <br>
