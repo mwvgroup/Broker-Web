@@ -17,7 +17,7 @@ import environ
 import pymysql
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-pymysql.version_info = (1, 3, 13, "final", 0)  # https://stackoverflow.com/a/59591269
+pymysql.version_info = (9, 9, 99, "final", 0)  # https://stackoverflow.com/a/59591269
 pymysql.install_as_MySQLdb()
 env = environ.Env()
 
