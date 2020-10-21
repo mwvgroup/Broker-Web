@@ -43,7 +43,7 @@ class ObjectsJsonView(View):
                 DISTINCT objectId as object_id, 
                 publisher as survey,
                 candid as recent_alert_id, 
-                candidate.jd as recent_timestamp
+                ROUND(candidate.jd, 0) as recent_timestamp
             FROM `ardent-cycling-243415.ztf_alerts.alerts`
             ORDER BY recent_timestamp
             LIMIT {num_objects}
@@ -104,8 +104,8 @@ class ObjectSummaryView(View):
     template = 'objects/object_summary.html'
 
     @staticmethod
-    def get_alerts_for_object(object_id):
-        """Retrieve alert data for a given alert ID
+    def _get_alerts_for_ztf_object(object_id):
+        """Retrieve an alert list for a ZTF object
 
         Args:
             object_id (int): Id of the object to retrieve alerts for
@@ -114,7 +114,30 @@ class ObjectSummaryView(View):
             A dictionary of alert data
         """
 
-        return dict()
+        query = CLIENT.query(f"""
+            SELECT 
+                publisher, candid, ROUND(candidate.jd, 0) as pub_time
+            FROM `ardent-cycling-243415.ztf_alerts.alerts`
+            WHERE objectId="{object_id}"
+        """)
+
+        return [[row['publisher'], row['candid'], row['pub_time']] for row in query.result()]
+
+    def get_alerts_for_object(self, object_id, survey):
+        """Retrieve alert data for a given alert ID
+
+        Args:
+            object_id (int): Id of the object to retrieve alerts for
+            survey   (str): Parent survey of the alert
+
+        Return:
+            A dictionary of alert data
+        """
+
+        if survey.lower() == 'ztf':
+            return self._get_alerts_for_ztf_object(object_id)
+
+        raise NotImplementedError(f'Database object queries not implemented for survey {survey}')
 
     def get(self, request, *args, **kwargs):
         """Handle an incoming HTTP request
@@ -127,6 +150,6 @@ class ObjectSummaryView(View):
         """
 
         object_id = kwargs['pk']
-        recent_alerts = self.get_alerts_for_object(object_id)
+        recent_alerts = self.get_alerts_for_object(object_id, 'ztf')
         context = {'object_id': object_id, 'recent_alerts': recent_alerts}
         return render(request, self.template, context)

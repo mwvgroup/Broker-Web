@@ -13,35 +13,19 @@
   <br>
 
   <div class="section-header">
-    <h3>Data Products Summary</h3>
-  </div>
-  <table class="table table-striped  table-sm">
-  <tr>
-    <th>Field</th>
-    <th>Value</th>
-  </tr>
-  {% for field, value in alert_data.items %}
-    <tr>
-      <td>{{field}}</td>
-      <td>{{value}}</td>
-    </tr>
-  {% endfor %}
-  </table>
-
-  <br>
-
-  <div class="section-header">
     <h3>Recent Alerts</h3>
   </div>
   <table class="table table-striped  table-sm">
   <tr>
-    <th>Field</th>
-    <th>Value</th>
+    <th>Publisher</th>
+    <th>Alert Id</th>
+    <th>Publication Time</th>
   </tr>
-  {% for field, value in alert_data.items %}
+  {% for publisher, alert_id, pub_time in recent_alerts %}
     <tr>
-      <td>{{field}}</td>
-      <td>{{value}}</td>
+      <td>{{publisher}}</td>
+      <td>{{alert_id}}</td>
+      <td>{{pub_time}}</td>
     </tr>
   {% endfor %}
   </table>
