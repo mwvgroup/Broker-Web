@@ -41,9 +41,12 @@ class ObjectsJsonView(View):
         query = CLIENT.query(f"""
             SELECT 
                 DISTINCT objectId as object_id, 
-                publisher as survey,
-                candid as recent_alert_id, 
-                ROUND(candidate.jd, 0) as recent_timestamp
+                publisher,
+                CAST(candidate.candid AS STRING) recent_alert_id, 
+                ROUND(candidate.jd, 0) as recent_timestamp,
+                ARRAY_LENGTH( prv_candidates ) as num_alerts,
+                ROUND(candidate.ra, 2) as ra, 
+                ROUND(candidate.dec, 2) as dec
             FROM `ardent-cycling-243415.ztf_alerts.alerts`
             ORDER BY recent_timestamp
             LIMIT {num_objects}
