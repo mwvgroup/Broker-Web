@@ -186,8 +186,8 @@ class AlertSummaryView(View):
         context = {
             'alert_data': alert_data, 'alert_id': alert_id, 'survey': survey,
             'science_image': alert_data.pop('cutout_science'),
-            'cutout_template': alert_data.pop('cutout_template'),
-            'cutout_difference': alert_data.pop('cutout_difference')
+            'template_image': alert_data.pop('cutout_template'),
+            'difference_image': alert_data.pop('cutout_difference')
         }
 
         return render(request, self.template, context)
