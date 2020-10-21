@@ -14,6 +14,7 @@ into rendered responses.
 
 from django.shortcuts import render
 from django.views.generic import View
+from google.api_core.exceptions import BadRequest
 from google.cloud import bigquery
 
 from .forms import FilterAlertsForm
@@ -114,7 +115,7 @@ class AlertSummaryView(View):
             alert_id (int): Id of the alert to retrieve data for
 
         Return:
-            A dictionary of alert data
+            A dictionary of alert data if available else None
         """
 
         query = CLIENT.query(f"""
@@ -127,8 +128,14 @@ class AlertSummaryView(View):
             WHERE candidate.candid={alert_id}
         """)
 
+        try:
+            query_result = query.result()
+
+        except BadRequest:  # Alert id was likely a string and thus invalid
+            return None
+
         # Return first value from the iterable
-        for row in query.result():
+        for row in query_result:
             out_data = dict()
             for k, v in row.items():
                 if isinstance(v, dict):  # Support for nested dictionaries
@@ -185,6 +192,9 @@ class AlertSummaryView(View):
         alert_id = kwargs['pk']
         survey = kwargs.get('survey', 'ztf')
         alert_data = self.get_alert_data_for_id(alert_id, survey)
+        if alert_data is None:
+            return render(request, 'alerts/error_404.html', {'alert_id': alert_id})
+
         context = {
             'alert_data': alert_data,
             'alert_id': alert_id,

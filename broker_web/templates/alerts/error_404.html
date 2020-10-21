@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}404 Error{% endblock %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-8">
+        <h2>404 - Invalid Alert Identifier "{{ alert_id }}"</h2>
+        <p>
+            We can't seem to find a database record for the alert you specified.
+            It's possible this is due to a typo in the alert Id. The alert may
+            also be too old to be in our records or still too new  and
+            undergoing processing.
+        </p>
+    </div>
+  </div>
+
+{% endblock %}
