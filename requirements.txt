@@ -11,3 +11,4 @@ pymysql==0.10.1
 cryptography==3.1.1
 mysqlclient==2.0.1
 google-cloud-bigquery==2.2.0
+astropy==4.0.0
