@@ -8,7 +8,7 @@
 +====================+============================+===========================+
 |``/``               | ``RecentObjectsView``      | ``recent-objects``        |
 +--------------------+----------------------------+---------------------------+
-|``/<int:pk>``       | ``ObjectSummaryView``      | ``object-summary``        |
+|``/<str:pk>``       | ``ObjectSummaryView``      | ``object-summary``        |
 +--------------------+----------------------------+---------------------------+
 |``json/``           | ``ObjectsJsonView``        | ``objects-json``          |
 +--------------------+----------------------------+---------------------------+
@@ -22,6 +22,6 @@ app_name = 'objects'
 
 urlpatterns = [
     path('', views.RecentObjectsView.as_view(), name='recent-objects'),
-    path('<int:pk>', views.ObjectSummaryView.as_view(), name='object-summary'),
+    path('<str:pk>', views.ObjectSummaryView.as_view(), name='object-summary'),
     path('json/', views.ObjectsJsonView.as_view(), name='objects-json')
 ]
