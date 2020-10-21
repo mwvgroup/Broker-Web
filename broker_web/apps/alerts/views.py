@@ -41,7 +41,7 @@ class AlertsJsonView(View):
         query = CLIENT.query(f"""
             SELECT
                 publisher as survey, 
-                candidate.candid as alert_id, 
+                CAST(candidate.candid AS STRING) as alert_id, 
                 objectId as object_id, 
                 ROUND(candidate.jd, 0) as timestamp, 
                 ROUND(candidate.ra, 2) as ra, 
