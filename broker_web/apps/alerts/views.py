@@ -46,7 +46,9 @@ class AlertsJsonView(View):
                 ROUND(candidate.jd, 0) as timestamp, 
                 ROUND(candidate.ra, 2) as ra, 
                 ROUND(candidate.dec, 2) as dec 
-            FROM `ardent-cycling-243415.ztf_alerts.alerts` LIMIT {num_alerts}
+            FROM `ardent-cycling-243415.ztf_alerts.alerts` 
+            ORDER BY timestamp
+            LIMIT {num_alerts}
         """)
 
         return [dict(row) for row in query.result()]
