@@ -12,40 +12,44 @@ into rendered responses.
    broker_web.apps.objects.views.RecentObjectsView
 """
 
-import numpy as np
 from django.shortcuts import render
 from django.views.generic import View
+from google.cloud import bigquery
 
 from .forms import FilterObjectsForm
 from ..utils import paginate_to_json
+
+NUM_OBJECTS = 10_000
+CLIENT = bigquery.Client()
 
 
 class ObjectsJsonView(View):
     """View for serving recently observed objects as a paginated JSON response"""
 
     @staticmethod
-    def fetch_objects_as_dicts(request):
-        """Returns a list of recent objects messages as dicts
+    def fetch_objects_as_dicts(request, num_objects=NUM_OBJECTS):
+        """Returns a list of recent alerts messages as dicts
 
         Args:
             request (HttpRequest): Incoming HTTP request
+            num_objects     (int): Maximum number of alerts to return
 
         Return:
             A list of dictionaries representing
         """
 
-        def random_int_arr(n):
-            return np.round(1e12 * np.random.random(num_alerts))
+        query = CLIENT.query(f"""
+            SELECT 
+                DISTINCT objectId as object_id, 
+                publisher as survey,
+                candid as recent_alert_id, 
+                candidate.jd as recent_timestamp
+            FROM `ardent-cycling-243415.ztf_alerts.alerts`
+            ORDER BY recent_timestamp
+            LIMIT {num_objects}
+           """)
 
-        num_alerts = 100000
-        surveys = ['ztf' for _ in range(num_alerts)]
-        object_ids = random_int_arr(num_alerts)
-        recent_alert_ids = random_int_arr(num_alerts)
-        recent_timestamps = random_int_arr(num_alerts)
-
-        keys = ["survey", "object_id", "recent_alert_id", "recent_timestamp"]
-        vals = zip(surveys, object_ids, recent_alert_ids, recent_timestamps)
-        return [dict(zip(keys, val_set)) for val_set in vals]
+        return [dict(row) for row in query.result()]
 
     def get(self, request):
         """Handle an incoming HTTP request
