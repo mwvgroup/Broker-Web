@@ -16,9 +16,9 @@
       <th style="text-align:center">Difference Cutout</th>
     </tr>
     <tr>
-      <td style="text-align:center"><img src="data:image/png;base64,{{ science_image | bin_2_utf8 }}"  alt="Missing Science Image"></td>
-      <td style="text-align:center"><img src="data:image/png;base64,{{ template_image | bin_2_utf8 }}"  alt="Missing Template Image"></td>
-      <td style="text-align:center"><img src="data:image/png;base64,{{ difference_image | bin_2_utf8 }}"  alt="Missing Difference Image"></td>
+      <td style="text-align:center"><img src="data:image;base64, {{ science_image | bytes_to_64utf8 }}"  alt="Missing Science Image"></td>
+      <td style="text-align:center"><img src="data:image/png;base64, {{ template_image | bytes_to_64utf8 }}"  alt="Missing Template Image"></td>
+      <td style="text-align:center"><img src="data:image/png;base64, {{ difference_image | bytes_to_64utf8 }}"  alt="Missing Difference Image"></td>
     </tr>
   </table>
 

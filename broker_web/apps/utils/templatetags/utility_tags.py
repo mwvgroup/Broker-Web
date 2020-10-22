@@ -20,18 +20,18 @@ register = template.Library()
 
 
 @register.filter
-def bin_2_utf8(_bin):
+def bytes_to_64utf8(bytes_data):
     """Convert bytes data to UTF8
 
     Args:
-        _bin (bytes): Bytes data
+        bytes_data (bytes): Bytes data
 
     Returns:
         A string in UTF-8 format
     """
 
-    if _bin is not None:
-        return b64encode(_bin).decode('utf-8')
+    if bytes_data is not None:
+        return b64encode(bytes_data).decode('utf-8')
 
 
 @register.filter
