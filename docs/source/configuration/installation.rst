@@ -1,7 +1,7 @@
 Installation and Setup
 ======================
 
-This page provides instructions for downloading the necessary dependancies and
+This page provides instructions for downloading the necessary dependencies and
 deploying the website against a remote or local database.
 
 Python Dependencies
