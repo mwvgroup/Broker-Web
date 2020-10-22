@@ -45,4 +45,4 @@ def jd_to_readable_date(jd):
         String in 'day mon year hour:min' format
     """
 
-    return Time(jd, format='jd').strptime("%d %b %y %H:%M")
+    return Time(jd, format='jd').strftime("%d %b %Y - %H:%M")

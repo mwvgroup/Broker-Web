@@ -19,8 +19,9 @@ from google.cloud import bigquery
 
 from .forms import FilterAlertsForm
 from ..utils import paginate_to_json
+from ..utils.templatetags.utility_tags import jd_to_readable_date
 
-NUM_ALERTS = 100_000
+NUM_ALERTS = 10_000
 CLIENT = bigquery.Client()
 
 
@@ -46,7 +47,7 @@ class AlertsJsonView(View):
                 CASE candidate.fid WHEN 1 THEN 'g' WHEN 2 THEN 'R' WHEN 3 THEN 'i' END as filter,
                 ROUND(candidate.magpsf, 2) as magnitude,
                 objectId as object_id, 
-                ROUND(candidate.jd, 0) as pub_time, 
+                candidate.jd as pub_time, 
                 ROUND(candidate.ra, 2) as ra, 
                 ROUND(candidate.dec, 2) as dec 
             FROM `ardent-cycling-243415.ztf_alerts.alerts` 
@@ -54,7 +55,13 @@ class AlertsJsonView(View):
             LIMIT {num_alerts}
         """)
 
-        return [dict(row) for row in query.result()]
+        output = []
+        for row in query.result():
+            row = dict(row)
+            row['pub_time'] = jd_to_readable_date(row['pub_time'])
+            output.append(row)
+
+        return output
 
     def get(self, request):
         """Handle an incoming HTTP request

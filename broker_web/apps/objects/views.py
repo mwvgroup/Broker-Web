@@ -18,6 +18,7 @@ from google.cloud import bigquery
 
 from .forms import FilterObjectsForm
 from ..utils import paginate_to_json
+from ..utils.templatetags.utility_tags import jd_to_readable_date
 
 NUM_OBJECTS = 10_000
 CLIENT = bigquery.Client()
@@ -43,16 +44,22 @@ class ObjectsJsonView(View):
                 DISTINCT objectId as object_id, 
                 publisher,
                 CAST(candidate.candid AS STRING) recent_alert_id, 
-                ROUND(candidate.jd, 0) as recent_timestamp,
+                candidate.jd as pub_time,
                 ARRAY_LENGTH( prv_candidates ) as num_alerts,
                 ROUND(candidate.ra, 2) as ra, 
                 ROUND(candidate.dec, 2) as dec
             FROM `ardent-cycling-243415.ztf_alerts.alerts`
-            ORDER BY recent_timestamp
+            ORDER BY pub_time
             LIMIT {num_objects}
            """)
 
-        return [dict(row) for row in query.result()]
+        output = []
+        for row in query.result():
+            row = dict(row)
+            row['pub_time'] = jd_to_readable_date(row['pub_time'])
+            output.append(row)
+
+        return output
 
     def get(self, request):
         """Handle an incoming HTTP request
@@ -124,7 +131,7 @@ class ObjectSummaryView(View):
             WHERE objectId="{object_id}"
         """)
 
-        return [[row['publisher'], row['candid'], row['pub_time']] for row in query.result()]
+        return [[row['publisher'], row['candid'], jd_to_readable_date(row['pub_time'])] for row in query.result()]
 
     def get_alerts_for_object(self, object_id, survey):
         """Retrieve alert data for a given alert ID
