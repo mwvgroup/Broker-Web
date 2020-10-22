@@ -12,6 +12,7 @@ into rendered responses.
    broker_web.apps.alerts.views.RecentAlertsView
 """
 
+from django.conf import settings
 from django.shortcuts import render
 from django.views.generic import View
 from google.api_core.exceptions import BadRequest
@@ -50,7 +51,7 @@ class AlertsJsonView(View):
                 candidate.jd as pub_time, 
                 ROUND(candidate.ra, 2) as ra, 
                 ROUND(candidate.dec, 2) as dec 
-            FROM `ardent-cycling-243415.ztf_alerts.alerts` 
+            FROM `{settings.ZTF_ALERTS_TABLE_NAME}` 
             ORDER BY pub_time
             LIMIT {num_alerts}
         """)
@@ -131,7 +132,7 @@ class AlertSummaryView(View):
                 cutoutScience.stampData as cutout_science, 
                 cutoutTemplate.stampData as cutout_template, 
                 cutoutDifference.stampData as cutout_difference
-            FROM `ardent-cycling-243415.ztf_alerts.alerts` 
+            FROM `{settings.ZTF_ALERTS_TABLE_NAME}` 
             WHERE candidate.candid={alert_id}
         """)
 

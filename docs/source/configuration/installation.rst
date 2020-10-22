@@ -68,21 +68,24 @@ configure standard Django settings. Note that at least one of the ``DEBUG`` or
 You will also need to specify various environmental variables for configuring
 your database connection.
 
-+-----------------------+------------------------------------------+---------------------------------+
-| Variable              | Description                              | Required                        |
-+=======================+==========================================+=================================+
-| ``DB_NAME``           | Name of the MySQL database               | No (Default = ``web_backend``   |
-+-----------------------+------------------------------------------+---------------------------------+
-| ``DB_USER``           | MySQL username                           | yes                             |
-+-----------------------+------------------------------------------+---------------------------------+
-| ``DB_PASSWORD``       | MySQL password                           | yes                             |
-+-----------------------+------------------------------------------+---------------------------------+
-| ``DB_HOST``           | Database host connection                 | For local database only         |
-+-----------------------+------------------------------------------+---------------------------------+
-| ``DB_PASSWORD``       | Port number to connect on                | For local database only         |
-+-----------------------+------------------------------------------+---------------------------------+
-| ``TEST_NAME``         | Name of the MySQL database used in tests | Np (Default = ``text_[DB_NAME]``|
-+-----------------------+------------------------------------------+---------------------------------+
++---------------------------+------------------------------------------+---------------------------------+
+| Variable                  | Description                              | Required                        |
++===========================+==========================================+=================================+
+| ``DB_NAME``               | Name of the MySQL database for user data | No (Default = ``web_backend``   |
++---------------------------+------------------------------------------+---------------------------------+
+| ``DB_USER``               | MySQL username                           | yes                             |
++---------------------------+------------------------------------------+---------------------------------+
+| ``DB_PASSWORD``           | MySQL password                           | yes                             |
++---------------------------+------------------------------------------+---------------------------------+
+| ``DB_HOST``               | Database host connection                 | For local database only         |
++---------------------------+------------------------------------------+---------------------------------+
+| ``DB_PASSWORD``           | Port number to connect on                | For local database only         |
++---------------------------+------------------------------------------+---------------------------------+
+| ``TEST_NAME``             | Name of the MySQL database used in tests | Np (Default = ``text_[DB_NAME]``|
++---------------------------+------------------------------------------+---------------------------------+
+| ``ZTF_ALERTS_TABLE_NAME`` | Name of the Bigquery table with ZTF alert| Np (Default = ``text_[DB_NAME]``|
+|                           | data ingested by the broker pipeline.    |                                 |
++---------------------------+------------------------------------------+---------------------------------+
 
 .. note:: For convenience, environmental variables can be specified in a
    ``.env`` file

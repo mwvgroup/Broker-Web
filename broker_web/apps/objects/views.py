@@ -12,6 +12,7 @@ into rendered responses.
    broker_web.apps.objects.views.RecentObjectsView
 """
 
+from django.conf import settings
 from django.shortcuts import render
 from django.views.generic import View
 from google.cloud import bigquery
@@ -47,7 +48,7 @@ class ObjectsJsonView(View):
                 ARRAY_LENGTH( prv_candidates ) as num_alerts,
                 ROUND(candidate.ra, 2) as ra, 
                 ROUND(candidate.dec, 2) as dec
-            FROM `ardent-cycling-243415.ztf_alerts.alerts`
+            FROM `{settings.ZTF_ALERTS_TABLE_NAME}`
             ORDER BY pub_time
             LIMIT {num_objects}
            """)
@@ -128,7 +129,7 @@ class RecentAlertsJsonView(View):
                  CAST(candidate.candid AS STRING) as alert_id,
                  CASE candidate.fid WHEN 1 THEN 'g' WHEN 2 THEN 'R' WHEN 3 THEN 'i' END as filter,
                  ROUND(candidate.magpsf, 2) as magnitude
-            FROM `ardent-cycling-243415.ztf_alerts.alerts`
+            FROM `{settings.ZTF_ALERTS_TABLE_NAME}`
             WHERE objectId="{object_id}"
         """)
 
