@@ -2,7 +2,7 @@ Broker-Web Documentation
 ========================
 
 This is the official developer documentation for the Pitt-Google Broker
-Website backend.
+Website.
 
 
 .. toctree::

@@ -1,8 +1,8 @@
 Installation and Setup
 ======================
 
-This page provides instructions for downloading the necessary dependencies and
-deploying the website against a remote or local database.
+This page provides instructions for downloading, configuring, and running
+a local copy the website.
 
 Python Dependencies
 -------------------
@@ -43,14 +43,21 @@ as shown below.
 
 You should repeat the above process twice: Once for the database you
 wish to develop against, and once to set permissions for the database
-you want to run tests against.
+you want to run tests against. The testing database has the same name
+of the development database prefixed with the word ``'test_'``.
+
+.. code-block:: mysql
+
+   $ mysql -u root -p
+   mysql> CREATE DATABASE test_[DB_NAME];
+   ...
 
 Environmental Variables
 -----------------------
 
 The following table outlines environmental variables that can be used to
-configure standard Django settings. Note that at least one of the ``DEBUG`` or
-``ALLOWED_HOSTS`` variables must be set for the app to run.
+configure standard Django settings. The ``ALLOWED_HOSTS`` variable
+must be set for the app to run if ``DEBUG`` is set to ``False`` (the default).
 
 +-----------------------+------------------------------------------+---------------------------------+
 | Variable              | Description                              | Required                        |
@@ -62,35 +69,35 @@ configure standard Django settings. Note that at least one of the ``DEBUG`` or
 +-----------------------+------------------------------------------+---------------------------------+
 | ``ALLOWED_HOSTS``     | Block requests except from these domains | If ``Debug`` is not ``true``    |
 +-----------------------+------------------------------------------+---------------------------------+
-| ``CONTACT_EMAILS``    | List of developer contact emails         | no                              |
+| ``CONTACT_EMAILS``    | List of developer contact emails         | No                              |
 +-----------------------+------------------------------------------+---------------------------------+
 
 You will also need to specify various environmental variables for configuring
 your database connection.
 
-+---------------------------+------------------------------------------+---------------------------------+
-| Variable                  | Description                              | Required                        |
-+===========================+==========================================+=================================+
-| ``DB_NAME``               | Name of the MySQL database for user data | No (Default = ``web_backend``   |
-+---------------------------+------------------------------------------+---------------------------------+
-| ``DB_USER``               | MySQL username                           | yes                             |
-+---------------------------+------------------------------------------+---------------------------------+
-| ``DB_PASSWORD``           | MySQL password                           | yes                             |
-+---------------------------+------------------------------------------+---------------------------------+
-| ``DB_HOST``               | Database host connection                 | For local database only         |
-+---------------------------+------------------------------------------+---------------------------------+
-| ``DB_PASSWORD``           | Port number to connect on                | For local database only         |
-+---------------------------+------------------------------------------+---------------------------------+
-| ``TEST_NAME``             | Name of the MySQL database used in tests | Np (Default = ``text_[DB_NAME]``|
-+---------------------------+------------------------------------------+---------------------------------+
-| ``ZTF_ALERTS_TABLE_NAME`` | Name of the Bigquery table with ZTF alert| Np (Default = ``text_[DB_NAME]``|
-|                           | data ingested by the broker pipeline.    |                                 |
-+---------------------------+------------------------------------------+---------------------------------+
++---------------------------+------------------------------------------+----------------------------------+
+| Variable                  | Description                              | Required                         |
++===========================+==========================================+==================================+
+| ``DB_NAME``               | Name of the MySQL database for user data | No (Default = ``web_backend``)   |
++---------------------------+------------------------------------------+----------------------------------+
+| ``DB_USER``               | MySQL username                           | Yes                              |
++---------------------------+------------------------------------------+----------------------------------+
+| ``DB_PASSWORD``           | MySQL password                           | Yes                              |
++---------------------------+------------------------------------------+----------------------------------+
+| ``DB_HOST``               | Database host connection                 | For local database only          |
++---------------------------+------------------------------------------+----------------------------------+
+| ``DB_PASSWORD``           | Port number to connect on                | For local database only          |
++---------------------------+------------------------------------------+----------------------------------+
+| ``TEST_NAME``             | Name of the MySQL database used in tests | No (Default = ``text_[DB_NAME]``)|
++---------------------------+------------------------------------------+----------------------------------+
+| ``ZTF_ALERTS_TABLE_NAME`` | Name of the Bigquery table with ZTF alert| No (Default = ``text_[DB_NAME]``)|
+|                           | data ingested by the broker pipeline.    |                                  |
++---------------------------+------------------------------------------+----------------------------------+
 
 .. note:: For convenience, environmental variables can be specified in a
    ``.env`` file
    placed into the project's root directory. However, **the application will
-   specifically ignore ``.env`` files when running on the deployment server**.
+   ignore ``.env`` files when running on the deployment server**.
 
 
 .. _GitHub: https://github.com/mwvgroup/Broker-Web
