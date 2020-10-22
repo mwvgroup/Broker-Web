@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'broker_web.apps.objects',  # Displays object information
     'broker_web.apps.signup',  # Handles user creation / authentication
     'broker_web.apps.subscriptions',  # Handles alert topic subscriptions
+    'broker_web.apps.utils',  # Handles alert topic subscriptions
 ]
 
 # App configuration
