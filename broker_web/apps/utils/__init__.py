@@ -14,7 +14,7 @@ HTTP requests for pagination of data. For example, it can be used in a view as:
 
    from django.views.generic import View
 
-   from apps.utile import paginate_to_json
+   from apps.utils import paginate_to_json
 
    class MyView(View):
 

@@ -26,9 +26,3 @@ class TestCustomUserChangeForm(TestCase):
 
         form = CustomUserChangeForm(data={})
         self.assertFalse(form.is_valid())
-
-    def test_empty_form(self):
-        """Test that an empty form is invalid"""
-
-        form = CustomUserChangeForm(data={})
-        self.assertFalse(form.is_valid())

@@ -8,6 +8,7 @@ into rendered responses.
    :nosignatures:
 
    broker_web.apps.objects.views.ObjectsJsonView
+   broker_web.apps.objects.views.RecentAlertsJsonView
    broker_web.apps.objects.views.ObjectSummaryView
    broker_web.apps.objects.views.RecentObjectsView
 """
@@ -33,7 +34,7 @@ class ObjectsJsonView(View):
         """Returns a list of recent alerts messages as dicts
 
         Args:
-            num_objects     (int): Maximum number of alerts to return
+            num_objects (int): Maximum number of alerts to return
 
         Return:
             A list of dictionaries representing
@@ -112,14 +113,14 @@ class RecentAlertsJsonView(View):
     """JSON rendering of recent alerts for a given object"""
 
     @staticmethod
-    def fetch_recent_alerts(object_id):
-        """Handle an incoming HTTP request
+    def fetch_object_alerts(object_id):
+        """Return a list of all alerts corresponding to an object Id
 
         Args:
-            request (HttpRequest): Incoming HTTP request
+            object_id (str): Object identifier
 
         Returns:
-            Outgoing JsonResponse
+            A list of dictionaries
         """
 
         query = CLIENT.query(f"""
@@ -153,7 +154,7 @@ class RecentAlertsJsonView(View):
         """
 
         # Get all available messages
-        alerts = self.fetch_recent_alerts(kwargs['pk'])
+        alerts = self.fetch_object_alerts(kwargs['pk'])
         return paginate_to_json(request, alerts)
 
 
