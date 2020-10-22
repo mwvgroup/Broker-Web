@@ -22,7 +22,7 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - coverage run --source='.' manage.py test broker_web
+  - coverage run --source='.' manage.py test broker_web/apps
   - coverage xml
 
 after_script:
