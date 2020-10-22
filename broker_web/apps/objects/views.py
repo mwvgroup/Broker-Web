@@ -126,7 +126,7 @@ class ObjectSummaryView(View):
 
         query = CLIENT.query(f"""
             SELECT 
-                publisher, candid, ROUND(candidate.jd, 0) as pub_time
+                publisher, candid, candidate.jd as pub_time
             FROM `ardent-cycling-243415.ztf_alerts.alerts`
             WHERE objectId="{object_id}"
         """)
