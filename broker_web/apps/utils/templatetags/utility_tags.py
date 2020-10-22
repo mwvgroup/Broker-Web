@@ -7,8 +7,8 @@ templates.
 .. autosummary::
    :nosignatures:
 
-   broker_web.apps.utils.templatetags.custom_tags.bin_to_utf8
-   broker_web.apps.utils.templatetags.custom_tags.jd_to_readable_date
+   broker_web.apps.utils.templatetags.utility_tags.bin_to_utf8
+   broker_web.apps.utils.templatetags.utility_tags.jd_to_readable_date
 """
 
 from base64 import b64encode
