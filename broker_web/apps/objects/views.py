@@ -28,11 +28,10 @@ class ObjectsJsonView(View):
     """View for serving recently observed objects as a paginated JSON response"""
 
     @staticmethod
-    def fetch_objects_as_dicts(request, num_objects=NUM_OBJECTS):
+    def fetch_objects_as_dicts(num_objects=NUM_OBJECTS):
         """Returns a list of recent alerts messages as dicts
 
         Args:
-            request (HttpRequest): Incoming HTTP request
             num_objects     (int): Maximum number of alerts to return
 
         Return:
@@ -72,7 +71,7 @@ class ObjectsJsonView(View):
         """
 
         # Get all available messages
-        objects = self.fetch_objects_as_dicts(request)
+        objects = self.fetch_objects_as_dicts()
         return paginate_to_json(request, objects)
 
 
@@ -108,46 +107,39 @@ class RecentObjectsView(View):
         return render(request, self.template, {'form': form})
 
 
-class ObjectSummaryView(View):
-    """View for displaying a table of all recent objects matching a query"""
-
-    template = 'objects/object_summary.html'
+class RecentAlertsJsonView(View):
+    """JSON rendering of recent alerts for a given object"""
 
     @staticmethod
-    def _get_alerts_for_ztf_object(object_id):
-        """Retrieve an alert list for a ZTF object
+    def fetch_recent_alerts(object_id):
+        """Handle an incoming HTTP request
 
         Args:
-            object_id (int): Id of the object to retrieve alerts for
+            request (HttpRequest): Incoming HTTP request
 
-        Return:
-            A dictionary of alert data
+        Returns:
+            Outgoing JsonResponse
         """
 
         query = CLIENT.query(f"""
             SELECT 
-                publisher, candid, candidate.jd as pub_time
+                 publisher,
+                 candidate.jd as pub_time,
+                 CAST(candidate.candid AS STRING) as alert_id,
+                 CASE candidate.fid WHEN 1 THEN 'g' WHEN 2 THEN 'R' WHEN 3 THEN 'i' END as filter,
+                 ROUND(candidate.magpsf, 2) as magnitude
             FROM `ardent-cycling-243415.ztf_alerts.alerts`
             WHERE objectId="{object_id}"
         """)
 
-        return [[row['publisher'], row['candid'], jd_to_readable_date(row['pub_time'])] for row in query.result()]
+        out_data = []
+        for row in query.result():
+            row_dict = dict(row)
+            row_dict['jd'] = row_dict['pub_time']
+            row_dict['pub_time'] = jd_to_readable_date(row_dict['pub_time'])
+            out_data.append(row_dict)
 
-    def get_alerts_for_object(self, object_id, survey):
-        """Retrieve alert data for a given alert ID
-
-        Args:
-            object_id (int): Id of the object to retrieve alerts for
-            survey   (str): Parent survey of the alert
-
-        Return:
-            A dictionary of alert data
-        """
-
-        if survey.lower() == 'ztf':
-            return self._get_alerts_for_ztf_object(object_id)
-
-        raise NotImplementedError(f'Database object queries not implemented for survey {survey}')
+        return out_data
 
     def get(self, request, *args, **kwargs):
         """Handle an incoming HTTP request
@@ -159,7 +151,24 @@ class ObjectSummaryView(View):
             Outgoing JsonResponse
         """
 
-        object_id = kwargs['pk']
-        recent_alerts = self.get_alerts_for_object(object_id, 'ztf')
-        context = {'object_id': object_id, 'recent_alerts': recent_alerts}
-        return render(request, self.template, context)
+        # Get all available messages
+        alerts = self.fetch_recent_alerts(kwargs['pk'])
+        return paginate_to_json(request, alerts)
+
+
+class ObjectSummaryView(View):
+    """View for displaying a table of all recent objects matching a query"""
+
+    template = 'objects/object_summary.html'
+
+    def get(self, request, *args, **kwargs):
+        """Handle an incoming HTTP request
+
+        Args:
+            request (HttpRequest): Incoming HTTP request
+
+        Returns:
+            Outgoing JsonResponse
+        """
+
+        return render(request, self.template, {'object_id': kwargs['pk']})

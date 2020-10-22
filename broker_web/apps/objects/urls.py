@@ -23,5 +23,6 @@ app_name = 'objects'
 urlpatterns = [
     path('', views.RecentObjectsView.as_view(), name='recent-objects'),
     path('<str:pk>', views.ObjectSummaryView.as_view(), name='object-summary'),
-    path('json/', views.ObjectsJsonView.as_view(), name='objects-json')
+    path('json/', views.ObjectsJsonView.as_view(), name='objects-json'),
+    path('singlejson/<str:pk>', views.RecentAlertsJsonView.as_view(), name='single-object-json')
 ]
