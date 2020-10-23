@@ -1,13 +1,14 @@
-Deployment
-==========
+Running Locally
+===============
 
-The PGB website supports database configurations for three scenarios:
+A development version of the website can be run locally in two configurations:
 
 1. Running locally against a local database
 2. Running locally against the deployment database in the cloud
-3. Full deployment to the cloud
 
-This page provides instructions for all three scenarios.
+The first configuration should be the default when developing. Working
+against the deployment database is rarely necessary and should be undertaken
+with care.
 
 GCP Dependencies
 ----------------
@@ -56,46 +57,3 @@ Running Against The Cloud
 .. code-block:: bash
 
    python broker_web/manage.py runserver  # Run the web server
-
-
-Deploying to App Engine
------------------------
-
-.. important:: The following section is provided for reference only. All
-   updates to the official website should be performed via
-   continuous deployment.
-
-Application versions can be deployed manually using the ``gcloud`` API:
-
-.. code-block:: bash
-
-   # Synchronize static files in the storage bucket
-   gsutil -m rsync -r broker_web/static gs://[BUCKET_LOCATION]/static
-
-   # Deploy the new source code
-   gcloud app deploy
-
-
-Deployment settings can be configured using the a ``app.yaml`` file. The
-official ``app.yaml`` docs can be found `here`_. At a minimum, your settings
-for deployment should include the following:
-
-.. code-block:: yaml
-
-   runtime: python37
-
-   entrypoint: gunicorn -b :$PORT broker_web.main.wsgi
-
-   env_variables:
-     SECRET_KEY: '[YOUR-SECRET-KEY]'
-     STATIC_URL: 'https://storage.googleapis.com/[BUCKET-NAME]/static/'
-     DB_USER: [SQL-DB-USERNAME]
-     DB_PASSWORD: [SQL-DB-PASSWORD]
-     ALLOWED_HOSTS: [OFFICIAL-PGB-WEBSITE-DOMAIN]
-
-   handlers:
-     - url: /static
-       static_dir: static
-
-
-.. _here: https://cloud.google.com/appengine/docs/standard/python/config/appref
