@@ -12,8 +12,8 @@ The current design of the PGB focuses on providing services within a cloud
 based environment. While this provides many benefits from a computational and
 scalability perspective, familiarity of cloud based services is not common
 within all parts of the scientific / astronomical community. To mitigate this
-potential obstacle for PGB users, this project is intended to provide a
-public web interface for PGB services. This includes (but is not
+potential obstacle for PGB users, a website interface will be used to provide a
+public reference for PGB services. This includes (but is not
 limited to) providing basic access to PGB data products, either in whole or in
 part.
 

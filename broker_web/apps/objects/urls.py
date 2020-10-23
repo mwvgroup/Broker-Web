@@ -3,15 +3,17 @@
 
 """The ``urls`` module configures routes from URLs to views.
 
-+--------------------+----------------------------+---------------------------+
-| URL                | View                       | name                      |
-+====================+============================+===========================+
-|``/``               | ``RecentObjectsView``      | ``recent-objects``        |
-+--------------------+----------------------------+---------------------------+
-|``/<int:pk>``       | ``ObjectSummaryView``      | ``object-summary``        |
-+--------------------+----------------------------+---------------------------+
-|``json/``           | ``ObjectsJsonView``        | ``objects-json``          |
-+--------------------+----------------------------+---------------------------+
++-------------------------+----------------------------+---------------------------+
+| URL                     | View                       | name                      |
++=========================+============================+===========================+
+|``/``                    | ``RecentObjectsView``      | ``recent-objects``        |
++-------------------------+----------------------------+---------------------------+
+|``/<str:pk>``            | ``ObjectSummaryView``      | ``object-summary``        |
++-------------------------+----------------------------+---------------------------+
+|``json/``                | ``ObjectsJsonView``        | ``objects-json``          |
++-------------------------+----------------------------+---------------------------+
+|``/singlejson/<str:pk>`` | ``ObjectSummaryView``      | ``object-summary``        |
++-------------------------+----------------------------+---------------------------+
 """
 
 from django.urls import path
@@ -22,6 +24,7 @@ app_name = 'objects'
 
 urlpatterns = [
     path('', views.RecentObjectsView.as_view(), name='recent-objects'),
-    path('<int:pk>', views.ObjectSummaryView.as_view(), name='object-summary'),
-    path('json/', views.ObjectsJsonView.as_view(), name='objects-json')
+    path('<str:pk>', views.ObjectSummaryView.as_view(), name='object-summary'),
+    path('json/', views.ObjectsJsonView.as_view(), name='objects-json'),
+    path('singlejson/<str:pk>', views.RecentAlertsJsonView.as_view(), name='single-object-json')
 ]

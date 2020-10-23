@@ -17,7 +17,7 @@ import environ
 import pymysql
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-pymysql.version_info = (1, 3, 13, "final", 0)  # https://stackoverflow.com/a/59591269
+pymysql.version_info = (9, 9, 99, "final", 0)  # https://stackoverflow.com/a/59591269
 pymysql.install_as_MySQLdb()
 env = environ.Env()
 
@@ -35,6 +35,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CONTACT_EMAILS = env.list('CONTACT_EMAILS', default=[])
 RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY', default='')
 RECAPTCHA_PRIVATE_KEY = env.str('RECAPTCHA_PRIVATE_KEY', default='')
+ZTF_ALERTS_TABLE_NAME = env.str('ZTF_ALERTS_TABLE_NAME', default='ardent-cycling-243415.ztf_alerts.alerts')
 NOCAPTCHA = True
 ###############################################################################
 
@@ -63,6 +64,7 @@ INSTALLED_APPS = [
     'broker_web.apps.objects',  # Displays object information
     'broker_web.apps.signup',  # Handles user creation / authentication
     'broker_web.apps.subscriptions',  # Handles alert topic subscriptions
+    'broker_web.apps.utils',  # Handles alert topic subscriptions
 ]
 
 # App configuration

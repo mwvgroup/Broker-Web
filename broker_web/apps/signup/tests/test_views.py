@@ -49,6 +49,7 @@ class TestActivateAccount(TestCase):
     def test_get_with_invalid_token(self):
         """Test get request with invalid token redirects to invalid token page"""
 
+        # noinspection SpellCheckingInspection
         bad_signup_token = {'uidb64': 'AB', 'token': 'CDE-FGHIJK'}
         url = reverse(self.url_name, kwargs=bad_signup_token)
         response = self.client.get(url)
