@@ -1,6 +1,35 @@
 {% extends 'base.html' %}
 
 {% block title %}Alert Summary{% endblock %}
+{% block additional_js %}
+  <script>
+    $(document).ready(function() {
+      $('#alerts_table').DataTable({
+        searching: false,
+        processing: true,
+        serverSide: true,
+        ajax: "{% url 'objects:single-object-json' pk=object_id %}",
+        columns: [
+          {"data": "publisher"},
+          {"data": "pub_time"},
+          {
+            "data": "alert_id",
+            "render": function (data, type, row, meta) {
+              if (type === 'display') {
+                data = '<a href="' + "{% url 'alerts:recent-alerts' %}" + data + '">' + data + '</a>';
+              }
+
+              return data;
+            }
+          },
+          {"data": "filter"},
+          {"data": "magnitude"}
+        ]
+      });
+    });
+
+  </script>
+{%endblock %}
 
 {% block content %}
   <h1>Object Id: {{object_id}}</h1>
@@ -13,37 +42,18 @@
   <br>
 
   <div class="section-header">
-    <h3>Data Products Summary</h3>
+    <h3>Processed Alerts</h3>
   </div>
-  <table class="table table-striped  table-sm">
-  <tr>
-    <th>Field</th>
-    <th>Value</th>
-  </tr>
-  {% for field, value in alert_data.items %}
-    <tr>
-      <td>{{field}}</td>
-      <td>{{value}}</td>
-    </tr>
-  {% endfor %}
-  </table>
-
-  <br>
-
-  <div class="section-header">
-    <h3>Recent Alerts</h3>
-  </div>
-  <table class="table table-striped  table-sm">
-  <tr>
-    <th>Field</th>
-    <th>Value</th>
-  </tr>
-  {% for field, value in alert_data.items %}
-    <tr>
-      <td>{{field}}</td>
-      <td>{{value}}</td>
-    </tr>
-  {% endfor %}
+  <table id="alerts_table" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Publisher</th>
+        <th>Publication Time</th>
+        <th>Alert Id</th>
+        <th>Filter</th>
+        <th>Magnitude</th>
+      </tr>
+    </thead>
   </table>
 
 {% endblock %}

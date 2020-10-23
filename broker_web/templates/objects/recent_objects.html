@@ -11,7 +11,7 @@
       serverSide: true,
       ajax: "{% url 'objects:objects-json' %}",
       columns: [
-        {"data": "survey"},
+        {"data": "publisher"},
         {
           "data": "object_id",
           "render": function (data, type, row, meta) {
@@ -32,7 +32,10 @@
             return data;
           }
         },
-        {"data": "recent_timestamp"}
+        {"data": "pub_time"},
+        {"data": "num_alerts"},
+        {"data": "ra"},
+        {"data": "dec"}
       ]
     });
   });
@@ -106,10 +109,13 @@
       <table id='objects_table' class="table table-striped">
         <thead>
         <tr>
-          <th>Survey</th>
+          <th>Publisher</th>
           <th>Object Id</th>
           <th>Most Recent Alert</th>
           <th>Alert time</th>
+          <th>Number of Alerts</th>
+          <th>RA</th>
+          <th>Dec</th>
         </tr>
         </thead>
       </table>

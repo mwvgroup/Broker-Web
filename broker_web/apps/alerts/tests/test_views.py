@@ -61,11 +61,12 @@ class TestAlertSummary(TestCase):
 
     url_name = f'{urls.app_name}:alert-summary'
     template = 'alerts/alert_summary.html'
+    template_404 = 'alerts/error_404.html'
 
     def setUp(self):
         self.client = Client()
 
-    def test_get(self):
+    def test_app_specific_404_invalid_alert_id(self):
         """Test ``get`` method returns correct template and alert id"""
 
         dummy_alert_id = 123
@@ -73,7 +74,4 @@ class TestAlertSummary(TestCase):
         response = self.client.get(url)
 
         self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, self.template)
-
-        returned_alert_id = response.context['alert_data']['alert_id']
-        self.assertEqual(returned_alert_id, dummy_alert_id)
+        self.assertTemplateUsed(response, self.template_404)

@@ -1,6 +1,9 @@
 # GCP related files
 cloud_sql_proxy
 app.yaml
+api_key.py
+client-secret.json
+credentials.tar.gz
 
 # OS files
 *.DS_Store

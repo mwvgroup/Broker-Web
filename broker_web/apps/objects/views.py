@@ -8,44 +8,60 @@ into rendered responses.
    :nosignatures:
 
    broker_web.apps.objects.views.ObjectsJsonView
+   broker_web.apps.objects.views.RecentAlertsJsonView
    broker_web.apps.objects.views.ObjectSummaryView
    broker_web.apps.objects.views.RecentObjectsView
 """
 
-import numpy as np
+from django.conf import settings
 from django.shortcuts import render
 from django.views.generic import View
+from google.cloud import bigquery
 
 from .forms import FilterObjectsForm
 from ..utils import paginate_to_json
+from ..utils.templatetags.utility_tags import jd_to_readable_date
+
+NUM_OBJECTS = 10_000
+CLIENT = bigquery.Client()
 
 
 class ObjectsJsonView(View):
     """View for serving recently observed objects as a paginated JSON response"""
 
     @staticmethod
-    def fetch_objects_as_dicts(request):
-        """Returns a list of recent objects messages as dicts
+    def fetch_objects_as_dicts(num_objects=NUM_OBJECTS):
+        """Returns a list of recent alerts messages as dicts
 
         Args:
-            request (HttpRequest): Incoming HTTP request
+            num_objects (int): Maximum number of alerts to return
 
         Return:
             A list of dictionaries representing
         """
 
-        def random_int_arr(n):
-            return np.round(1e12 * np.random.random(num_alerts))
+        # Select the most recent alert for each object
+        query = CLIENT.query(f"""
+            SELECT 
+                DISTINCT objectId as object_id, 
+                publisher,
+                CAST(candidate.candid AS STRING) recent_alert_id, 
+                candidate.jd as pub_time,
+                ARRAY_LENGTH( prv_candidates ) as num_alerts,
+                ROUND(candidate.ra, 2) as ra, 
+                ROUND(candidate.dec, 2) as dec
+            FROM `{settings.ZTF_ALERTS_TABLE_NAME}`
+            ORDER BY pub_time DESC
+            LIMIT {num_objects}
+           """)
 
-        num_alerts = 100000
-        surveys = ['ztf' for _ in range(num_alerts)]
-        object_ids = random_int_arr(num_alerts)
-        recent_alert_ids = random_int_arr(num_alerts)
-        recent_timestamps = random_int_arr(num_alerts)
+        output = []
+        for row in query.result():
+            row = dict(row)
+            row['pub_time'] = jd_to_readable_date(row['pub_time'])
+            output.append(row)
 
-        keys = ["survey", "object_id", "recent_alert_id", "recent_timestamp"]
-        vals = zip(surveys, object_ids, recent_alert_ids, recent_timestamps)
-        return [dict(zip(keys, val_set)) for val_set in vals]
+        return output
 
     def get(self, request):
         """Handle an incoming HTTP request
@@ -58,7 +74,7 @@ class ObjectsJsonView(View):
         """
 
         # Get all available messages
-        objects = self.fetch_objects_as_dicts(request)
+        objects = self.fetch_objects_as_dicts()
         return paginate_to_json(request, objects)
 
 
@@ -94,23 +110,40 @@ class RecentObjectsView(View):
         return render(request, self.template, {'form': form})
 
 
-class ObjectSummaryView(View):
-    """View for displaying a table of all recent objects matching a query"""
-
-    template = 'objects/object_summary.html'
+class RecentAlertsJsonView(View):
+    """JSON rendering of recent alerts for a given object"""
 
     @staticmethod
-    def get_alerts_for_object(object_id):
-        """Retrieve alert data for a given alert ID
+    def fetch_object_alerts(object_id):
+        """Return a list of all alerts corresponding to an object Id
 
         Args:
-            object_id (int): Id of the object to retrieve alerts for
+            object_id (str): Object identifier
 
-        Return:
-            A dictionary of alert data
+        Returns:
+            A list of dictionaries
         """
 
-        return dict()
+        # Select all alerts for the given object
+        query = CLIENT.query(f"""
+            SELECT 
+                 publisher,
+                 candidate.jd as pub_time,
+                 CAST(candidate.candid AS STRING) as alert_id,
+                 CASE candidate.fid WHEN 1 THEN 'g' WHEN 2 THEN 'R' WHEN 3 THEN 'i' END as filter,
+                 ROUND(candidate.magpsf, 2) as magnitude
+            FROM `{settings.ZTF_ALERTS_TABLE_NAME}`
+            WHERE objectId="{object_id}"
+        """)
+
+        out_data = []
+        for row in query.result():
+            row_dict = dict(row)
+            row_dict['jd'] = row_dict['pub_time']
+            row_dict['pub_time'] = jd_to_readable_date(row_dict['pub_time'])
+            out_data.append(row_dict)
+
+        return out_data
 
     def get(self, request, *args, **kwargs):
         """Handle an incoming HTTP request
@@ -122,7 +155,24 @@ class ObjectSummaryView(View):
             Outgoing JsonResponse
         """
 
-        object_id = kwargs['pk']
-        recent_alerts = self.get_alerts_for_object(object_id)
-        context = {'object_id': object_id, 'recent_alerts': recent_alerts}
-        return render(request, self.template, context)
+        # Get all available messages
+        alerts = self.fetch_object_alerts(kwargs['pk'])
+        return paginate_to_json(request, alerts)
+
+
+class ObjectSummaryView(View):
+    """View for displaying a table of all recent objects matching a query"""
+
+    template = 'objects/object_summary.html'
+
+    def get(self, request, *args, **kwargs):
+        """Handle an incoming HTTP request
+
+        Args:
+            request (HttpRequest): Incoming HTTP request
+
+        Returns:
+            Outgoing JsonResponse
+        """
+
+        return render(request, self.template, {'object_id': kwargs['pk']})

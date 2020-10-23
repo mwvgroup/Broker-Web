@@ -20,7 +20,7 @@
           and unfiltered) and long-term databases. Our filtering options
           include both predefined filters (based on our object classifications
           and basic properties of the raw data) and custom, user-defined
-          filters to support the analysis of advanced users.
+          filters to support analysis by advanced users.
       </p>
       <p>
           Our Google cloud implementation also makes it easier for users to
@@ -31,6 +31,14 @@
           and storage resources and complicated server environments required
           for sophisticated analysis of large datasets.
       </p>
+      <h3>Planned APIs</h3>
+      <ul>
+        <li>Direct connections to the Kafka stream or Pub/Sub from within Google Cloud or the outside world ($$$).  Provide the full stream to significant number of users/sites outside GCP will require finanical support, but little technical risk.</li>
+        <li>SQL access to the accumulated AlertDB through BigQuery.</li>
+        <li>A higher-level Python API to support more abstract operations</li>
+        <li>A higher-level Python API to support integration with additional external databases and resources</li>
+        <li>A service to which Target and Observations Monitor (TOM) system can be connected.</li>
+    </ul>
     </div>
   </div>
 {% endblock %}

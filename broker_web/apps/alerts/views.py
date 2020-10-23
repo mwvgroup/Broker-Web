@@ -12,44 +12,58 @@ into rendered responses.
    broker_web.apps.alerts.views.RecentAlertsView
 """
 
-import numpy as np
+from django.conf import settings
 from django.shortcuts import render
 from django.views.generic import View
+from google.api_core.exceptions import BadRequest
+from google.cloud import bigquery
 
 from .forms import FilterAlertsForm
 from ..utils import paginate_to_json
+from ..utils.templatetags.utility_tags import jd_to_readable_date
+
+NUM_ALERTS = 10_000
+CLIENT = bigquery.Client()
 
 
 class AlertsJsonView(View):
     """Serves recent alerts as a paginated JSON response"""
 
     @staticmethod
-    def fetch_alerts_as_dicts(request):
+    def fetch_alerts_as_dicts(request, num_alerts=NUM_ALERTS):
         """Returns a list of recent alerts messages as dicts
 
         Args:
             request (HttpRequest): Incoming HTTP request
+            num_alerts      (int): Maximum number of alerts to return
 
         Return:
             A list of dictionaries representing
         """
 
-        def random_int_arr(n):
-            return np.round(1e12 * np.random.random(num_alerts))
+        # Select top most recent alerts
+        query = CLIENT.query(f"""
+            SELECT
+                publisher, 
+                CAST(candidate.candid AS STRING) as alert_id,
+                CASE candidate.fid WHEN 1 THEN 'g' WHEN 2 THEN 'R' WHEN 3 THEN 'i' END as filter,
+                ROUND(candidate.magpsf, 2) as magnitude,
+                objectId as object_id, 
+                candidate.jd as pub_time, 
+                ROUND(candidate.ra, 2) as ra, 
+                ROUND(candidate.dec, 2) as dec 
+            FROM `{settings.ZTF_ALERTS_TABLE_NAME}` 
+            ORDER BY pub_time DESC
+            LIMIT {num_alerts}
+        """)
 
-        # Simulate placeholder data
-        num_alerts = 100000
-        surveys = ['ztf' for _ in range(num_alerts)]
-        alert_ids = random_int_arr(num_alerts)
-        object_ids = random_int_arr(num_alerts)
-        topics = ['ztf_all' for _ in range(num_alerts)]
-        timestamps = random_int_arr(num_alerts)
-        messages = ['message' for _ in range(num_alerts)]
+        output = []
+        for row in query.result():
+            row = dict(row)
+            row['pub_time'] = jd_to_readable_date(row['pub_time'])
+            output.append(row)
 
-        keys = ["survey", "alert_id", "object_id", "topic", "timestamp", "message"]
-        vals = zip(surveys, alert_ids, object_ids, topics, timestamps, messages)
-
-        return [dict(zip(keys, val_set)) for val_set in vals]
+        return output
 
     def get(self, request):
         """Handle an incoming HTTP request
@@ -103,7 +117,45 @@ class AlertSummaryView(View):
     template = 'alerts/alert_summary.html'
 
     @staticmethod
-    def get_alert_data_for_id(alert_id, survey):
+    def _get_ztf_alert_data(alert_id):
+        """Retrieve alert data for a ZTF alert ID
+
+        Args:
+            alert_id (int): Id of the alert to retrieve data for
+
+        Return:
+            A dictionary of alert data if available else None
+        """
+
+        query = CLIENT.query(f"""
+            SELECT 
+                schemavsn, publisher, objectId, candid, candidate, 
+                cutoutScience.stampData as cutout_science, 
+                cutoutTemplate.stampData as cutout_template, 
+                cutoutDifference.stampData as cutout_difference
+            FROM `{settings.ZTF_ALERTS_TABLE_NAME}` 
+            WHERE candidate.candid={alert_id}
+        """)
+
+        try:
+            query_result = query.result()
+
+        except BadRequest:  # Alert id was likely a string and thus invalid
+            return None
+
+        # Return first value from the iterable
+        for row in query_result:
+            out_data = dict()
+            for k, v in row.items():
+                if isinstance(v, dict):  # Support for nested dictionaries
+                    out_data.update(v)
+
+                else:
+                    out_data[k] = v
+
+            return out_data
+
+    def get_alert_data_for_id(self, alert_id, survey):
         """Retrieve alert data for a given alert ID
 
         Args:
@@ -114,14 +166,10 @@ class AlertSummaryView(View):
             A dictionary of alert data
         """
 
-        alert_data = {
-            'alert_id': alert_id,
-            'survey': survey.upper(),
-            'some_field_1': 'some_value_1',
-            'some_field_2': 'some_value_2'
-        }
+        if survey.lower() == 'ztf':
+            return self._get_ztf_alert_data(alert_id)
 
-        return alert_data
+        raise NotImplementedError(f'Database alert queries not implemented for survey {survey}')
 
     @staticmethod
     def get_value_added_data_for_id(alert_id, survey):
@@ -153,5 +201,16 @@ class AlertSummaryView(View):
         alert_id = kwargs['pk']
         survey = kwargs.get('survey', 'ztf')
         alert_data = self.get_alert_data_for_id(alert_id, survey)
-        context = {'alert_data': alert_data, 'alert_id': alert_id, 'survey': survey}
+        if alert_data is None:
+            return render(request, 'alerts/error_404.html', {'alert_id': alert_id})
+
+        context = {
+            'alert_data': alert_data,
+            'alert_id': alert_id,
+            'survey': survey,
+            'science_image': alert_data.pop('cutout_science'),
+            'template_image': alert_data.pop('cutout_template'),
+            'difference_image': alert_data.pop('cutout_difference')
+        }
+
         return render(request, self.template, context)

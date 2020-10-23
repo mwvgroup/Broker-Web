@@ -19,7 +19,7 @@ class ObjectsJsonView(TestCase):
     def setUp(self):
         self.client = Client()
 
-    def test_get(self):
+    def test_get_returns_json(self):
         """Test ``get`` method returns Json Response"""
 
         url = reverse(self.url_name)
@@ -57,6 +57,25 @@ class RecentObjectsView(TestCase):
         self.assertTemplateUsed(response, self.template)
 
 
+class RecentAlertsJsonView(TestCase):
+    """Tests for the ``RecentAlertsJsonView`` view"""
+
+    url_name = f'{urls.app_name}:single-object-json'
+    app_name = urls.app_name
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_get_returns_json(self):
+        """Test ``get`` method returns Json Response"""
+
+        url = reverse(self.url_name, kwargs={'pk': 'dummy_id_name'})
+        response = self.client.get(url)
+
+        self.assertEqual(200, response.status_code)
+        self.assertIsInstance(response, JsonResponse)
+
+
 class ObjectSummaryView(TestCase):
     """Tests for the ``ObjectSummary`` view"""
 
@@ -69,7 +88,7 @@ class ObjectSummaryView(TestCase):
     def test_get(self):
         """Test ``get`` method returns correct template and object id"""
 
-        dummy_object_id = 123
+        dummy_object_id = '123'
         url = reverse(self.url_name, args=[dummy_object_id])
         response = self.client.get(url)
 

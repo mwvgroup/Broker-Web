@@ -8,7 +8,8 @@ import sys
 from pathlib import Path
 
 # Add project applications to Python Path
-sys.path.insert(0, Path(__file__).resolve().parent / 'broker_web/')
+app_dir = Path(__file__).resolve().parent / 'broker_web/'
+sys.path.insert(0, str(app_dir))
 
 
 def main():
