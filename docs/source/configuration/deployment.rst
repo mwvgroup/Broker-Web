@@ -9,14 +9,14 @@ source code to the cloud.
 Updating Static Files
 ---------------------
 
-Static files are updated in the cloud separately from changes to the source
-code. Static files can be synced against a locally checked out version
-of the project source code by running:
+Static files are updated in the cloud separately from deploying
+changes to the source code. This includes pushing source code changes via
+continuous deployment. Static files can be synced against a local
+version of the project by running:
 
 .. code-block:: bash
 
-   # Synchronize static files in the storage bucket
-   gsutil -m rsync -r broker_web/static gs://[BUCKET_LOCATION]/static
+   gsutil -m rsync -r broker_web/static gs://[BUCKET_NAME]/static
 
 Manual Deployment
 -----------------
@@ -25,14 +25,7 @@ Manual Deployment
    updates to the official website should be performed via
    continuous deployment as outlined later in this document.
 
-Application versions can be deployed manually using the ``gcloud`` API:
-
-.. code-block:: bash
-
-   # Deploy the new source code
-   gcloud app deploy
-
-Deployment settings should be configured using the a ``app.yaml`` file. The
+Deployment settings should be configured using the ``app.yaml`` file. The
 official ``app.yaml`` docs can be found `here`_. At a minimum, your settings
 for deployment should include the following:
 
@@ -56,7 +49,35 @@ for deployment should include the following:
 
 .. _here: https://cloud.google.com/appengine/docs/standard/python/config/appref
 
+Application versions can be deployed manually using the ``gcloud`` API. The
+command below will automatically use the ``app.yaml`` file located in the
+working directory.
+
+.. code-block:: bash
+
+   gcloud app deploy
+
 
 Continuous Deployment
 ---------------------
 
+.. note:: The TLDR of this section is to submit a pull request against the
+   ``appengine-staging`` branch of the project repository. A new version of
+   the website will start building automatically.
+
+Similar to when deploying manually, an ``app.yaml`` configuration file must
+be created to store deployment settings. However, instead of storing the file
+locally, the file should be save to a GCP bucket. This file persists across
+deployments and only needs to be replaced if you are changing the website's
+deployment settings.
+You will also need a ``cloudbuild.yml`` file to configure the website build
+process. A version controlled copy of this file should be included with
+the website's source code.
+
+To trigger a new build, merge a pull request into the ``appengine-staging``
+branch of the projet's repository. The new build will be automatically
+triggered and it's progress can be tracked in
+`Cloud Build <https://console.cloud.google.com/cloud-build/>`_.
+If you run into deployment errors, the
+`GCP docs <https://cloud.google.com/source-repositories/docs/quickstart-triggering-builds-with-source-repositories>`_
+may be of some help.
