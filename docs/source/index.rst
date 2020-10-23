@@ -19,6 +19,7 @@ Website.
 
    configuration/installation
    configuration/gcp_configuration
+   configuration/running_locally
    configuration/deployment
 
 .. toctree::
