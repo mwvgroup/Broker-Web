@@ -1,13 +1,13 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""The ``custom_tags`` module defines custom functions for use within Jinja
-templates.
+"""The ``utility_tags`` module defines functions for casting between
+different data types and formats.
 
 .. autosummary::
    :nosignatures:
 
-   broker_web.apps.utils.templatetags.utility_tags.bin_to_utf8
+   broker_web.apps.utils.templatetags.utility_tags.bytes_to_64utf8
    broker_web.apps.utils.templatetags.utility_tags.jd_to_readable_date
 """
 
