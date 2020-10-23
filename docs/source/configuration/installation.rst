@@ -32,9 +32,13 @@ as shown below.
    and password for your local database should be different from any
    credentials you may have for the deployed database.
 
-.. code-block:: mysql
+.. code-block:: bash
 
    $ mysql -u root -p
+
+
+.. code-block:: sql
+
    mysql> CREATE DATABASE [DB_NAME];
    mysql> CREATE USER '[DB_USER]'@'localhost' IDENTIFIED BY '[DB_PASSWORD]';
    mysql> GRANT ALL PRIVILEGES ON [DB_NAME].* TO 'DB_USER'@'localhost';
@@ -46,9 +50,8 @@ wish to develop against, and once to set permissions for the database
 you want to run tests against. The testing database has the same name
 of the development database prefixed with the word ``'test_'``.
 
-.. code-block:: mysql
+.. code-block:: sql
 
-   $ mysql -u root -p
    mysql> CREATE DATABASE test_[DB_NAME];
    ...
 
