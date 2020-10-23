@@ -2,7 +2,8 @@
 # -*- coding: UTF-8 -*-
 
 """The ``utility_tags`` module defines functions for casting between
-different data types and formats.
+different data types and formats. These functions are automatically
+registered as template tags for use in the Django template engine.
 
 .. autosummary::
    :nosignatures:
