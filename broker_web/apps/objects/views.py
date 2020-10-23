@@ -40,6 +40,7 @@ class ObjectsJsonView(View):
             A list of dictionaries representing
         """
 
+        # Select the most recent alert for each object
         query = CLIENT.query(f"""
             SELECT 
                 DISTINCT objectId as object_id, 
@@ -50,7 +51,7 @@ class ObjectsJsonView(View):
                 ROUND(candidate.ra, 2) as ra, 
                 ROUND(candidate.dec, 2) as dec
             FROM `{settings.ZTF_ALERTS_TABLE_NAME}`
-            ORDER BY pub_time
+            ORDER BY pub_time DESC
             LIMIT {num_objects}
            """)
 
@@ -123,6 +124,7 @@ class RecentAlertsJsonView(View):
             A list of dictionaries
         """
 
+        # Select all alerts for the given object
         query = CLIENT.query(f"""
             SELECT 
                  publisher,

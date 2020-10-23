@@ -41,6 +41,7 @@ class AlertsJsonView(View):
             A list of dictionaries representing
         """
 
+        # Select top most recent alerts
         query = CLIENT.query(f"""
             SELECT
                 publisher, 
@@ -52,7 +53,7 @@ class AlertsJsonView(View):
                 ROUND(candidate.ra, 2) as ra, 
                 ROUND(candidate.dec, 2) as dec 
             FROM `{settings.ZTF_ALERTS_TABLE_NAME}` 
-            ORDER BY pub_time
+            ORDER BY pub_time DESC
             LIMIT {num_alerts}
         """)
 
