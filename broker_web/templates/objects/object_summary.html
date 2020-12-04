@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Alert Summary{% endblock %}
+{% block title %}{{ object_id }}{% endblock %}
 {% block additional_js %}
   <script>
     $(document).ready(function() {
@@ -10,7 +10,7 @@
         serverSide: true,
         initComplete: function(settings, json) {
           var mostRecentAlertId = dtable.row(0).column(2).data()[0];
-          addSalt2Section(mostRecentAlertId, 'value-added')
+          addSalt2Image(mostRecentAlertId, 'value-added')
         },
         ajax: "{% url 'objects:single-object-json' pk=object_id %}",
         columns: [

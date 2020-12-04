@@ -106,7 +106,7 @@ class Salt2FitsJsonView(View):
 
         query = CLIENT.query(f"""
             SELECT
-                candid, 
+                CAST(candid AS STRING) as alert_id, 
                 ROUND(chisq, 2) as chisq, 
                 ndof,
                 ROUND(z, 4) as z, 

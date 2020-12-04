@@ -4,15 +4,17 @@
 
 {% block additional_js %}
 <script>
+
+  addEmptySalt2Table('salt2-table-div', 'salt2-fits-table')
   $(document).ready(function () {
-    $('#objects_table').DataTable({
+    $('#salt2-fits-table').DataTable({
       searching: false,
       processing: true,
       serverSide: true,
       ajax: "{% url 'objects:salt2-fits-json' %}",
       columns: [
         {
-          "data": "candid",
+          "data": "alert_id",
           "render": function (data, type, row, meta) {
             if (type === 'display') {
               data = '<a href="' + "{% url 'alerts:recent-alerts' %}" + data + '">' + data + '</a>';
@@ -62,26 +64,8 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12">
-      <table id='objects_table' class="table table-striped">
-        <thead>
-        <tr>
-           <th>Alert Id</th>
-           <th>Chisq</th>
-           <th>NDOF</th>
-           <th>z</th> 
-           <th>z Err</th>
-           <th>t0</th> 
-           <th>t0 Err</th>
-           <th>x0</th> 
-           <th>x0 Err</th>      
-           <th>x1</th> 
-           <th>x1 Err</th>     
-           <th>c</th> 
-           <th>c Err</th>
-        </tr>
-        </thead>
-      </table>
+    <div class="col-md-12" id="salt2-table-div">
+
     </div>
   </div>
 {% endblock %}
