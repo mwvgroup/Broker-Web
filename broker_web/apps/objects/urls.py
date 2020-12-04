@@ -12,7 +12,9 @@
 +-------------------------+----------------------------+---------------------------+
 |``json/``                | ``ObjectsJsonView``        | ``objects-json``          |
 +-------------------------+----------------------------+---------------------------+
-|``/singlejson/<str:pk>`` | ``ObjectSummaryView``      | ``object-summary``        |
+|``/singlejson/<str:pk>`` | ``RecentAlertsJsonView``   | ``single-object-json``    |
++-------------------------+----------------------------+---------------------------+
+|``salt2/<str:pk>``       | ``Salt2FitsJsonView``      | ``salt2-fit-json``        |
 +-------------------------+----------------------------+---------------------------+
 """
 
@@ -26,5 +28,6 @@ urlpatterns = [
     path('', views.RecentObjectsView.as_view(), name='recent-objects'),
     path('<str:pk>', views.ObjectSummaryView.as_view(), name='object-summary'),
     path('json/', views.ObjectsJsonView.as_view(), name='objects-json'),
-    path('singlejson/<str:pk>', views.RecentAlertsJsonView.as_view(), name='single-object-json')
+    path('singlejson/<str:pk>', views.RecentAlertsJsonView.as_view(), name='single-object-json'),
+    path('salt2/<str:pk>', views.Salt2FitsJsonView.as_view(), name='salt2-fit-json')
 ]

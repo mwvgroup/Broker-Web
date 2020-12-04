@@ -82,6 +82,49 @@ class ObjectsJsonView(View):
         return paginate_to_json(request, objects)
 
 
+class Salt2FitsJsonView(View):
+
+    @staticmethod
+    def fetch_salt2_fits(object_id, limit=25):
+        """Return a list of recent Salt2 fits for a given astronomical object
+
+        Args:
+            object_id (str): Object identifier
+            limit     (int): Maximum number of fits to return
+
+        Returns:
+            A list of dictionaries
+        """
+
+        # Select all alerts for the given object
+        query = CLIENT.query(f"""
+            SELECT
+                 candid, chisq, ndof,
+                 z, z_err,
+                 t0, t0_err,
+                 x0, x0_err,
+                 x1, x1_err,
+                 c, c_err
+            FROM  `{settings.ZTF_SALT2_TABLE_NAME}`
+            WHERE success=1 AND candid={object_id}
+            LIMIT {limit}
+        """)
+
+        return [dict(row) for row in query.result()]
+
+    def get(self, request, *args, **kwargs):
+        """Handle an incoming HTTP request
+
+        Args:
+            request (HttpRequest): Incoming HTTP request
+
+        Returns:
+            Outgoing JsonResponse
+        """
+
+        return paginate_to_json(request, self.fetch_salt2_fits(kwargs['pk']))
+
+
 class RecentObjectsView(View):
     """View for displaying a summary table of objects with recent alerts"""
 
