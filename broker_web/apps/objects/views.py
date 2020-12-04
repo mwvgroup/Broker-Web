@@ -87,6 +87,7 @@ class RecentObjectsJsonView(View):
 
 
 class Salt2FitsJsonView(View):
+    """View for serving recent Salt2 fit results as a paginated JSON response"""
 
     @staticmethod
     def fetch_salt2_fits(object_id, limit=25):
@@ -103,12 +104,19 @@ class Salt2FitsJsonView(View):
         # Select all alerts for the given object
         query = CLIENT.query(f"""
             SELECT
-                 candid, chisq, ndof,
-                 z, z_err,
-                 t0, t0_err,
-                 x0, x0_err,
-                 x1, x1_err,
-                 c, c_err
+                candid, 
+                ROUND(chisq, 2) as chisq, 
+                ndof,
+                ROUND(z, 4) as z, 
+                ROUND(z_err, 6) as z_err,
+                ROUND(t0, 2) as t0, 
+                ROUND(t0_err, 4) as t0_err,
+                ROUND(x0, 6) as x0, 
+                ROUND(x0_err, 8) as x0_err,      
+                ROUND(x1, 2) as x1, 
+                ROUND(x1_err, 4) as x1_err,     
+                ROUND(c, 2) as c, 
+                ROUND(c_err, 4) as c_err,
             FROM  `{settings.ZTF_SALT2_TABLE_NAME}`
             WHERE success=1 AND objectid={object_id}
             LIMIT {limit}
