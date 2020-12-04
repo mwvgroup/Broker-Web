@@ -31,7 +31,7 @@ app_name = 'objects'
 urlpatterns = [
     # JSON views
     path('json/', views.RecentObjectsJsonView.as_view(), name='objects-json'),
-    path('singlejson/<str:pk>', views.RecentAlertsJsonView.as_view(), name='single-object-json'),
+    path('singlejson/<str:pk>', views.RecentObjectAlertsJsonView.as_view(), name='single-object-json'),
     path('salt2json/<str:pk>', views.Salt2FitsJsonView.as_view(), name='salt2-fits-json'),
     path('salt2json/', views.Salt2FitsJsonView.as_view(), name='salt2-fits-json'),
 

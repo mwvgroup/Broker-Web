@@ -140,7 +140,7 @@ class Salt2FitsJsonView(View):
         return paginate_to_json(request, self.fetch_salt2_fits(object_id=object_id))
 
 
-class RecentAlertsJsonView(View):
+class RecentObjectAlertsJsonView(View):
     """JSON rendering of recent alerts for a given object"""
 
     @staticmethod
