@@ -154,11 +154,11 @@ class Salt2FitsJsonView(View):
         # Select all alerts for the given object
         condition = 'success=1'
         if object_id:
-            condition += f' AND object_id={object_id}'
+            condition += f' AND objectId="{object_id}"'
 
         query = CLIENT.query(f"""
             SELECT
-                CAST(objectId AS STRING) as object_id, 
+                CAST(candId AS STRING) as alert_id, 
                 ROUND(chisq, 2) as chisq, 
                 ndof,
                 ROUND(z, 4) as z, 
