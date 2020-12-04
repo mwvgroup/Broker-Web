@@ -243,7 +243,9 @@ class ObjectSummaryView(View):
             Outgoing JsonResponse
         """
 
-        return render(request, self.template, {'object_id': kwargs['pk']})
+        return render(request, self.template, context={
+            'object_id': kwargs['pk'],
+            'salt2_image_bucket': settings.ZTF_SALT2_IMAGE_BUCKET})
 
 
 class Salt2FitView(View):
