@@ -30,7 +30,11 @@ if 'BUILD_IN_RTD' not in os.environ:
     CLIENT = bigquery.Client()
 
 
-class ObjectsJsonView(View):
+###############################################################################
+# JSON views
+###############################################################################
+
+class RecentObjectsJsonView(View):
     """View for serving recently observed objects as a paginated JSON response"""
 
     @staticmethod
@@ -106,7 +110,7 @@ class Salt2FitsJsonView(View):
                  x1, x1_err,
                  c, c_err
             FROM  `{settings.ZTF_SALT2_TABLE_NAME}`
-            WHERE success=1 AND candid={object_id}
+            WHERE success=1 AND objectid={object_id}
             LIMIT {limit}
         """)
 
@@ -123,38 +127,6 @@ class Salt2FitsJsonView(View):
         """
 
         return paginate_to_json(request, self.fetch_salt2_fits(kwargs['pk']))
-
-
-class RecentObjectsView(View):
-    """View for displaying a summary table of objects with recent alerts"""
-
-    template = 'objects/recent_objects.html'
-
-    def get(self, request):
-        """Handle an incoming HTTP request
-
-        Args:
-            request (HttpRequest): Incoming HTTP request
-
-        Returns:
-            Outgoing HTTPResponse
-        """
-
-        context = {'form': FilterObjectsForm()}
-        return render(request, self.template, context)
-
-    def post(self, request):
-        """Fill in the page's form with values from the POST request
-
-        Args:
-            request (HttpRequest): Incoming HTTP request
-
-        Returns:
-            Outgoing HTTPResponse
-        """
-
-        form = FilterObjectsForm(request.POST)
-        return render(request, self.template, {'form': form})
 
 
 class RecentAlertsJsonView(View):
@@ -205,6 +177,42 @@ class RecentAlertsJsonView(View):
         # Get all available messages
         alerts = self.fetch_object_alerts(kwargs['pk'])
         return paginate_to_json(request, alerts)
+
+
+###############################################################################
+# Views for individual web pages
+###############################################################################
+
+class RecentObjectsView(View):
+    """View for displaying a summary table of objects with recent alerts"""
+
+    template = 'objects/recent_objects.html'
+
+    def get(self, request):
+        """Handle an incoming HTTP request
+
+        Args:
+            request (HttpRequest): Incoming HTTP request
+
+        Returns:
+            Outgoing HTTPResponse
+        """
+
+        context = {'form': FilterObjectsForm()}
+        return render(request, self.template, context)
+
+    def post(self, request):
+        """Fill in the page's form with values from the POST request
+
+        Args:
+            request (HttpRequest): Incoming HTTP request
+
+        Returns:
+            Outgoing HTTPResponse
+        """
+
+        form = FilterObjectsForm(request.POST)
+        return render(request, self.template, {'form': form})
 
 
 class ObjectSummaryView(View):
