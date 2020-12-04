@@ -14,10 +14,10 @@
       ajax: "{% url 'objects:salt2-fits-json' %}",
       columns: [
         {
-          "data": "alert_id",
+          "data": "object_id",
           "render": function (data, type, row, meta) {
             if (type === 'display') {
-              data = '<a href="' + "{% url 'alerts:recent-alerts' %}" + data + '">' + data + '</a>';
+              data = '<a href="' + "{% url 'objects:recent-objects' %}" + data + '">' + data + '</a>';
             }
 
             return data;
@@ -51,7 +51,7 @@
 </script>
 {%endblock %}
 
-{% block title %}Objects{% endblock %}
+{% block title %}Salt2 Fits{% endblock %}
 
 {% block content %}
   <div class="row">

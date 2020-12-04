@@ -84,62 +84,6 @@ class RecentObjectsJsonView(View):
         return paginate_to_json(request, objects)
 
 
-class Salt2FitsJsonView(View):
-    """View for serving recent Salt2 fit results as a paginated JSON response"""
-
-    @staticmethod
-    def fetch_salt2_fits(object_id=None, limit=1000):
-        """Return a list of recent Salt2 fits for a given astronomical object
-
-        Args:
-            object_id (str): Object identifier
-            limit     (int): Maximum number of fits to return
-
-        Returns:
-            A list of dictionaries
-        """
-
-        # Select all alerts for the given object
-        condition = 'success=1'
-        if object_id:
-            condition += f' AND object_id={object_id}'
-
-        query = CLIENT.query(f"""
-            SELECT
-                CAST(candid AS STRING) as alert_id, 
-                ROUND(chisq, 2) as chisq, 
-                ndof,
-                ROUND(z, 4) as z, 
-                ROUND(z_err, 6) as z_err,
-                ROUND(t0, 2) as t0, 
-                ROUND(t0_err, 4) as t0_err,
-                ROUND(x0, 6) as x0, 
-                ROUND(x0_err, 8) as x0_err,      
-                ROUND(x1, 2) as x1, 
-                ROUND(x1_err, 4) as x1_err,     
-                ROUND(c, 2) as c, 
-                ROUND(c_err, 4) as c_err,
-            FROM  `{settings.ZTF_SALT2_TABLE_NAME}`
-            WHERE {condition}
-            LIMIT {limit}
-        """)
-
-        return [dict(row) for row in query.result()]
-
-    def get(self, request, *args, **kwargs):
-        """Handle an incoming HTTP request
-
-        Args:
-            request (HttpRequest): Incoming HTTP request
-
-        Returns:
-            Outgoing JsonResponse
-        """
-
-        object_id = kwargs.get('pk', None)
-        return paginate_to_json(request, self.fetch_salt2_fits(object_id=object_id))
-
-
 class RecentObjectAlertsJsonView(View):
     """JSON rendering of recent alerts for a given object"""
 
@@ -190,6 +134,62 @@ class RecentObjectAlertsJsonView(View):
         # Get all available messages
         alerts = self.fetch_object_alerts(kwargs['pk'])
         return paginate_to_json(request, alerts)
+
+
+class Salt2FitsJsonView(View):
+    """View for serving recent Salt2 fit results as a paginated JSON response"""
+
+    @staticmethod
+    def fetch_salt2_fits(object_id=None, limit=1000):
+        """Return a list of recent Salt2 fits for a given astronomical object
+
+        Args:
+            object_id (str): Object identifier
+            limit     (int): Maximum number of fits to return
+
+        Returns:
+            A list of dictionaries
+        """
+
+        # Select all alerts for the given object
+        condition = 'success=1'
+        if object_id:
+            condition += f' AND object_id={object_id}'
+
+        query = CLIENT.query(f"""
+            SELECT
+                CAST(objectId AS STRING) as object_id, 
+                ROUND(chisq, 2) as chisq, 
+                ndof,
+                ROUND(z, 4) as z, 
+                ROUND(z_err, 6) as z_err,
+                ROUND(t0, 2) as t0, 
+                ROUND(t0_err, 4) as t0_err,
+                ROUND(x0, 6) as x0, 
+                ROUND(x0_err, 8) as x0_err,      
+                ROUND(x1, 2) as x1, 
+                ROUND(x1_err, 4) as x1_err,     
+                ROUND(c, 2) as c, 
+                ROUND(c_err, 4) as c_err,
+            FROM  `{settings.ZTF_SALT2_TABLE_NAME}`
+            WHERE {condition}
+            LIMIT {limit}
+        """)
+
+        return [dict(row) for row in query.result()]
+
+    def get(self, request, *args, **kwargs):
+        """Handle an incoming HTTP request
+
+        Args:
+            request (HttpRequest): Incoming HTTP request
+
+        Returns:
+            Outgoing JsonResponse
+        """
+
+        object_id = kwargs.get('pk', None)
+        return paginate_to_json(request, self.fetch_salt2_fits(object_id=object_id))
 
 
 ###############################################################################

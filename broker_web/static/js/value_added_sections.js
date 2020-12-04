@@ -24,7 +24,7 @@ function addSalt2Image(alertId, addToDivId) {
 
 function addEmptySalt2Table(addToDivId, newTableId) {
   let colNames = [
-      'Alert Id', 'Chisq', 'NDOF', 'z', 'z Err', 't0', 't0 Err', 'x0', 'x0 Err', 'x1', 'x1 Err', 'c', 'c Err'
+      'Object Id', 'Chisq', 'NDOF', 'z', 'z Err', 't0', 't0 Err', 'x0', 'x0 Err', 'x1', 'x1 Err', 'c', 'c Err'
   ];
 
   let fitResultTable = document.createElement('table')
