@@ -24,8 +24,6 @@ from .forms import FilterObjectsForm
 from ..utils import paginate_to_json
 from ..utils.templatetags.utility_tags import jd_to_readable_date
 
-NUM_OBJECTS = 10_000
-
 if 'BUILD_IN_RTD' not in os.environ:
     CLIENT = bigquery.Client()
 
@@ -38,11 +36,11 @@ class RecentObjectsJsonView(View):
     """View for serving recently observed objects as a paginated JSON response"""
 
     @staticmethod
-    def fetch_objects_as_dicts(num_objects=NUM_OBJECTS):
-        """Returns a list of recent alerts messages as dicts
+    def fetch_objects(limit=10_000):
+        """Returns a list of objects with recently issued alerts as a list of dicts
 
         Args:
-            num_objects (int): Maximum number of alerts to return
+            limit (int): Maximum number of alerts to return
 
         Return:
             A list of dictionaries representing
@@ -60,7 +58,7 @@ class RecentObjectsJsonView(View):
                 ROUND(candidate.dec, 2) as dec
             FROM `{settings.ZTF_ALERTS_TABLE_NAME}`
             ORDER BY pub_time DESC
-            LIMIT {num_objects}
+            LIMIT {limit}
            """)
 
         output = []
@@ -82,7 +80,7 @@ class RecentObjectsJsonView(View):
         """
 
         # Get all available messages
-        objects = self.fetch_objects_as_dicts()
+        objects = self.fetch_objects()
         return paginate_to_json(request, objects)
 
 
@@ -141,11 +139,12 @@ class RecentAlertsJsonView(View):
     """JSON rendering of recent alerts for a given object"""
 
     @staticmethod
-    def fetch_object_alerts(object_id):
+    def fetch_object_alerts(object_id, limit=50):
         """Return a list of all alerts corresponding to an object Id
 
         Args:
             object_id (str): Object identifier
+            limit     (int): Maximum number of alerts to return
 
         Returns:
             A list of dictionaries
@@ -161,6 +160,7 @@ class RecentAlertsJsonView(View):
                  ROUND(candidate.magpsf, 2) as magnitude
             FROM `{settings.ZTF_ALERTS_TABLE_NAME}`
             WHERE objectId="{object_id}"
+            LIMIT {limit}
         """)
 
         out_data = []
