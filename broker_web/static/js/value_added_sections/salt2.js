@@ -76,17 +76,11 @@ function populateSalt2Table(table, jsonURL) {
       processing: true,
       serverSide: true,
       ajax: jsonURL,
+      lengthChange: false,
+      paging: false,
+      bInfo: false,
       columns: [
-        {
-          "data": "alert_id",
-          "render": function (data, type, row, meta) {
-            if (type === 'display') {
-              data = '<a href="' + "{% url 'objects:recent-alerts' %}" + data + '">' + data + '</a>';
-            }
-
-            return data;
-          }
-        },
+        {"data": "alert_id"},
         {"data": "chisq"},
         {"data": "ndof"},
         {"data": "z"},
