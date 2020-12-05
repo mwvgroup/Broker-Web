@@ -151,14 +151,14 @@ class Salt2FitsJsonView(View):
             A list of dictionaries
         """
 
-        # Select all alerts for the given object
         condition = 'success=1'
-        if object_id:
+        if object_id:  # Select all alerts for the given object
             condition += f' AND objectId="{object_id}"'
 
         query = CLIENT.query(f"""
             SELECT
-                CAST(candId AS STRING) as alert_id, 
+                objectId as object_id,
+                CAST(candId AS STRING) as alert_id,  
                 ROUND(chisq, 2) as chisq, 
                 ndof,
                 ROUND(z, 4) as z, 
@@ -188,8 +188,8 @@ class Salt2FitsJsonView(View):
             Outgoing JsonResponse
         """
 
-        object_id = kwargs.get('pk', None)
-        return paginate_to_json(request, self.fetch_salt2_fits(object_id=object_id))
+        json_data = self.fetch_salt2_fits(object_id=kwargs.get('pk', None))
+        return paginate_to_json(request, json_data)
 
 
 ###############################################################################
