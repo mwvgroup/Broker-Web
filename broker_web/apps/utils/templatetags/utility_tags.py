@@ -10,6 +10,7 @@ registered as template tags for use in the Django template engine.
 
    broker_web.apps.utils.templatetags.utility_tags.bytes_to_64utf8
    broker_web.apps.utils.templatetags.utility_tags.jd_to_readable_date
+   broker_web.apps.utils.templatetags.utility_tags.urlparams
 """
 
 from base64 import b64encode
@@ -22,7 +23,13 @@ register = template.Library()
 
 
 @register.simple_tag
-def urlparams(*_, **kwargs):
+def urlparams(**kwargs):
+    """Format keyword arguments as url parameters
+
+    Returns:
+        A string in the format '?<key>=<value>'
+    """
+
     safe_args = {k: v for k, v in kwargs.items() if v is not None}
     if safe_args:
         return '?{}'.format(urlencode(safe_args))
