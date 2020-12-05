@@ -13,11 +13,21 @@ registered as template tags for use in the Django template engine.
 """
 
 from base64 import b64encode
+from urllib.parse import urlencode
 
 from astropy.time import Time
 from django import template
 
 register = template.Library()
+
+
+@register.simple_tag
+def urlparams(*_, **kwargs):
+    safe_args = {k: v for k, v in kwargs.items() if v is not None}
+    if safe_args:
+        return '?{}'.format(urlencode(safe_args))
+
+    return ''
 
 
 @register.filter

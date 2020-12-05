@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load utility_tags %}
 
 {% block title %}{{ object_id }}{% endblock %}
 {% block additional_js %}
@@ -26,7 +27,7 @@
         ]
       });
 
-      addSectionSalt2("value-added", "{% url 'objects:salt2-fits-json' pk=object_id %}?limit=6", "{{ salt2_image_bucket }}")
+      addSectionSalt2("value-added", "{% url 'objects:salt2-fits-json' pk=object_id %}{% urlparams limit='6' %}", "{{ salt2_image_bucket }}")
     });
 
   </script>
