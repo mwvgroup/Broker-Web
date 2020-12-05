@@ -4,8 +4,37 @@
 
 {% block additional_js %}
   <script>
-    let salt2Table = buildSalt2Table("{% url 'objects:salt2-fits-json' %}")
-    document.getElementById('salt2-table').appendChild(salt2Table)
+    $(document).ready(function () {
+      $('#alerts_table').DataTable({
+        searching: false,
+        processing: true,
+        serverSide: true,
+        ajax: '{% url 'objects:salt2-fits-json' %}',
+        columns: [
+          {
+            "data": "object_id",
+            "render": function (data, type, row, meta) {
+              if (type === 'display') {
+                 data = '<a href="' + '{% url 'objects:recent-objects' %}' + data + '">' + data + '</a>';
+              }
+              return data;
+            }
+          },
+          {"data": "chisq"},
+          {"data": "ndof"},
+          {"data": "z"},
+          {"data": "z_err"},
+          {"data": "t0"},
+          {"data": "t0_err"},
+          {"data": "x0"},
+          {"data": "x0_err"},
+          {"data": "x1"},
+          {"data": "x1_err"},
+          {"data": "c"},
+          {"data": "c_err"}
+        ]
+      });
+    });
   </script>
 {%endblock %}
 
@@ -15,12 +44,29 @@
   <div class="row">
     <div class="col-md-12">
       <h2>Salt2 Fits</h2>
-        <p>
-          The following table contains fit results for the Salt2 Supernova model.
-          Fits are performed for all targets that ...
-        </p>
-      <div id="salt2-table"></div>
-
+      <p>
+        The following table contains fit results for the Salt2 Supernova model.
+        Fits are performed for all targets that ...
+      </p>
+      <table id="alerts_table" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Object Id</th>
+            <th>Chisq</th>
+            <th>NDOF</th>
+            <th>z</th>
+            <th>z Err</th>
+            <th>t0</th>
+            <th>t0 Err</th>
+            <th>x0</th>
+            <th>x0 Err</th>
+            <th>x1</th>
+            <th>x1 Err</th>
+            <th>c</th>
+            <th>c Err</th>
+          </tr>
+        </thead>
+      </table>
     </div>
   </div>
 
