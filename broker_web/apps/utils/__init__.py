@@ -42,7 +42,9 @@ def paginate_to_json(request, data):
     start = int(request.GET.get('start', 0))
     length = int(request.GET.get('length', 10))
     draw = request.GET.get('draw', -1)
-    if limit := request.GET.get('limit', None):
+    limit = request.GET.get('limit', None)
+
+    if limit:
         limit = int(limit)
 
     # Paginate data
