@@ -42,18 +42,20 @@ def paginate_to_json(request, data):
     start = int(request.GET.get('start', 0))
     length = int(request.GET.get('length', 10))
     draw = request.GET.get('draw', -1)
+    limit = request.GET.get('limit', None)
 
-    # Todo: Apply filter from search arguments here
-    filtered_alerts = data
+    if limit:
+        limit = int(limit)
 
     # Paginate data
-    paginated_alerts = filtered_alerts[start:start + length]
+    data = data[:limit]
+    paginated_alerts = data[start:start + length]
 
     response = {
         'draw': draw,
         'data': paginated_alerts,
         'recordsTotal': len(data),
-        'recordsFiltered': len(filtered_alerts),
+        'recordsFiltered': len(data),
     }
 
     return JsonResponse(response)
