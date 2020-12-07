@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load utility_tags %}
 
-{% block title %}Alert Summary{% endblock %}
+{% block title %}{{ object_id }}{% endblock %}
 {% block additional_js %}
   <script>
     $(document).ready(function() {
@@ -18,7 +19,6 @@
               if (type === 'display') {
                 data = '<a href="' + "{% url 'alerts:recent-alerts' %}" + data + '">' + data + '</a>';
               }
-
               return data;
             }
           },
@@ -26,6 +26,8 @@
           {"data": "magnitude"}
         ]
       });
+
+      addSectionSalt2("value-added", "{% url 'objects:salt2-fits-json' pk=object_id %}{% urlparams limit='6' %}", "{{ salt2_image_bucket }}")
     });
 
   </script>
@@ -34,16 +36,10 @@
 {% block content %}
   <h1>Object Id: {{object_id}}</h1>
 
-  <br>
-
-  <p>Add a plot of the light-curve here</p>
-  <p>Add a plot of the classifications over time here</p>
-
-  <br>
-
   <div class="section-header">
     <h3>Processed Alerts</h3>
   </div>
+
   <table id="alerts_table" class="table table-striped">
     <thead>
       <tr>
@@ -55,5 +51,7 @@
       </tr>
     </thead>
   </table>
+
+  <div id="value-added"></div>
 
 {% endblock %}

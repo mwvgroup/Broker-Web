@@ -12,6 +12,8 @@ into rendered responses.
    broker_web.apps.alerts.views.RecentAlertsView
 """
 
+import os
+
 from django.conf import settings
 from django.shortcuts import render
 from django.views.generic import View
@@ -23,7 +25,9 @@ from ..utils import paginate_to_json
 from ..utils.templatetags.utility_tags import jd_to_readable_date
 
 NUM_ALERTS = 10_000
-CLIENT = bigquery.Client()
+
+if 'BUILD_IN_RTD' not in os.environ:
+    CLIENT = bigquery.Client()
 
 
 class AlertsJsonView(View):

@@ -132,3 +132,6 @@ dmypy.json
 
 # Debug and development files
 temp/
+
+# SASS cache files
+*.scssc

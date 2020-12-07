@@ -40,6 +40,8 @@ CONTACT_EMAILS = env.list('CONTACT_EMAILS', default=[])
 RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY', default='')
 RECAPTCHA_PRIVATE_KEY = env.str('RECAPTCHA_PRIVATE_KEY', default='')
 ZTF_ALERTS_TABLE_NAME = env.str('ZTF_ALERTS_TABLE_NAME', default='ardent-cycling-243415.ztf_alerts.alerts')
+ZTF_SALT2_TABLE_NAME = env.str('ZTF_SALT2_TABLE_NAME', default='ardent-cycling-243415.ztf_alerts.salt2')
+ZTF_SALT2_IMAGE_BUCKET = env.str('ZTF_SALT2_TABLE_NAME', default='ardent-cycling-243415_ztf-sncosmo')
 NOCAPTCHA = True
 ###############################################################################
 

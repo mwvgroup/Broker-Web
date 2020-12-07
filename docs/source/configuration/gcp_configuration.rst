@@ -7,20 +7,23 @@ configuring an environment from scratch. These steps only need to be performed
 once. If you are developing against the official Pitt-Google Broker GCP
 project then these these steps should have already been taken.
 
-GCP Storage
------------
+Static File Storage
+-------------------
 
 You will need to configure a GCP Storage Bucket for publicly hosting
-static files:
+static files (images, CSS, etc.). This can be from the
+`console webpage <https://console.cloud.google.com/storage/>`_
+or from the command line as shown below. :
 
-1. Create a bucket for hosting static files.
+1. Create a bucket for hosting static files. Default values for the storage class
+   and bucket location should be sufficient, but can be specified if desired.
 
 .. code-block:: bash
 
    gsutil mb -p [PROJECT_NAME] -c [STORAGE_CLASS] -l [BUCKET_LOCATION] -b on gs://[BUCKET_NAME]/
 
 
-2. Make the bucket publicly readable
+2. Make sure the bucket is publicly readable.
 
 .. code-block:: bash
 
@@ -29,7 +32,11 @@ static files:
 Cloud SQL
 ---------
 
-Cloud SQL is used to store website and user data.
+The website will pull data from the broker pipeline to populate page content
+as necessary. However, a dedicated Cloud SQL database is also used to store
+website and user data. You can use the console
+`SQL interface <https://console.cloud.google.com/sql/>`_
+to create this database, or accomplish it from the command line:
 
 1. Start by making sure the Cloud SQL Admin API is enables.
 
@@ -62,8 +69,10 @@ Cloud SQL is used to store website and user data.
 The Django Application
 ----------------------
 
-Once Cloud SQL is configures, you will need to create the necessary database
-tables. These steps outline how to connect to the remote database and migrate
+Once Cloud SQL is configured, you will need to create the necessary database
+tables. The management script packaged with the website's source code
+automates this process.
+You will need to connect to the Cloud SQL database and migrate
 database models from the Django application into the database.
 
 1. Use the Cloud SDK to fetch the connection name of your instance.
@@ -74,10 +83,9 @@ database models from the Django application into the database.
 
    gcloud sql instances describe [INSTANCE_NAME]
 
-
-2. Make sure the database settings in the Django application point to the
-   new database you just created. In general, the settings should look like
-   the following:
+2. Make sure the database settings in the Django application
+   (``broker_web/main/settings.py``) point to the new database you just
+   created. In general, the settings should look like the following:
 
 .. code-block:: bash
 
@@ -113,7 +121,11 @@ database models from the Django application into the database.
        }
    ```
 
-3. Launch the SQL proxy so your local application can connect to the SQL database in GCP.
+3. Launch a SQL proxy so a a Django application running from your local machine
+   can connect to the GCP SQL database. Instructions on downloading the
+   ``cloud_sql_proxy`` application are available
+   `here <https://cloud.google.com/sql/docs/mysql/sql-proxy>`_.
+
 
 .. code-block:: bash
 
@@ -126,7 +138,6 @@ database models from the Django application into the database.
 
    python manage.py migrate --run-syncdb
    python manage.py createsuperuser
-
 
 5. As a final step you will need to configure the `Recaptcha`_ service which
    is used to protect against bots. Make sure to add the appropriate public

@@ -1,82 +1,31 @@
-Deployment
-==========
-
-The PGB website supports database configurations for three scenarios:
-
-1. Running locally against a local database
-2. Running locally against the deployment database in the cloud
-3. Full deployment to the cloud
-
-This page provides instructions for all three scenarios.
-
-GCP Dependencies
-----------------
-
-The broker website is built to run in the cloud using App Engine.
-If you intend to run the website against a local development database,
-this step can be skipped. If you intend to run the website
-using GCP resources you will need to install the ``gcloud`` command line
-tool which is available `here`_. You will also need to install the Google
-Cloud SQL Proxy so the website can connect to the necessary SQL backends
-when running locally.
-
-For Mac OS 64 bit, use:
-
-.. code-block:: bash
-
-   curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64
-   chmod +x cloud_sql_proxy
-
-For Linux 64 bit, use:
-
-.. code-block:: bash
-
-   wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
-   chmod +x cloud_sql_proxy
-
-
-For other installations see the appropriate section of the
-official `App Engine docs`_.
-
-.. _App Engine docs: https://cloud.google.com/python/django/appengine](https://cloud.google.com/python/django/appengine
-
-Running Against The Cloud
--------------------------
-
-1. Configure environmental variables as defined in the previous section.
-
-2. Start by launching the SQL proxy so the application can connect to the cloud.
-
-.. code-block:: bash
-
-   ./cloud_sql_proxy -instances "ardent-cycling-243415:us-east1:broker-web"=tcp:3306
-
-3. Next, launch the web application via the management script:
-
-.. code-block:: bash
-
-   python broker_web/manage.py runserver  # Run the web server
-
-
 Deploying to App Engine
------------------------
+=======================
+
+The production version of the website is hosted in the cloud using
+`GCP App Engine <https://console.cloud.google.com/appengine>`_.
+This page outlines instructions for deploying new versions of the website
+source code to the cloud.
+
+Updating Static Files
+---------------------
+
+Static files are updated in the cloud separately from deploying
+changes to the source code. This includes pushing source code changes via
+continuous deployment. Static files can be synced against a local
+version of the project by running:
+
+.. code-block:: bash
+
+   gsutil -m rsync -r broker_web/static gs://[BUCKET_NAME]/static
+
+Manual Deployment
+-----------------
 
 .. important:: The following section is provided for reference only. All
    updates to the official website should be performed via
-   continuous deployment.
+   continuous deployment as outlined later in this document.
 
-Application versions can be deployed manually using the ``gcloud`` API:
-
-.. code-block:: bash
-
-   # Synchronize static files in the storage bucket
-   gsutil -m rsync -r broker_web/static gs://[BUCKET_LOCATION]/static
-
-   # Deploy the new source code
-   gcloud app deploy
-
-
-Deployment settings can be configured using the a ``app.yaml`` file. The
+Deployment settings should be configured using the ``app.yaml`` file. The
 official ``app.yaml`` docs can be found `here`_. At a minimum, your settings
 for deployment should include the following:
 
@@ -99,3 +48,36 @@ for deployment should include the following:
 
 
 .. _here: https://cloud.google.com/appengine/docs/standard/python/config/appref
+
+Application versions can be deployed manually using the ``gcloud`` API. The
+command below will automatically use the ``app.yaml`` file located in the
+working directory.
+
+.. code-block:: bash
+
+   gcloud app deploy
+
+
+Continuous Deployment
+---------------------
+
+.. note:: The TLDR of this section is to submit a pull request against the
+   ``appengine-staging`` branch of the project repository. A new version of
+   the website will start building automatically.
+
+Similar to when deploying manually, an ``app.yaml`` configuration file must
+be created to store deployment settings. However, instead of storing the file
+locally, the file should be save to a GCP bucket. This file persists across
+deployments and only needs to be replaced if you are changing the website's
+deployment settings.
+You will also need a ``cloudbuild.yml`` file to configure the website build
+process. A version controlled copy of this file should be included with
+the website's source code.
+
+To trigger a new build, merge a pull request into the ``appengine-staging``
+branch of the projet's repository. The new build will be automatically
+triggered and it's progress can be tracked in
+`Cloud Build <https://console.cloud.google.com/cloud-build/>`_.
+If you run into deployment errors, the
+`GCP docs <https://cloud.google.com/source-repositories/docs/quickstart-triggering-builds-with-source-repositories>`_
+may be of some help.

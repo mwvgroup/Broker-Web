@@ -1,22 +1,40 @@
 # !/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""The ``custom_tags`` module defines custom functions for use within Jinja
-templates.
+"""The ``utility_tags`` module defines functions for casting between
+different data types and formats. These functions are automatically
+registered as template tags for use in the Django template engine.
 
 .. autosummary::
    :nosignatures:
 
-   broker_web.apps.utils.templatetags.utility_tags.bin_to_utf8
+   broker_web.apps.utils.templatetags.utility_tags.bytes_to_64utf8
    broker_web.apps.utils.templatetags.utility_tags.jd_to_readable_date
+   broker_web.apps.utils.templatetags.utility_tags.urlparams
 """
 
 from base64 import b64encode
+from urllib.parse import urlencode
 
 from astropy.time import Time
 from django import template
 
 register = template.Library()
+
+
+@register.simple_tag
+def urlparams(**kwargs):
+    """Format keyword arguments as url parameters
+
+    Returns:
+        A string in the format '?<key>=<value>'
+    """
+
+    safe_args = {k: v for k, v in kwargs.items() if v is not None}
+    if safe_args:
+        return '?{}'.format(urlencode(safe_args))
+
+    return ''
 
 
 @register.filter
